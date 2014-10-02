@@ -1,4 +1,3 @@
-require 'code/engine/engine'
 --[[--
   after all code files are loaded we will setup the viewport and handle devices here
 --]]--

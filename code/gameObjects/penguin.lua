@@ -71,10 +71,6 @@ function createPenguin(x, y)
     -- This can and porabply be linked automaticly
     self.prop:setLoc(x, y)
     
-    print("cur "..self.currentVector.y)
-    print("prev "..self.previousVector.y)
-    
-    
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
       self:setAnimationTable(self.prop.falling)
       print('falliiing')

@@ -51,7 +51,7 @@ function engine:heartBeat()
   end  
   
   if MOAIGfxDevice.setClearColor then
-    MOAIGfxDevice.setClearColor(0.8,0.8,0.8,1)
+    MOAIGfxDevice.setClearColor(1,1,1,1)
   else -- MOAI 1.4 changed setClearColor interface
     MOAIGfxDevice.getFrameBuffer():setClearColor(1,1,1,1)
   end
