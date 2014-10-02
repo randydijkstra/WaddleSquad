@@ -7,15 +7,15 @@ function createPenguin(x, y)
   spritePath = 'assets/sprites/penguin/'
   
   local stateSwitched = false
+  penguin.forceX = 10
   
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
-  
   
   tileDeck = MOAITileDeck2D.new()
   tileDeck:setTexture(spritePath .. "penguinspreadsheet.png" )
   tileDeck:setSize( 8, 7 ) -- Hier geve men aan hoeveel rijen en kolommen de   sheet heeft
   tileDeck:setRect( -32, -32, 32, 32 )
- 
+  
   local prop = MOAIProp2D.new()
   prop:setDeck(tileDeck)
   prop:setLoc(penguin.x, -penguin.y)
@@ -67,12 +67,12 @@ function createPenguin(x, y)
       self.stateSwitched = false
     end
     
-    self.body:applyForce(10, 0)
+    self.body:applyForce(self.forceX, 0)
     -- This can and porabply be linked automaticly
     self.prop:setLoc(x, y)
     
-    print("cur "..self.currentVector.y)
-    print("prev "..self.previousVector.y)
+    --print("cur "..self.currentVector.y)
+    --print("prev "..self.previousVector.y)
     
     
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
@@ -91,6 +91,11 @@ function createPenguin(x, y)
       end
         
       local promise = createPromise(0.30, backToWalk)
+    end
+    
+    if self.previousVector.x == self.currentVector.x then
+      print('Gotta turn this penguin booty!')
+      --self.forceX = self.forceX * -1
     end
     
     self.previousVector.x = self.currentVector.x

@@ -26,7 +26,7 @@ config = {
   
   --penguin settings
   penguinSpeed = 5,
-  penguinForceX = 6,
+  penguinForceX = 10,
   penguinForceY = 7,
   penguinFriction = 0,
   
