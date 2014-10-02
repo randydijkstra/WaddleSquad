@@ -27,7 +27,7 @@ function createInput()
           
           print( 'Mouse is down, yo' )
           if engine.currentLevel == splashScreen then
-            if splashScreenFinished == true then
+            if config.splashScreenFinished == true then
               print('Start game!')
               
                 engine.mainLayer:removeProp( sblogo )
@@ -107,21 +107,16 @@ function handleKeyboardInput(key, down)
     end
   end
   
-  engine:activateMoveAbleGameObjects()
 end
 
 function onTouchJump( x, y )
-  if engine.currentLevel == splashScreen then
-    
-  else
+  if engine.inLevel then 
     print( 'Jump le penguins' )
     for id, penguin in pairs(engine.gameObjects.factions.penguins) do
       penguin:jump()
     end
   end
 end
-
-
 
 keyBoardTable = { 
   w=119, 

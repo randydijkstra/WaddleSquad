@@ -32,5 +32,7 @@ config = {
   
   --settings
   muteSound = false,
-  leftyFlip = false
+  leftyFlip = false,
+  
+  splashScreenFinished = false
 }

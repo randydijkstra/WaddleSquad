@@ -1,9 +1,5 @@
-function getSplashScreen(x, y)
-  local splashScreen = createDrawableGameObject(x, y)
-  
-  table.insert(splashScreen.factions, 'menus')
-  splashScreenFinished = false
-  
+function getSplashScreen()
+  local splashScreen = {}
   -- Do this at loadtime
   charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
   font = MOAIFont.new()
@@ -117,13 +113,12 @@ function getSplashScreen(x, y)
     textBox:seekColor ( 0, 0, 0, 1, 2)
     
     function startGameCallback()
-      splashScreenFinished = true
+      config.splashScreenFinished = true
     end
   
     local startGamePromise = createPromise(1.5, startGameCallback) 
   end
-  
-  engine.currentLevel = splashScreen
 
+  engine.currentLevel = splashScreen
   return splashScreen
 end

@@ -18,7 +18,8 @@ engine = {
   quads = {}, -- current loaded quads
   tileDecks = {}, -- current loaded tilesets,
   imageTextures = {}, -- current loaded image textures
-  input
+  input,
+  inLevel, -- variable to check if a level is being played
 }
 engine.__index = engine
 

@@ -44,7 +44,6 @@ function levelLoader(levelName)
       lvl1 = getLvl1()
       currentLevel = lvl1
       lvl1:start()
-      engine:deleteGameObject(splashScreen)
   elseif levelName == "level2" then
       print("herpderp")
   end
