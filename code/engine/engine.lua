@@ -2,6 +2,7 @@ engine = {
   mainViewport,
   mainLayer,
   menuLayer,
+  uiLayer,
   camera, -- handels what part can be vieuwed
   gameObjects = {
       all = {},
