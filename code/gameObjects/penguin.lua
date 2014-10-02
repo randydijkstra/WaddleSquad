@@ -54,7 +54,7 @@ function createPenguin(x, y)
   
   penguin.body = body
   
-  penguin.previousVector = { x = 0, y = 0 }
+  penguin.previousVector = { x = 1, y = 0 }
   penguin.currentVector = { x = 0, y = 0 }
  
   function penguin:update()
