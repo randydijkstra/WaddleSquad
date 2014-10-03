@@ -1,6 +1,6 @@
 --[[ Create / handle UI here ]]--
 
---[[ Game UI:
+--[[ TODO Game UI:
   Non interactable:
   - Time counter
   - Score counter
@@ -10,7 +10,13 @@
     - Spawn new penguin
     - Place blocks:
       - Icebear (other can be made later)
-    - Pause game
-    
-  
+    - Pause game 
 ]]--
+
+function createUI()
+  
+  spritePath = 'assets/sprites/ui/'
+  
+  
+  --add to engine.uiLayer
+end
