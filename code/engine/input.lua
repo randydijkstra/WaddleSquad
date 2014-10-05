@@ -30,12 +30,14 @@ function createInput()
             if config.splashScreenFinished == true then
               print('Start game!')
              
-              engine:loadLevel('level1')
+              engine:loadLevel('levelSelector')
             else
               print('Splashscreen still busy..')
             end
-          else
+          elseif engine.inLevel == true then
             onTouchJump( MOAIInputMgr.device.pointer:getLoc() )
+          elseif currentLevel == levelSelector then
+            print("Choose a level!")
           end
         end
       end
