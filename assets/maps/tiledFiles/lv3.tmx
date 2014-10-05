@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="22" height="12" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Sprite Sheet Terrain 64x64 squared" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Terrain/Sprite Sheet Terrain 64x64 squared.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="17" name="64px-Background-Pastel02" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Backgrounds/64px-Background-Pastel02.png" width="512" height="320"/>
+ </tileset>
+ <tileset firstgid="57" name="Iglo" tilewidth="200" tileheight="150">
+  <image source="../../../_Spreadsheets/Iglo.png" width="200" height="150"/>
+ </tileset>
+ <tileset firstgid="58" name="Sneeuwvlok-big-spreadsheet" tilewidth="50" tileheight="50">
+  <image source="../../../_Spreadsheets/Items/Sneeuwvlok-big-spreadsheet.png" width="100" height="50"/>
+ </tileset>
+ <tileset firstgid="60" name="Sneeuwvlok-spreadsheet" tilewidth="25" tileheight="25">
+  <image source="../../../_Spreadsheets/Items/Sneeuwvlok-spreadsheet.png" width="50" height="25"/>
+ </tileset>
+ <tileset firstgid="62" name="64px-Background-Underground" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Backgrounds/64px-Background-Underground.png" width="512" height="320"/>
+ </tileset>
+ <tileset firstgid="102" name="Background01" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Backgrounds/Background01.png" width="640" height="320"/>
+ </tileset>
+ <layer name="Background" width="22" height="12">
+  <data encoding="base64" compression="zlib">
+   eJy10LUSwlAURdF8GR7cXUKLQ3B3144PZtNRBHjzZlKs6uy5xdUVRdFNUJJQRgVV1FBHA020Pu6a0bXRQRc99DHAECOMMZHopphhjgWWWGGNDbbYSXR7HHDECWdccMUNdzwkOgussMEOB5xwQRXYn18aNzzwwgc/AggiJLgbNWFEEEUMcSSQREpwN2rSyCCLHPIoQENRcDdqfv1PdlP//E92e//9BZVxYtI=
+  </data>
+ </layer>
+ <layer name="Death" width="22" height="12">
+  <properties>
+   <property name="death" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AU0BOwkKgWhtH56OYwkmAuIxJG5yObAwAUSAAp
+  </data>
+ </layer>
+ <layer name="Terrain" width="22" height="12">
+  <properties>
+   <property name="Hard" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgF1ARcQMyOhKkNOKCYEgBzIysVzEU2i4MB0xxquJcSc5HjgxVNDp+56GqRzUL3K7o78JkLE8NnFiXm4jOLHHMBfJ4CYg==
+  </data>
+ </layer>
+ <objectgroup name="Iglo">
+  <properties>
+   <property name="iglo" value="iglo"/>
+  </properties>
+  <object gid="57" x="1213.33" y="192.333"/>
+ </objectgroup>
+ <objectgroup name="Points">
+  <properties>
+   <property name="Sneeuwvlok" value="points"/>
+  </properties>
+  <object gid="60" x="17.3333" y="164"/>
+  <object gid="60" x="16" y="236"/>
+  <object gid="60" x="14.6667" y="310.667"/>
+  <object gid="58" x="3" y="415.667"/>
+  <object gid="60" x="16" y="478.667"/>
+  <object gid="60" x="16" y="554.667"/>
+  <object gid="60" x="212" y="620"/>
+  <object gid="60" x="404" y="554.667"/>
+  <object gid="60" x="592" y="488"/>
+  <object gid="60" x="660" y="486.667"/>
+  <object gid="58" x="832.333" y="377"/>
+  <object gid="60" x="977.333" y="301.333"/>
+  <object gid="60" x="1041.33" y="300"/>
+  <object gid="60" x="1104" y="241.333"/>
+  <object gid="60" x="88" y="513.333"/>
+  <object gid="58" x="797.667" y="606.333"/>
+  <object gid="58" x="1176.33" y="602.333"/>
+ </objectgroup>
+</map>

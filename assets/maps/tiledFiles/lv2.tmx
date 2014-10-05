@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="64px-Background-Pastel02" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Backgrounds/64px-Background-Pastel02.png" width="512" height="320"/>
+ </tileset>
+ <tileset firstgid="41" name="64px-Background-Underground" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Backgrounds/64px-Background-Underground.png" width="512" height="320"/>
+ </tileset>
+ <tileset firstgid="81" name="Sprite Sheet Terrain 64x64 squared" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Terrain/Sprite Sheet Terrain 64x64 squared.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="97" name="Iglo" tilewidth="200" tileheight="150">
+  <image source="../../../_Spreadsheets/Iglo.png" width="200" height="150"/>
+ </tileset>
+ <tileset firstgid="98" name="Sneeuwvlok-big-spreadsheet" tilewidth="50" tileheight="50">
+  <image source="../../../_Spreadsheets/Items/Sneeuwvlok-big-spreadsheet.png" width="100" height="50"/>
+ </tileset>
+ <tileset firstgid="100" name="Sneeuwvlok-spreadsheet" tilewidth="25" tileheight="25">
+  <image source="../../../_Spreadsheets/Items/Sneeuwvlok-spreadsheet.png" width="50" height="25"/>
+ </tileset>
+ <tileset firstgid="102" name="Background01" tilewidth="64" tileheight="64">
+  <image source="../../../_Spreadsheets/Backgrounds/Background01.png" width="640" height="320"/>
+ </tileset>
+ <layer name="Achtergrond" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJyt0dk6QmEYhuF1OmQKERkzZ6ijSMaEyEwI4Zy7D2BttP7Vxr31vNf1bXzVKIoOqXHEMSeccsY5dap97moBBnG3390FDS654pomN9zS4i7B7p4HHnnimRdeeaPNe4LdB590+OKbH7r88sd/gt0Qw2QYYZQxxpkI6FkmmWKaHDPMkg/oc8xTYIFFllhmJaCvUmSNdTbYZIvtgL5DiV322OeAMpWAnuYfcS3NP+Jamn/EtTT/iGs9K35ffQ==
+  </data>
+ </layer>
+ <layer name="Terrain" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A+IAqIw9EwufpDgTgCCyYFYNNPqnkwN+FyDzoOpYIZ2NxIqRno5lFqBjnxQQwAAI/eHos=
+  </data>
+ </layer>
+ <layer name="Death" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDGUQQmXzAqlsHjUBAIN8AKY=
+  </data>
+ </layer>
+ <objectgroup name="iglo">
+  <object gid="97" x="1088" y="449"/>
+ </objectgroup>
+ <objectgroup name="sneeuwvlokken">
+  <object gid="100" x="17" y="321"/>
+  <object gid="100" x="18" y="427"/>
+  <object gid="100" x="15" y="677"/>
+  <object gid="100" x="16" y="575"/>
+  <object gid="100" x="150" y="744"/>
+  <object gid="100" x="213" y="745"/>
+  <object gid="100" x="273" y="747"/>
+  <object gid="100" x="533" y="614"/>
+  <object gid="100" x="595" y="612"/>
+  <object gid="100" x="1037" y="433"/>
+  <object gid="98" x="203" y="697"/>
+  <object gid="98" x="452" y="690"/>
+  <object gid="98" x="710" y="507"/>
+ </objectgroup>
+</map>
