@@ -1,5 +1,6 @@
 function getSplashScreen()
   splashScreen = {
+    name = "splashScreen",
     textBox = createIntroText(),
     sbLogo = createSblogo(),
     wsLogo = createWsLogo()

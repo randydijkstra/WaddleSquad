@@ -1,11 +1,12 @@
 function createLevelSelector()
   
   local levelSelector = {
+    name = "levelSelector",
     headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
     buttons = {
-      lvl1button = createButton(500, -360, "lvl1"),
-      lvl2button = createButton(650, -360, "lvl2"),
-      lvl3button = createButton(800, -360, "lvl3"),
+      lvl1button = createButton(500, -360, "level1"),
+      lvl2button = createButton(650, -360, "level2"),
+      lvl3button = createButton(800, -360, "level3"),
     },
     buttonTexts = {
       lvl1buttonText = createTextBox(500, -360, 64, 64, "1", 50, true),
@@ -29,7 +30,7 @@ function createLevelSelector()
   end
 
   function levelSelector:destroy()
-    
+    engine:destroyAllObject()
   end
   
   engine.currentLevel = levelSelector
@@ -69,6 +70,11 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
   
   function createButton(x, y, levelName)
     Button = createDrawableGameObject(x, y)
+    table.insert(Button.factions, "touchables")
+    Button.levelName = levelName
+    
+    Button.width = 64 * 1.5
+    Button.height = 64 * 1.5
     
     local levelButton = engine:loadImageTexture('assets/sprites/ui/EmptyButton.png')
   
@@ -90,6 +96,11 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     )
     
     --Button.prop:setColor ( 0, 0, 0, 0 )
+    
+    function Button:onTouch(x,y)
+      print("button was touched in touch")
+      engine:loadLevel(self.levelName)
+    end
     
     return Button
   end

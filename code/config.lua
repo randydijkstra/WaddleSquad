@@ -8,8 +8,8 @@ config = {
   gameTitle = 'Waddle Squad',
  
   --viewport
-  screenWidth = 1280,
-  screenHeight = 720,
+  screenWidth = 640,
+  screenHeight = 360,
   prefferedWidth = 1280,
   prefferedHeight = 720,
   

@@ -11,7 +11,8 @@ engine = {
         update = {}, -- every object in this faction gets it's update() called
         moveable = {}, -- every object that should have it's move called
         staticSprites = {},
-        menus = {}
+        menus = {},
+        touchables = {}
       },
   },
   box2DWorld,
@@ -195,6 +196,9 @@ function engine:loadLevel(level)
     self.currentLevel:destroy()
   end
   
+  print("loading: " .. level)
+  
+  
   if level == "level1" then
     local lvl1 = getLvl1()
     self.currentLevel = lvl1
@@ -208,6 +212,7 @@ function engine:loadLevel(level)
   elseif level == "level3" then
     print("herpderp")
   elseif level == "levelSelector" then
+    self.inLevel = false
     local levelSelector = createLevelSelector()
     self.currentLevel = levelSelector
     levelSelector:start()

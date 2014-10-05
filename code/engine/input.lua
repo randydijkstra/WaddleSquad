@@ -7,6 +7,9 @@ print('controller loaded')
 input = {}
 input.__index = input
 
+
+canTouch = true -- used to prevent  clickign trough buttons
+
 function createInput()
   
   local input = createGameObject()
@@ -25,8 +28,10 @@ function createInput()
       function( isMouseDown )
         if( isMouseDown ) then
           
+          onGeneralTouch( engine.mainLayer:wndToWorld(MOAIInputMgr.device.pointer:getLoc() ) )
+          
           print( 'Mouse is down, yo' )
-          if engine.currentLevel == splashScreen then
+          if canTouch and engine.currentLevel.name == "splashScreen" then
             if config.splashScreenFinished == true then
               print('Start game!')
              
@@ -34,12 +39,14 @@ function createInput()
             else
               print('Splashscreen still busy..')
             end
-          elseif engine.inLevel == true then
-            onTouchJump( MOAIInputMgr.device.pointer:getLoc() )
-          elseif currentLevel == levelSelector then
+          elseif canTouch and engine.inLevel == true then
+            onInLevelTouch( engine.mainLayer:wndToWorld( MOAIInputMgr.device.pointer:getLoc() ) )
+          elseif canTouch and engine.currentLevel.name == "levelSelector" then
             print("Choose a level!")
-            onTouchLoadLevel(MOAIInputMgr.device.pointer:getLoc())
+            onLevelSelectorTouch( engine.mainLayer:wndToWorld(MOAIInputMgr.device.pointer:getLoc()) )
           end
+          
+          canTouch = true
         end
       end
     )
@@ -95,28 +102,32 @@ function handleKeyboardInput(key, down)
       engine:loadLevel("level2")
     end
     
-  else
-    if key == keyBoardTable.l then
-      input.isWalkingRight = false
-    end
-    if key == keyBoardTable.j then
-      input.isWalkingLeft = false
+  end
+  
+end
+
+function onGeneralTouch(x,y)
+  -- gets called on any touch
+  for id, touchable in pairs(engine.gameObjects.factions.touchables) do
+    if pointInsideRect(touchable.x, touchable.y, touchable.width, touchable.height, x, y) then
+      canTouch = false
+      touchable:onTouch(x, y)
     end
   end
   
 end
 
-function onTouchJump( x, y )
-  if engine.inLevel then 
-    print( 'Jump le penguins' )
-    for id, penguin in pairs(engine.gameObjects.factions.penguins) do
-      penguin:jump()
-    end
+function onInLevelTouch( x, y )
+  print( 'Jump le penguins' )
+  for id, penguin in pairs(engine.gameObjects.factions.penguins) do
+    penguin:jump()
   end
 end
 
-function onTouchLoadLevel( x, y )
-  
+function onLevelSelectorTouch( x, y )
+  --for name, button in pairs(engine.currentLevel.buttons) do
+  --  if rectContainsPoint(button.x, button.y, button.width, button.height, x, y)
+ -- end
 end
 
 keyBoardTable = { 
