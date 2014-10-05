@@ -39,7 +39,7 @@ function createLoopingTimer ( spanTime, callbackFunction, fireRightAway )
 	return timer
 end
 
-function resizeToScale(width, height, scaleWidth, scaleHeight)
+function resizeToScale(width, heigxht, scaleWidth, scaleHeight)
   
   finalWidth = math.floor(width / scaleWidth) * scaleWidth
   finalHeight = math.floor(height / scaleHeight) * scaleHeight
