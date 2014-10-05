@@ -15,20 +15,5 @@ function getLvl2()
     penguin = engine:addGameObject(createPenguin(0, -300))
   end
   
-  --[[
-    16:9
-    
-    9:16
-    h / w
-    720 -> 1280
-    1080 -> 1920
-    
-    
-    720/9 * 16
-  ]]--
-  
-  width = ( level.height / 9 ) * 16
-  engine:resizeViewport(width, level.height)
-  
   return level
 end

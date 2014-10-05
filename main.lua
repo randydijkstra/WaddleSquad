@@ -15,8 +15,3 @@ splashScreen:start()
   mainMenu = getMainMenu(0, 0)
   mainMenu:start()
 end]]--
-
-lvl1 = nil
-
---lvl1 = getLvl1()
---lvl1:start()s

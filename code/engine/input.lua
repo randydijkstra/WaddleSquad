@@ -67,7 +67,7 @@ function createInput()
 end
 
 function handleKeyboardInput(key, down)
-  --print(key)
+  print(key)
 
   if down then
     --gravity
@@ -84,14 +84,12 @@ function handleKeyboardInput(key, down)
       engine.box2DWorld:setGravity(config.gravityX, -config.gravityY / config.unitToMeter)
     end
     
-    if key == keyBoardTable.i then
-      engine.player:jump()
+    if key == keyBoardTable.one then
+      engine:loadLevel("level1")
     end
-    if key == keyBoardTable.l then
-      input.isWalkingRight = true
-    end
-    if key == keyBoardTable.j then
-      input.isWalkingLeft = true
+    
+    if key == keyBoardTable.two then
+      engine:loadLevel("level2")
     end
     
   else
@@ -124,4 +122,14 @@ keyBoardTable = {
   l=108,
   k=107,
   j=106,
+  one=49,
+  two=50,
+  three=51,
+  four=52,
+  five=53,
+  six=54,
+  seven=55,
+  eight=56,
+  nine=57,
+  zero=58,
 }
