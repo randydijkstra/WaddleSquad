@@ -146,17 +146,18 @@ function engine:activateMoveAbleGameObjects()
 end
 
 
-function engine:loadTileDeck(path, deckXRows, deckYRows, tileWidth, tileHeight)  
+function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)  
   
-  --print ("loading: " .. path .. " || Width: ".. tileWidth .. " || Height: " .. tileHeight)
   if self.tileDecks[path] then
     return self.tileDecks[path]
   end
   
+  --print("Loading texture: "..path.." "..deckXRows.." "..deckYRows.." "..xMin.." "..yMin.." "..xMax.." "..yMax)
+  
   local tileDeck = MOAITileDeck2D.new()
   tileDeck:setTexture(path)
   tileDeck:setSize(deckXRows, deckYRows)
-  tileDeck:setRect( 0, 0, tileWidth, tileHeight )
+  tileDeck:setRect( xMin, yMin, xMax, yMax )
   
   self.tileDecks[path] = tileDeck
   

@@ -6,16 +6,10 @@ function createSnowflake(x, y, snowflaketype)
   local flaketype = snowflaketype
   local tileDeck = MOAITileDeck2D.new()
   
-  if flaketype == "small" then
-    tileDeck:setTexture( "assets/sprites/special/Sneeuwvlok-spreadsheet.png" )
-    tileDeck:setSize( 2, 1 )
-    tileDeck:setRect( -12.5, -12.5, 12.5, 12.5 )
-    print("snowflake is small")
+  if flaketype == "small" then  
+    tileDeck = engine:loadTileDeck( "assets/sprites/special/Sneeuwvlok-spreadsheet.png" )
   elseif flaketype == "big" then
-    tileDeck:setTexture('assets/sprites/special/Sneeuwvlok-big-spreadsheet.png')
-    tileDeck:setSize( 2, 1 )
-    tileDeck:setRect( -25, -25, 25, 25 )
-    print("snowflake is big")
+    tileDeck = engine:loadTileDeck("assets/sprites/special/Sneeuwvlok-big-spreadsheet.png")
   end
 
   local prop = MOAIProp2D.new()
@@ -40,9 +34,9 @@ function createSnowflake(x, y, snowflaketype)
   local body = engine.box2DWorld:addBody( MOAIBox2DBody.STATIC )
   body:setTransform(snowflake.x, snowflake.y)
   if flaketype == "small" then
-     body:addRect(-12.5, -12.5, 12.5, 12.5)
+     body:addRect(0, 0, 25, 25)
   elseif flaketype == "big" then
-     body:addRect(-25, -25, 25, 25)
+     body:addRect(0, 0, 50, 50)
   end
   
   snowflake.body = body

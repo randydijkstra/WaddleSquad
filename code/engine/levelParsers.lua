@@ -11,6 +11,8 @@ function loadAssetsFrom(level)
       tileset.image, 
       tileset.imagewidth / tileset.tilewidth, 
       tileset.imageheight / tileset.tileheight,
+      0, -- - (tileset.tilewidth / 2),
+      0, -- - (tileset.tileheight / 2),
       tileset.tilewidth,
       tileset.tileheight
     )
@@ -45,11 +47,13 @@ function parseLayer(layer, level)
     parseObjectLayer(layer, level)
     return
   end
-  
+
+  if layer.name == "Achtergrond" and config.debug2DDraw == true then
+    return
+  end
   
   local offsetX = layer.x
   local offsetY = layer.y + 64
-
   
   for tileNumber, tileId in pairs(layer.data) do
     
@@ -98,12 +102,12 @@ function parseObjectLayer(layer, level)
     end  
     
     if object.type == "sneeuwvloksmall" then
-      local snowflakeSmall = createSnowflake(object.x + 25, -object.y + 12.5, "small")
+      local snowflakeSmall = createSnowflake(object.x, -object.y, "small")
       engine:addGameObject(snowflakeSmall)
     end
     
      if object.type == "sneeuwvlokbig" then
-      local snowflakeBig = createSnowflake(object.x + 50, -object.y + 25, "big")
+      local snowflakeBig = createSnowflake(object.x, -object.y, "big")
       engine:addGameObject(snowflakeBig)
     end
     

@@ -14,7 +14,7 @@ function createTile(deck, index, x, y, width, height, isHard)
     table.insert(tile.factions, 'hard')
     local body = engine.box2DWorld:addBody( MOAIBox2DBody.STATIC )
     body:setTransform(tile.x, tile.y)
-    body:addRect( 0, 0, width, height )
+    body:addRect( 0, 0, width, height)
     
     tile.body = body
   end

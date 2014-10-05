@@ -4,18 +4,18 @@ function createPenguin(x, y)
   table.insert(penguin.factions, 'penguins')
   table.insert(penguin.factions, 'update')
   
-  spritePath = 'assets/sprites/penguin/'
-  
   local stateSwitched = false
   penguin.forceX = 10
   penguin.forceY = 100
   
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
   
-  tileDeck = MOAITileDeck2D.new()
-  tileDeck:setTexture(spritePath .. "penguinspreadsheet.png" )
-  tileDeck:setSize( 8, 7 ) -- Hier geve men aan hoeveel rijen en kolommen de   sheet heeft
-  tileDeck:setRect( -32, -32, 32, 32 )
+  
+  local tileDeck = engine:loadTileDeck(
+    "assets/sprites/penguin/penguinspreadsheet.png",
+    8, 7, 
+    0, 0, 64, 64
+  )
   
   local prop = MOAIProp2D.new()
   prop:setDeck(tileDeck)
@@ -51,7 +51,8 @@ function createPenguin(x, y)
 
   local body = engine.box2DWorld:addBody( MOAIBox2DBody.DYNAMIC )
   body:setTransform(penguin.x, penguin.y)
-  body:addRect(-24, -32, 24, 16):setFriction( config.penguinFriction )
+  --body:addRect(-24, -32, 24, 16):setFriction( config.penguinFriction )
+  body:addRect(15, 0, 49, 44):setFriction( config.penguinFriction )
   
   penguin.body = body
   
