@@ -15,7 +15,7 @@ return {
       tileheight = 64,
       spacing = 0,
       margin = 0,
-      image = "../../../_Spreadsheets/Backgrounds/64px-Background-Pastel02.png",
+      image = "assets/sprites/tiles/64px-Background-Pastel02.png",
       imagewidth = 512,
       imageheight = 320,
       tileoffset = {
@@ -32,7 +32,7 @@ return {
       tileheight = 64,
       spacing = 0,
       margin = 0,
-      image = "../../../_Spreadsheets/Backgrounds/64px-Background-Underground.png",
+      image = "assets/sprites/tiles/64px-Background-Underground.png",
       imagewidth = 512,
       imageheight = 320,
       tileoffset = {
@@ -49,7 +49,7 @@ return {
       tileheight = 64,
       spacing = 0,
       margin = 0,
-      image = "../../../_Spreadsheets/Terrain/Sprite Sheet Terrain 64x64 squared.png",
+      image = "assets/sprites/tiles/Sprite Sheet Terrain 64x64 squared.png",
       imagewidth = 256,
       imageheight = 256,
       tileoffset = {
@@ -66,7 +66,7 @@ return {
       tileheight = 150,
       spacing = 0,
       margin = 0,
-      image = "../../../_Spreadsheets/Iglo.png",
+      image = "assets/sprites/tiles/Iglo.png",
       imagewidth = 200,
       imageheight = 150,
       tileoffset = {
@@ -83,7 +83,7 @@ return {
       tileheight = 50,
       spacing = 0,
       margin = 0,
-      image = "../../../_Spreadsheets/Items/Sneeuwvlok-big-spreadsheet.png",
+      image = "assets/sprites/special/Sneeuwvlok-big-spreadsheet.png",
       imagewidth = 100,
       imageheight = 50,
       tileoffset = {
@@ -100,7 +100,7 @@ return {
       tileheight = 25,
       spacing = 0,
       margin = 0,
-      image = "../../../_Spreadsheets/Items/Sneeuwvlok-spreadsheet.png",
+      image = "assets/sprites/special/Sneeuwvlok-spreadsheet.png",
       imagewidth = 50,
       imageheight = 25,
       tileoffset = {
@@ -117,7 +117,7 @@ return {
       tileheight = 64,
       spacing = 0,
       margin = 0,
-      image = "../../../_Spreadsheets/Backgrounds/Background01.png",
+      image = "assets/sprites/tiles/Background01.png",
       imagewidth = 640,
       imageheight = 320,
       tileoffset = {
