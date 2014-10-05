@@ -2,6 +2,7 @@ function getSplashScreen()
   splashScreen = {
     name = "splashScreen",
     textBox = createIntroText(),
+    versionTextBox = createVersionText(),
     sbLogo = createSblogo(),
     wsLogo = createWsLogo()
   }
@@ -22,6 +23,7 @@ function getSplashScreen()
     --engine:addGameObject(self.sbLogo)
     engine:addGameObject(self.textBox)
     engine:addGameObject(self.wsLogo)
+    engine:addGameObject(self.versionTextBox)
     
     local promise = createPromise(2, afterText)
   end
@@ -41,6 +43,8 @@ function getSplashScreen()
       (config.prefferedHeight / 1.30) * -1
     )
     splashScreen.textBox.prop:seekColor ( 0, 0, 0, 1, 2)
+    splashScreen.versionTextBox.prop:seekColor ( 0, 0, 0, 0.5, 2)
+
     
     function startGameCallback()
       config.splashScreenFinished = true
@@ -61,7 +65,7 @@ end
 
 function createIntroText()
     
-  local introText = createDrawableGameObject(config.prefferedWidth / 2, (config.prefferedHeight / 2) * -1)
+  local introText = createDrawableGameObject(config.prefferedWidth/2, (config.prefferedHeight / 2) * -1)
   
   local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
   local font = MOAIFont.new()
@@ -103,7 +107,7 @@ function createSblogo()
 
   sbLogo.prop = MOAIProp2D.new()
   sbLogo.prop:setDeck(quad)
-  sbLogo.prop:setScl(1, 1)
+  sbLogo.prop:setScl(0.5, 0.5)
   sbLogo.prop:setLoc(
     config.prefferedWidth/2, 
     (config.prefferedHeight / 2) * -1
@@ -142,4 +146,32 @@ function createWsLogo()
   --Moai uses premultiplied alpha, so to fade to nothing: 
   
   return wsLogo
+end
+
+function createVersionText()
+  local versionText = createDrawableGameObject(config.prefferedWidth / 1.1, (config.prefferedHeight / 1.1) * -1)
+  
+  local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
+  local font = MOAIFont.new()
+  font:load( 'assets/fonts/BNMachine.ttf' )
+  font:preloadGlyphs( charCodes, 24 )
+  
+  versionText.prop = MOAITextBox.new()
+  versionText.prop:setStyle( newFontStyle( font, 30 ) )
+  versionText.prop:setString( config.gameVersion )
+  versionText.prop:spool()
+  versionText.prop:setRect( -100, -100, 100, 100 )
+  versionText.prop:setLoc(
+    versionText.x, 
+    versionText.y
+  )
+  versionText.prop:setAlignment(
+    MOAITextBox.CENTER_JUSTIFY, 
+    MOAITextBox.CENTER_JUSTIFY 
+  )
+  versionText.prop:setYFlip( true )
+  
+  versionText.prop:setColor ( 0, 0, 0, 0 ) -- R, G, B, A 
+
+  return versionText
 end

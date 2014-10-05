@@ -12,6 +12,9 @@ function createLevelSelector()
       lvl1buttonText = createTextBox(500, -360, 64, 64, "1", 50, true),
       lvl2buttonText = createTextBox(650, -360, 64, 64, "2", 50, true),
       lvl3buttonText = createTextBox(800, -360, 64, 64, "3", 50, true)
+    },
+    highScores = {
+      lvl1 = createTextBox(500, -430, 100, 50, tostring(levelHighScores.lvl1), 40, false)
     }
     --lvl4button = createButton(x, y, "4", "lvl4")
   }
@@ -26,7 +29,11 @@ function createLevelSelector()
     for key, object in pairs(self.buttonTexts) do
       engine:addGameObject(object)
     end
-
+    
+    print(levelHighScores.lvl1)
+    --[[for key, object in pairs(self.highScores) do
+      engine:addGameObject(object)
+    end]]-- highscore feature to implemented later!
   end
 
   function levelSelector:destroy()

@@ -123,7 +123,6 @@ function createPenguin(x, y)
   end
   
   function penguin:jump()
-    
     local x, y = self.body:getLinearVelocity()
     
     if y == 0 and penguin.preJump == false then 
@@ -161,6 +160,7 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if isStringInTable(fixtureB:getBody().parent.factions, "snowflakes") then
     engine:deleteGameObject(fixtureB:getBody().parent)
+    
   end
   
   if isStringInTable(fixtureB:getBody().parent.factions, "iglos") then
