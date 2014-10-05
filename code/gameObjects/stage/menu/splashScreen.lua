@@ -57,6 +57,7 @@ function getSplashScreen()
     --engine:deleteGameObject(self.sblogo)
     engine:deleteGameObject(self.wsLogo)
     engine:deleteGameObject(self.textBox)
+    engine:deleteGameObject(self.versionTextBox)
   end
 
   engine.currentLevel = splashScreen

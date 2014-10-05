@@ -10,20 +10,20 @@
     - Place blocks:
       - Icebear (other can be made later)
     - Pause game (to be made after update 1.1)
-
+]]--
 function getGameUI()
   local spritePath = 'assets/sprites/ui/'
   
   local UI = {
     name = "splashScreen",
     huds = {
-      scoreCounter = createHud(),
-      timeCounter = createHud(),
+      scoreCounter = createHud(x, y, path),
+      timeCounter = createHud(x, y, path),
     },    
     buttons = {
-      penguinSpawnButton = createButton(),
-      placeJumpBoostButton = createButton(),
-      backToMenu = createButton()
+      penguinSpawnButton = createGameUIButton(x, y, path),
+      placeJumpBoostButton = createGameUIButton(x, y, path),
+      backToMenu = createGameUIButton(x, y, path)
     }
   }
   
@@ -35,15 +35,15 @@ function getGameUI()
   end
 end
 
-function createHud(x, y)
+function createHud(x, y, path)
   
 end
 
-funtion createButton(x, y, path)
+function createGameUIButton(x, y, path)
   Button = createDrawableGameObject(x, y)
   table.insert(Button.factions, "touchables")
   
   function Button:onTouch()
     
   end
-end]]--
+end
