@@ -70,8 +70,14 @@ function createPenguin(x, y)
       self.stateSwitched = false
     end
     
-    self.body:applyForce(10, 0)
-    -- This can and porabply be linked automaticly
+    
+    local velX, velY = self.body:getLinearVelocity()
+    local velChange = config.penguinSpeed - velX
+    local impulse = self.body:getMass() * velChange
+    
+    self.body:applyLinearImpulse(impulse, 0)
+    
+    -- This can and wil porabply be linked automaticly
     self.prop:setLoc(x, y)
 
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
@@ -127,7 +133,7 @@ function createPenguin(x, y)
       function jump()
         self.body:applyLinearImpulse(
           0, 
-          config.penguinForceY / config.unitToMeter
+          config.penguinJumpForce / config.unitToMeter
         )
          
         penguin.preJump = false
