@@ -194,13 +194,19 @@ function engine:loadLevel(level)
   if level == "level1" then
     local lvl1 = getLvl1()
     self.currentLevel = lvl1
+    self.inLevel = true
     lvl1:start()
   elseif level == "level2" then
     local lvl2 = getLvl2()
     self.currentLevel = lvl2
+    self.inLevel = true
     lvl2:start()   
   elseif level == "level3" then
-      print("herpderp")
+    print("herpderp")
+  elseif level == "levelSelector" then
+    local levelSelector = createLevelSelector()
+    self.currentLevel = levelSelector
+    levelSelector:start()
   end
 end
 

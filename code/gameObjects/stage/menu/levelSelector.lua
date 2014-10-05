@@ -1,7 +1,7 @@
 function createLevelSelector()
   
   local levelSelector = {
-    headerText = createTextBox(config.prefferedWidth / 2, -100, 512, 64, "Choose your level!", 50, false),
+    headerText = createTextBox(config.prefferedWidth / 2, -100, 512, 64, "Choose a level to play!", 50, false),
     lvl1button = createButton(500, -300, "lvl1"),
     lvl1buttonText = createTextBox(500, -300, 64, 64, "1", 50, true),
     lvl2button = createButton(650, -300, "lvl2"),
