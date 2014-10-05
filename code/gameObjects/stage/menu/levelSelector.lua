@@ -1,25 +1,31 @@
 function createLevelSelector()
   
   local levelSelector = {
-    headerText = createTextBox(config.prefferedWidth / 2, -100, 512, 64, "Choose a level to play!", 50, false),
-    lvl1button = createButton(500, -300, "lvl1"),
-    lvl1buttonText = createTextBox(500, -300, 64, 64, "1", 50, true),
-    lvl2button = createButton(650, -300, "lvl2"),
-    lvl2buttonText = createTextBox(650, -300, 64, 64, "2", 50, true),
-    lvl3button = createButton(800, -300, "lvl2"),
-    lvl3buttonText = createTextBox(800, -300, 64, 64, "3", 50, true)
+    headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
+    buttons = {
+      lvl1button = createButton(500, -360, "lvl1"),
+      lvl2button = createButton(650, -360, "lvl2"),
+      lvl3button = createButton(800, -360, "lvl3"),
+    },
+    buttonTexts = {
+      lvl1buttonText = createTextBox(500, -360, 64, 64, "1", 50, true),
+      lvl2buttonText = createTextBox(650, -360, 64, 64, "2", 50, true),
+      lvl3buttonText = createTextBox(800, -360, 64, 64, "3", 50, true)
+    }
     --lvl4button = createButton(x, y, "4", "lvl4")
   }
   
   function levelSelector:start()
     engine:addGameObject(self.headerText)
-    engine:addGameObject(self.lvl1button)
-    engine:addGameObject(self.lvl1buttonText)
-    engine:addGameObject(self.lvl2button)
-    engine:addGameObject(self.lvl2buttonText)
-    engine:addGameObject(self.lvl3button)
-    engine:addGameObject(self.lvl3buttonText)
-    --engine:addGameObject(self.lvl4button)
+    
+    for key, object in pairs(self.buttons) do
+      engine:addGameObject(object)
+    end
+    
+    for key, object in pairs(self.buttonTexts) do
+      engine:addGameObject(object)
+    end
+
   end
 
   function levelSelector:destroy()
@@ -82,6 +88,8 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
       Button.x, 
       Button.y
     )
+    
+    --Button.prop:setColor ( 0, 0, 0, 0 )
     
     return Button
   end

@@ -38,6 +38,7 @@ function createInput()
             onTouchJump( MOAIInputMgr.device.pointer:getLoc() )
           elseif currentLevel == levelSelector then
             print("Choose a level!")
+            onTouchLoadLevel(MOAIInputMgr.device.pointer:getLoc())
           end
         end
       end
@@ -112,6 +113,10 @@ function onTouchJump( x, y )
       penguin:jump()
     end
   end
+end
+
+function onTouchLoadLevel( x, y )
+  
 end
 
 keyBoardTable = { 

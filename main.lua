@@ -9,7 +9,3 @@ require 'setup'
 --Launch SplashScreen
 splashScreen = getSplashScreen()
 splashScreen:start()
-
---Launch Levelselector
---levelSelector = createLevelSelector()
---levelSelector:start()
