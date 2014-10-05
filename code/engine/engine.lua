@@ -42,6 +42,12 @@ function engine:start()
   )
 end
 
+function engine:cameraController()
+  
+  
+  
+end
+
 function engine:heartBeat()  
     
   for id, gameObject in pairs(self.gameObjects.factions.update) do

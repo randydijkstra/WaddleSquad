@@ -8,6 +8,7 @@ function createPenguin(x, y)
   
   local stateSwitched = false
   penguin.forceX = 10
+  penguin.forceY = 100
   
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
   
@@ -67,7 +68,7 @@ function createPenguin(x, y)
       self.stateSwitched = false
     end
     
-    self.body:applyForce(self.forceX, 0)
+    self.body:applyForce(10, 0)
     -- This can and porabply be linked automaticly
     self.prop:setLoc(x, y)
 
@@ -89,7 +90,7 @@ function createPenguin(x, y)
       local promise = createPromise(0.30, backToWalk)
     end
     
-    if self.previousVector.x == self.currentVector.x then
+    if self.currentVector.x == self.previousVector.x then
       print('Gotta turn this penguin booty!')
       --self.forceX = self.forceX * -1
     end
@@ -142,7 +143,6 @@ function createPenguin(x, y)
     self.activeTable = activeTable
     self.stateSwitched = true
   end
-  
   
   penguin:setAnimationTable(penguin.prop.walk)
   

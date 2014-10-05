@@ -97,6 +97,16 @@ function parseObjectLayer(layer, level)
       engine:addGameObject(iglo)
     end  
     
+    if object.type == "sneeuwvloksmall" then
+      local snowflakeSmall = createSnowflake(object.x + 25, -object.y + 12.5, "small")
+      engine:addGameObject(snowflakeSmall)
+    end
+    
+     if object.type == "sneeuwvloksbig" then
+      local snowflakeBig = createSnowflake(object.x + 50, -object.y + 25, "big")
+      engine:addGameObject(snowflakeBig)
+    end
+    
   end
   
 end

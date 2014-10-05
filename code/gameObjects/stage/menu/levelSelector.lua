@@ -7,8 +7,7 @@ function createLevelSelector()
     if levelName == "level1" then
       currentLevel = getLvl1()
     elseif levelName == "level2" then
-      
+      currentLevel = getLvl2()
     end
   end
-  
 end

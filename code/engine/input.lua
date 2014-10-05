@@ -30,9 +30,9 @@ function createInput()
             if config.splashScreenFinished == true then
               print('Start game!')
               
-                engine.mainLayer:removeProp( sblogo )
-                engine.mainLayer:removeProp( wslogo )
-                engine.mainLayer:removeProp( textBox ) 
+              --engine.mainLayer:removeProp( sblogo )
+              --engine.mainLayer:removeProp( wslogo )
+              --engine.mainLayer:removeProp( textBox ) 
              
               levelLoader('level1')
             else

@@ -1,6 +1,6 @@
-function getLvl1()
-  local level = createLevel('lvl1')
-  level.name = 'lvl1'
+function getLvl2()
+  local level = createLevel('lvl2')
+  level.name = 'lvl2'
   
   loadAssetsFrom(level)
   
