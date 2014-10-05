@@ -25,9 +25,8 @@ config = {
   debugSpriteDraw = true,
   
   --penguin settings
-  penguinSpeed = 5,
-  penguinForceX = 10,
-  penguinForceY = 7,
+  penguinSpeed = 60,
+  penguinJumpForce = 8,
   penguinFriction = 0,
   
   --settings
