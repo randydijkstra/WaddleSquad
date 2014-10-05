@@ -57,3 +57,10 @@ function isStringInTable(table, string)
   
   return false
 end
+
+function rectContainsPoint(rectX, rectY, rectWidth, rectHeight, x, y)
+  if x > rectX and x < rectX + rectWidth and y > rectY and y < rectY + rectHeight then
+    return true
+  end
+  return false
+end
