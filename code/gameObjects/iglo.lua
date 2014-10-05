@@ -1,7 +1,7 @@
 function createIglo(x, y)
   local iglo = createDrawableGameObject(x, y)
-  
-  table.insert(iglo.factions, 'iglo')
+
+  table.insert(iglo.factions, 'iglos')
   
   local texture = engine:loadImageTexture('assets/sprites/tiles/Iglo.png')
   

@@ -10,7 +10,6 @@ function createPenguin(x, y)
   
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
   
-  
   local tileDeck = engine:loadTileDeck(
     "assets/sprites/penguin/penguinspreadsheet.png",
     8, 7, 
@@ -51,8 +50,10 @@ function createPenguin(x, y)
 
   local body = engine.box2DWorld:addBody( MOAIBox2DBody.DYNAMIC )
   body:setTransform(penguin.x, penguin.y)
-  --body:addRect(-24, -32, 24, 16):setFriction( config.penguinFriction )
-  body:addRect(15, 0, 49, 44):setFriction( config.penguinFriction )
+  
+  local pengRect = body:addRect(15, 0, 49, 44)
+  pengRect:setFriction( config.penguinFriction )
+  pengRect:setCollisionHandler(penguinCollisionHandler)  
   
   penguin.body = body
   
@@ -148,4 +149,16 @@ function createPenguin(x, y)
   penguin:setAnimationTable(penguin.prop.walk)
   
   return penguin
+end
+
+function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
+  
+  if isStringInTable(fixtureB:getBody().parent.factions, "snowflakes") then
+    engine:deleteGameObject(fixtureB:getBody().parent)
+  end
+  
+  if isStringInTable(fixtureB:getBody().parent.factions, "iglos") then
+    engine:deleteGameObject(fixtureA:getBody().parent)
+  end
+  
 end

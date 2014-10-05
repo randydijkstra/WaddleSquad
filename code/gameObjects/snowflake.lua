@@ -1,7 +1,8 @@
 function createSnowflake(x, y, snowflaketype)
   local snowflake = createDrawableGameObject(x, y)
 
-  table.insert(snowflake.factions, 'snowflake')
+  table.insert(snowflake.factions, 'snowflakes')
+  snowflake.type = snowflaketype
   
   local flaketype = snowflaketype
   local tileDeck = MOAITileDeck2D.new()
@@ -34,9 +35,9 @@ function createSnowflake(x, y, snowflaketype)
   local body = engine.box2DWorld:addBody( MOAIBox2DBody.STATIC )
   body:setTransform(snowflake.x, snowflake.y)
   if flaketype == "small" then
-     body:addRect(0, 0, 25, 25)
+    body:addRect(0, 0, 25, 25):setSensor(true)
   elseif flaketype == "big" then
-     body:addRect(0, 0, 50, 50)
+    body:addRect(0, 0, 50, 50):setSensor(true)
   end
   
   snowflake.body = body

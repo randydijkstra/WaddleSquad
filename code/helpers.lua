@@ -46,3 +46,14 @@ function resizeToScale(width, height, scaleWidth, scaleHeight)
   
   return finalWidth, finalHeight
 end
+
+function isStringInTable(table, string)
+  
+  for key, value in pairs(table) do
+    if value == string then
+      return true
+    end
+  end
+  
+  return false
+end

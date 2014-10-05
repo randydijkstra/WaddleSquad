@@ -71,6 +71,7 @@ function engine:addGameObject(gameObject)
   if gameObject.factions then
     for key, value in pairs(gameObject.factions) do
       
+      -- Check if the faction exist and create it if not
       if not self.gameObjects.factions[value] then
         self.gameObjects.factions[value] = {}
       end
@@ -79,12 +80,15 @@ function engine:addGameObject(gameObject)
     end
   end
   
+  if gameObject.body then
+    gameObject.body.parent = gameObject
+  end
+  
   if gameObject.prop and config.debugSpriteDraw then
     self.mainLayer:insertProp(gameObject.prop)
-  end
+  end  
 
   return gameObject
-  
 end
 
 function engine:deleteGameObject(gameObject)

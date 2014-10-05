@@ -35,4 +35,5 @@ config = {
   leftyFlip = false,
   
   splashScreenFinished = false
+  
 }
