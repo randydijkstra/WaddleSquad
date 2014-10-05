@@ -7,11 +7,9 @@ require 'loader'
 require 'setup'
 
 --Launch SplashScreen
-splashScreen = getSplashScreen(0, 0)
+splashScreen = getSplashScreen()
 splashScreen:start()
 
---Launch main menu
---[[function callBack()
-  mainMenu = getMainMenu(0, 0)
-  mainMenu:start()
-end]]--
+--Launch Levelselector
+--levelSelector = createLevelSelector()
+--levelSelector:start()
