@@ -9,11 +9,13 @@ function createSnowflake(x, y, snowflaketype)
   if flaketype == "small" then
     tileDeck:setTexture( "assets/sprites/special/Sneeuwvlok-spreadsheet.png" )
     tileDeck:setSize( 2, 1 )
-    tileDeck:setRect( -25, -12.5, 25, 12.5 )
+    tileDeck:setRect( -12.5, -12.5, 12.5, 12.5 )
+    print("snowflake is small")
   elseif flaketype == "big" then
     tileDeck:setTexture('assets/sprites/special/Sneeuwvlok-big-spreadsheet.png')
     tileDeck:setSize( 2, 1 )
-    tileDeck:setRect( -50, -25, 50, 25 )
+    tileDeck:setRect( -25, -25, 25, 25 )
+    print("snowflake is big")
   end
 
   local prop = MOAIProp2D.new()

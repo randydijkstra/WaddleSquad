@@ -91,7 +91,7 @@ function createPenguin(x, y)
     end
     
     if self.currentVector.x == self.previousVector.x then
-      print('Gotta turn this penguin booty!')
+      --print('Gotta turn this penguin booty!')
       --self.forceX = self.forceX * -1
     end
     
