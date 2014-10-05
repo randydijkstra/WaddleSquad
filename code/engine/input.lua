@@ -29,12 +29,8 @@ function createInput()
           if engine.currentLevel == splashScreen then
             if config.splashScreenFinished == true then
               print('Start game!')
-              
-              --engine.mainLayer:removeProp( sblogo )
-              --engine.mainLayer:removeProp( wslogo )
-              --engine.mainLayer:removeProp( textBox ) 
              
-              levelLoader('level1')
+              engine:loadLevel('level1')
             else
               print('Splashscreen still busy..')
             end

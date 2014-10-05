@@ -88,6 +88,7 @@ function engine:addGameObject(gameObject)
 end
 
 function engine:deleteGameObject(gameObject)
+  
   self.gameObjects.all[gameObject.id] = nil
   
   if gameObject.factions then
@@ -97,7 +98,7 @@ function engine:deleteGameObject(gameObject)
   end
   
   if gameObject.prop then
-    self.mainLayer.removeProp(gameObject.prop)    
+    self.mainLayer:removeProp(gameObject.prop)    
   end
   
   if gameObject.body then
@@ -182,6 +183,27 @@ function engine:resizeViewport(width, height)
   print("resize to: "..width..","..height)
   
   self.viewport:setScale(width, height)
+end
+
+function engine:loadLevel(level)
+  if self.currentLevel then
+    self.currentLevel:destroy()
+  end
+  
+  if level == "level1" then
+    local lvl1 = getLvl1()
+    self.currentLevel = lvl1
+    lvl1:start()
+  elseif level == "level2" then
+  elseif level == "level2" then
+      print("herpderp")
+  end
+end
+
+function engine:destroyAllObject()
+  for id, object in pairs(self.gameObjects.all) do
+    self:deleteGameObject(object)
+  end
 end
 
 print('engine loaded')

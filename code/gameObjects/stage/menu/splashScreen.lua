@@ -18,8 +18,8 @@ function getSplashScreen()
       
     end
     
-    engine:addGameObject(self.textBox)
     --engine:addGameObject(self.sbLogo)
+    engine:addGameObject(self.textBox)
     engine:addGameObject(self.wsLogo)
     
     local promise = createPromise(2, afterText)
@@ -46,6 +46,12 @@ function getSplashScreen()
     end
   
     local startGamePromise = createPromise(1.5, startGameCallback) 
+  end
+
+  function splashScreen:destroy()   
+    --engine:deleteGameObject(self.sblogo)
+    engine:deleteGameObject(self.wsLogo)
+    engine:deleteGameObject(self.textBox)
   end
 
   engine.currentLevel = splashScreen

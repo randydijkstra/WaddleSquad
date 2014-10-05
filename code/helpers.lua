@@ -39,16 +39,6 @@ function createLoopingTimer ( spanTime, callbackFunction, fireRightAway )
 	return timer
 end
 
-function levelLoader(levelName)
-  if levelName == "level1" then
-      lvl1 = getLvl1()
-      currentLevel = lvl1
-      lvl1:start()
-  elseif levelName == "level2" then
-      print("herpderp")
-  end
-end
-
 function resizeToScale(width, height, scaleWidth, scaleHeight)
   
   finalWidth = math.floor(width / scaleWidth) * scaleWidth
