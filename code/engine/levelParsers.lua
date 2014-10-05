@@ -97,7 +97,7 @@ function parseObjectLayer(layer, level)
   for key, object in pairs(layer.objects) do
     
     if object.type == "iglo" then
-      local iglo = createIglo(object.x + 100, -object.y + 75)
+      local iglo = createIglo(object.x, -object.y)
       engine:addGameObject(iglo)
     end  
     

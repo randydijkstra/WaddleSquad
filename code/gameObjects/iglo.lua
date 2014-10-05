@@ -4,14 +4,14 @@ function createIglo(x, y)
   table.insert(iglo.factions, 'iglos')
   
   local texture = engine:loadImageTexture('assets/sprites/tiles/Iglo.png')
-  
+
   local quad = MOAIGfxQuad2D.new()
-  quad:setTexture( texture )
+  -- Becase Moai somehow fucks up transparancy to white with imageTecture:load() we derictly set the texture here --
+  quad:setTexture( 'assets/sprites/tiles/Iglo.png' )
   quad:setRect(
-    -100, 
-    -75, 
-    100, 
-    75
+    0, 
+    0, 
+    texture:getSize()
   )
   
   local prop = MOAIProp2D.new()
@@ -22,7 +22,7 @@ function createIglo(x, y)
  
   local body = engine.box2DWorld:addBody( MOAIBox2DBody.STATIC )
   body:setTransform(iglo.x, iglo.y)
-  body:addRect(-100, -75, 100, 75)
+  body:addRect(50, 0, texture:getSize())
   
   iglo.body = body
   
