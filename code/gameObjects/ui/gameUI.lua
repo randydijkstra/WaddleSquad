@@ -1,57 +1,138 @@
 --[[ Create / handle UI here ]]--
---[[ TODO Game UI:
-  Non interactable:
-  - Time counter
-  - Score counter
-  
-  Interactable:
-  - Buttons:
-    - Spawn new penguin
-    - Place blocks:
-      - Icebear (other can be made later)
-    - Pause game (to be made after update 1.2)
-]]--
 function getGameUI()
   local spritePath = 'assets/sprites/ui/'
+  local score = 0
   
-  local UI = {
-    name = "splashScreen",
+  local gameUI = {
+    name = "gameUI",
     huds = {
-      scoreCounter = createHud(x, y, path),
-      timeCounter = createHud(x, y, path),
+      scoreCounter = createHud(
+        --[[config.prefferedWidth / 7, 
+        (config.prefferedHeight/1.1) * -1,]]--
+        config.prefferedWidth /2, 
+        (config.prefferedHeight/2) * -1,
+        "assets/sprites/ui/Achtergrond4.png", 
+        128, 
+        64
+       )--[[,
+      --timeCounter = createHud(
+        xLocContainer, 
+        yLocContainer, 
+        imagePath, 
+        width, 
+        height)]]--
+    },
+    hudTexts = {
+      scoreCounterText = createHudText(
+        config.prefferedWidth / 7, 
+        (config.prefferedHeight/1.1)*-1, 
+        "Score: " .. score,
+        25, 
+        200, 
+        50
+       )
+      --timeCounterText = createHudText(),
     },    
     buttons = {
-      penguinSpawnButton = createPenguinSpawnButton(x, y, path, callback),
-      placeJumpBoostButton = createJumpBoostButton(x, y, path, callback),
-      menuButton = createMenuButton(x, y, path, callback)
+      --penguinSpawnButton = createGameUIButton(x, y, path, spawnCallback),
+      --placeJumpBoostButton = createGameUIButton(x, y, path, jumpBoostCallback),
+      --menuButton = createGameUIButton(x, y, path, menuCallback)
     }
   }
   
-  --textbox:setString(
-  --add to engine.uiLayer
-  
-  function UI:start()
+  function gameUI:start()
+    print("Loading GameUI!")
     for keys, object in pairs(self.buttons) do
+      print("Found object, add it to game")
+      --print("name: " .. object)
       engine:addGameObject(object)
     end
     for keys, object in pairs(self.huds) do
+      print("Found object, add it to game")
+      --print("name: " .. object.name)
+      engine:addGameObject(object)
+    end
+    for keys, object in pairs(self.hudTexts) do
+      print("Found object, add it to game")
+      --print("name: " .. object)
       engine:addGameObject(object)
     end
   end
   
-  function UI:update()
+  function gameUI:update()
     self.huds.scoreCounter:updateInfo(score)
-    self.huds.timerCounter:updateInfo(score)
+    self.huds.timerCounter:updateInfo(time)
   end
+  
+  function gameUI:destroy()
+    engine:destroyAllObject()
+  end
+  
+  return gameUI
 end
 
-function createHud(x, y, path)
-  -- create hud object
+function createHud(xLocContainer, yLocContainer, imagePath, width, height)
+  hudContainer = createDrawableGameObject(
+    xLocContainer, 
+    yLocContainer
+  )
+  table.insert(hudContainer.factions, "ui")
   
+  hudContainer.name = "hudContainer"
+  hudContainer.width = width
+  hudContainer.height = height
   
-  function hud:updateInfo(value)
+  local hudContainerImage = engine:loadImageTexture(imagePath)
+  
+  local quad = MOAIGfxQuad2D.new()
+  quad:setTexture( hudContainerImage )
+  quad:setRect(-(width/2), -(height/2), (width/2), (height/2) )
+
+  hudContainer.prop = MOAIProp2D.new()
+  hudContainer.prop:setDeck(quad)
+  hudContainer.prop:setScl(1.5, 1.5)
+  hudContainer.prop:setLoc(
+    hudContainer.x, 
+    hudContainer.y
+  )
+  
+  return hudContainer
+end
+
+function createHudText(xLocText, yLocText, string, fontSize, width, height)
+  hudText = createDrawableGameObject(
+    xLocText, 
+    yLocText
+  )
+  table.insert(hudText.factions, "ui")
+  hudText.name = "hudText"
+  
+  --create hud text
+  local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
+  local font = MOAIFont.new()
+  font:load( 'assets/fonts/BNMachine.ttf' )
+  font:preloadGlyphs( charCodes, 24 )
+  
+  hudText.prop = MOAITextBox.new()
+  hudText.prop:setStyle( newFontStyle( font, fontSize ) )
+  hudText.prop:setString( string )
+  hudText.prop:spool()
+  hudText.prop:setRect(-(width/2), -(height/2), (width/2), (height/2) )
+  hudText.prop:setLoc(
+    hudText.x, 
+    hudText.y
+  )
+  hudText.prop:setAlignment(
+    MOAITextBox.CENTER_JUSTIFY, 
+    MOAITextBox.CENTER_JUSTIFY 
+  )
+  hudText.prop:setYFlip( true )
+  
+  function hudText:updateInfo(value)
     hudText:setString(value)
   end
+  
+  return hudText
 end
 
 function createGameUIButton(x, y, path, callback)
@@ -59,14 +140,16 @@ function createGameUIButton(x, y, path, callback)
   Button = createDrawableGameObject(x, y)
   onTouchCallback = callback
   table.insert(Button.factions, "touchables")
-  
+  table.insert(Button.factions, "ui")
+
+  Button.name = "uiButton"
   
   function Button:onTouch(callback)
     callback()
   end
 end
 
-function boostCallback()
+function jumpBoostCallback()
   
 end
 

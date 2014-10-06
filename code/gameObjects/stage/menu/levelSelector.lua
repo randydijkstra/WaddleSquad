@@ -30,7 +30,6 @@ function createLevelSelector()
       engine:addGameObject(object)
     end
     
-    print(levelHighScores.lvl1)
     --[[for key, object in pairs(self.highScores) do
       engine:addGameObject(object)
     end]]-- highscore feature to implemented later!

@@ -15,8 +15,6 @@ function createLevel(map)
   engine:resizeViewport(level.width, level.height)
   --engine:resizeViewport(width, level.height)
 
-
-
   function level:destroy()
     engine:destroyAllObject()
   end

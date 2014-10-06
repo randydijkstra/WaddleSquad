@@ -1,5 +1,6 @@
 engine = {
   mainViewport,
+  uiViewPort,
   mainLayer,
   menuLayer,
   uiLayer,
@@ -12,11 +13,13 @@ engine = {
         moveable = {}, -- every object that should have it's move called
         staticSprites = {},
         menus = {},
+        ui = {},
         touchables = {}
       },
   },
   box2DWorld,
   currentLevel = false, -- contains either false if no level is loaded or the current level
+  uiIsActive = false,
   quads = {}, -- current loaded quads
   tileDecks = {}, -- current loaded tilesets,
   imageTextures = {}, -- current loaded image textures
@@ -86,7 +89,12 @@ function engine:addGameObject(gameObject)
   end
   
   if gameObject.prop and config.debugSpriteDraw then
-    self.mainLayer:insertProp(gameObject.prop)
+    if gameObject.name == "hudContainer" or gameObject.name == "hudText" or gameObject.name == "uiButton" then
+      self.uiLayer:insertProp(gameObject.prop)
+      print("added to UI layer! " .. gameObject.name)
+    else
+      self.mainLayer:insertProp(gameObject.prop)
+    end
   end  
 
   return gameObject
@@ -196,6 +204,10 @@ function engine:loadLevel(level)
     self.currentLevel:destroy()
   end
   
+  if self.uiIsActive then
+    self.uiIsActive:destroy()
+  end
+  
   print("loading: " .. level)
   
   if level == "level1" then
@@ -203,11 +215,17 @@ function engine:loadLevel(level)
     self.currentLevel = lvl1
     self.inLevel = true
     lvl1:start()
+    local gameUI = getGameUI()
+    self.uiIsActive = gameUI
+    gameUI:start()
   elseif level == "level2" then
     local lvl2 = getLvl2()
     self.currentLevel = lvl2
     self.inLevel = true
     lvl2:start()
+    local gameUI = getGameUI()    
+    self.uiIsActive = gameUI
+    gameUI:start()
   elseif level == "level3" then
     local lvl3 = getLvl3()
     self.currentLevel = lvl3

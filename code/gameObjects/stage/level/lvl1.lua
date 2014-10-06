@@ -12,7 +12,7 @@ function getLvl1()
   
   function level:start()
     engine.inLevel = true
-    penguin = engine:addGameObject(createPenguin(0, -300))
+    penguin = engine:addGameObject(createPenguin(0, -400))
   end
   
   return level
