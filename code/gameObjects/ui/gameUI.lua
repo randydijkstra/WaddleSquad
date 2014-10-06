@@ -9,7 +9,7 @@
     - Spawn new penguin
     - Place blocks:
       - Icebear (other can be made later)
-    - Pause game (to be made after update 1.1)
+    - Pause game (to be made after update 1.2)
 ]]--
 function getGameUI()
   local spritePath = 'assets/sprites/ui/'
@@ -21,9 +21,9 @@ function getGameUI()
       timeCounter = createHud(x, y, path),
     },    
     buttons = {
-      penguinSpawnButton = createGameUIButton(x, y, path),
-      placeJumpBoostButton = createGameUIButton(x, y, path),
-      backToMenu = createGameUIButton(x, y, path)
+      penguinSpawnButton = createPenguinSpawnButton(x, y, path, callback),
+      placeJumpBoostButton = createJumpBoostButton(x, y, path, callback),
+      menuButton = createMenuButton(x, y, path, callback)
     }
   }
   
@@ -31,19 +31,49 @@ function getGameUI()
   --add to engine.uiLayer
   
   function UI:start()
-    --Do something here
+    for keys, object in pairs(self.buttons) do
+      engine:addGameObject(object)
+    end
+    for keys, object in pairs(self.huds) do
+      engine:addGameObject(object)
+    end
+  end
+  
+  function UI:update()
+    self.huds.scoreCounter:updateInfo(score)
+    self.huds.timerCounter:updateInfo(score)
   end
 end
 
 function createHud(x, y, path)
+  -- create hud object
+  
+  
+  function hud:updateInfo(value)
+    hudText:setString(value)
+  end
+end
+
+function createGameUIButton(x, y, path, callback)
+  --create button object
+  Button = createDrawableGameObject(x, y)
+  onTouchCallback = callback
+  table.insert(Button.factions, "touchables")
+  
+  
+  function Button:onTouch(callback)
+    callback()
+  end
+end
+
+function boostCallback()
   
 end
 
-function createGameUIButton(x, y, path)
-  Button = createDrawableGameObject(x, y)
-  table.insert(Button.factions, "touchables")
+function menuCallback()
   
-  function Button:onTouch()
-    
-  end
+end
+
+function jumpBoostCallback()
+  
 end

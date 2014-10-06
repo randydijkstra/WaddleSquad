@@ -198,7 +198,6 @@ function engine:loadLevel(level)
   
   print("loading: " .. level)
   
-  
   if level == "level1" then
     local lvl1 = getLvl1()
     self.currentLevel = lvl1
@@ -208,9 +207,17 @@ function engine:loadLevel(level)
     local lvl2 = getLvl2()
     self.currentLevel = lvl2
     self.inLevel = true
-    lvl2:start()   
+    lvl2:start()
   elseif level == "level3" then
-    print("herpderp")
+    local lvl3 = getLvl3()
+    self.currentLevel = lvl3
+    self.inLevel = true
+    lvl3:start()
+  elseif level == "level4" then
+    local lvl4 = getLvl4()
+    self.currentLevel = lvl4
+    self.inLevel = true
+    lvl4:start()   
   elseif level == "levelSelector" then
     self.inLevel = false
     local levelSelector = createLevelSelector()

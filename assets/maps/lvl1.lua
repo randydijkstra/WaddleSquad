@@ -3,12 +3,12 @@ return {
   luaversion = "5.1",
   orientation = "orthogonal",
   width = 20,
-  height = 8,
+  height = 9,
   tilewidth = 64,
   tileheight = 64,
   properties = {},
   tilesets = {
-    {
+     {
       name = "Sprite-Sheet-Terrain-64x64",
       firstgid = 1,
       tilewidth = 64,
@@ -125,12 +125,13 @@ return {
       x = 0,
       y = 0,
       width = 20,
-      height = 8,
+      height = 9,
       visible = true,
       opacity = 1,
       properties = {},
       encoding = "lua",
       data = {
+        52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 53, 54, 55, 56, 57, 58, 59, 60,
         52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 53, 54, 55, 56, 57, 58, 59,
         52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61,
         62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
@@ -147,12 +148,15 @@ return {
       x = 0,
       y = 0,
       width = 20,
-      height = 8,
+      height = 9,
       visible = true,
       opacity = 1,
-      properties = {},
+      properties = {
+        ["death"] = "true"
+      },
       encoding = "lua",
       data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -169,7 +173,7 @@ return {
       x = 0,
       y = 0,
       width = 20,
-      height = 8,
+      height = 9,
       visible = true,
       opacity = 1,
       properties = {
@@ -177,6 +181,7 @@ return {
       },
       encoding = "lua",
       data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -192,14 +197,16 @@ return {
       name = "Objectlaag 1",
       visible = true,
       opacity = 1,
-      properties = {},
+      properties = {
+        ["iglo"] = "iglo"
+      },
       objects = {
         {
           name = "iglo",
           type = "iglo",
           shape = "rectangle",
           x = 1079.52,
-          y = 319.369,
+          y = 383.369,
           width = 0,
           height = 0,
           rotation = 0,
@@ -221,260 +228,300 @@ return {
           type = "sneeuwvlokbig",
           shape = "rectangle",
           x = 143,
-          y = 314,
+          y = 378,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 102,
           visible = true,
-          properties = {}
-        },
-        {
-          name = "sneeuwvloksmall",
-          type = "sneeuwvloksmall",
-          shape = "rectangle",
-          x = 84,
-          y = 367,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          gid = 104,
-          visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvlokbig"] = "sneeuwvlokbig"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
           x = 15,
-          y = 306,
+          y = 370,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 149,
-          y = 366,
+          x = 83,
+          y = 429.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 212,
-          y = 365,
+          x = 146.667,
+          y = 432,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 275,
-          y = 365,
+          x = 208,
+          y = 433.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 337,
-          y = 363,
+          x = 276,
+          y = 429.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 468,
-          y = 365,
+          x = 340,
+          y = 429.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 532,
-          y = 366,
+          x = 472,
+          y = 426.667,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 594,
-          y = 364,
+          x = 529.333,
+          y = 426.667,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 658,
-          y = 494,
+          x = 592,
+          y = 426.667,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 403,
-          y = 496,
+          x = 718.667,
+          y = 426.667,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 722,
-          y = 367,
+          x = 781.333,
+          y = 378.667,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 778,
-          y = 328,
+          x = 854.667,
+          y = 432,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 914,
-          y = 363,
+          x = 918.667,
+          y = 429.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 851,
-          y = 365,
+          x = 1038.67,
+          y = 429.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 1042,
-          y = 363,
+          x = 405.333,
+          y = 557.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 104,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
+        },
+        {
+          name = "sneeuwvloksmall",
+          type = "sneeuwvloksmall",
+          shape = "rectangle",
+          x = 658.667,
+          y = 557.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          gid = 104,
+          visible = true,
+          properties = {
+            ["sneeuwvloksmall"] = "sneeuwvloksmall"
+          }
         },
         {
           name = "sneeuwvlokbig",
           type = "sneeuwvlokbig",
           shape = "rectangle",
-          x = 523,
-          y = 312,
+          x = 322.667,
+          y = 373.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 102,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvlokbig"] = "sneeuwvlokbig"
+          }
         },
         {
           name = "sneeuwvlokbig",
           type = "sneeuwvlokbig",
           shape = "rectangle",
-          x = 325,
-          y = 313,
+          x = 518.667,
+          y = 376,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 102,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvlokbig"] = "sneeuwvlokbig"
+          }
         },
         {
           name = "sneeuwvlokbig",
           type = "sneeuwvlokbig",
           shape = "rectangle",
-          x = 962,
-          y = 312,
+          x = 965.333,
+          y = 385.333,
           width = 0,
           height = 0,
           rotation = 0,
           gid = 102,
           visible = true,
-          properties = {}
+          properties = {
+            ["sneeuwvlokbig"] = "sneeuwvlokbig"
+          }
         }
       }
     }

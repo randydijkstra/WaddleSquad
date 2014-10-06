@@ -102,6 +102,13 @@ function handleKeyboardInput(key, down)
       engine:loadLevel("level2")
     end
     
+    if key == keyBoardTable.three then
+      engine:loadLevel("level3")
+    end
+    
+    if key == keyBoardTable.four then
+      engine:loadLevel("level4")
+    end
   end
   
 end

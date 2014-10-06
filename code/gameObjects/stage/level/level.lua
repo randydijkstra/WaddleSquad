@@ -11,8 +11,10 @@ function createLevel(map)
   level.width = level.map.width * level.map.tilewidth
   level.height = level.map.height * level.map.tileheight
 
-  --width = ( level.height / 9 ) * 16
+  width = ( level.height / 9 ) * 16
   engine:resizeViewport(level.width, level.height)
+  --engine:resizeViewport(width, level.height)
+
 
 
   function level:destroy()
