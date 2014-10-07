@@ -1,9 +1,11 @@
 --[[ Create / handle UI here ]]--
 function getGameUI()
-  local spritePath = 'assets/sprites/ui/'
-  local score = 0
+  gameStats = {
+    score = 0,
+    time = 45,  
+  }
   
-  local gameUI = {
+  gameUI = {
     name = "gameUI",
     huds = {
       scoreCounter = createHud(
@@ -23,11 +25,12 @@ function getGameUI()
     hudTexts = {
       scoreCounterText = createHudText(
         config.prefferedWidth / 11, 
-        (config.prefferedHeight/1.1)*-1, 
-        "Score: \n" .. score,
-        28, 
+        (config.prefferedHeight/1.105)*-1, 
+        "Score: \n" .. gameStats.score,
+        30, 
         156, 
-        92
+        92,
+        true
        )
       --timeCounterText = createHudText(),
     },    
@@ -97,7 +100,7 @@ function createHud(xLocContainer, yLocContainer, imagePath, width, height)
   return hudContainer
 end
 
-function createHudText(xLocText, yLocText, string, fontSize, width, height)
+function createHudText(xLocText, yLocText, string, fontSize, width, height, whiteColor)
   hudText = createDrawableGameObject(
     xLocText, 
     yLocText
@@ -126,6 +129,14 @@ function createHudText(xLocText, yLocText, string, fontSize, width, height)
   )
   hudText.prop:setYFlip( true )
   
+  if whiteColor == true then
+    local fontStyle = MOAITextStyle.new()
+    fontStyle:setFont( font )
+    fontStyle:setSize( fontSize )
+    fontStyle:setColor( 1,1,1,1 )  
+    hudText.prop:setStyle(fontStyle)
+  end
+    
   function hudText:updateInfo(value)
     hudText:setString(value)
   end

@@ -9,9 +9,9 @@ function createLevelSelector()
       lvl3button = createButton(775, -360, "level3"),
     },
     buttonTexts = {
-      lvl1buttonText = createTextBox(475, -360, 64, 64, "1", 50, true),
-      lvl2buttonText = createTextBox(625, -360, 64, 64, "2", 50, true),
-      lvl3buttonText = createTextBox(775, -360, 64, 64, "3", 50, true)
+      lvl1buttonText = createTextBox(505, -320, 64, 64, "1", 50, true),
+      lvl2buttonText = createTextBox(655, -320, 64, 64, "2", 50, true),
+      lvl3buttonText = createTextBox(805, -320, 64, 64, "3", 50, true)
     },
     highScores = {
       lvl1 = createTextBox(500, -430, 100, 50, tostring(levelHighScores.lvl1), 40, false)
@@ -47,7 +47,7 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     
     local textBox = createDrawableGameObject(xLoc, yLoc)
     table.insert(textBox.factions, "ui")
-    table.insert(textBox.factions, "touchables")
+    --table.insert(textBox.factions, "touchables")
 
   
     local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
@@ -59,7 +59,7 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     textBox.prop:setStyle( newFontStyle( font, fontSize ) )
     textBox.prop:setString( string )
     textBox.prop:spool()
-    textBox.prop:setRect(-(width/2), -(height/2), (width/2), (height/2) )
+    textBox.prop:setRect(-(width/2), -(height/2), (width/2), (height/2))
     textBox.prop:setLoc(
       textBox.x, 
       textBox.y
@@ -83,8 +83,10 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     table.insert(Button.factions, "ui")
     Button.levelName = levelName
     
-    Button.width = 64 * 1.5
-    Button.height = 64 * 1.5
+    xScale = 1.5
+    yScale = 1.5
+    Button.width = 64 * xScale
+    Button.height = 64 * yScale
     
     local levelButton = engine:loadImageTexture('assets/sprites/ui/EmptyButton.png')
   
@@ -96,7 +98,7 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
   
     Button.prop = MOAIProp2D.new()
     Button.prop:setDeck(quad)
-    Button.prop:setScl(1.5, 1.5)
+    Button.prop:setScl(xScale, yScale)
     Button.prop:setLoc(
       Button.x, 
       Button.y
