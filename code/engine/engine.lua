@@ -13,8 +13,8 @@ engine = {
         moveable = {}, -- every object that should have it's move called
         staticSprites = {},
         menus = {},
-        ui = {},
-        touchables = {}
+        ui = {}, -- objects that should be placed in the ui layer
+        touchables = {} -- objects that are checked against touch
       },
   },
   box2DWorld,
@@ -47,8 +47,6 @@ function engine:start()
 end
 
 function engine:cameraController()
-  
-  
   
 end
 

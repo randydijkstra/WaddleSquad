@@ -15,7 +15,7 @@ config = {
   prefferedHeight = 720,
   
   --startup settings
-  showSplashScreen = false,
+  showSplashScreen = true,
   startStage = 'lvl1',
   
   --box2D

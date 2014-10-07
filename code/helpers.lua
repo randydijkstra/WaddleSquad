@@ -59,7 +59,7 @@ function isStringInTable(table, string)
 end
 
 function pointInsideRect(rectX, rectY, rectWidth, rectHeight, x, y)
-  if x > rectX and x < rectX + rectWidth and y < rectY and y > rectY - rectHeight then
+  if x > rectX and x < rectX + rectWidth and y > rectY and y < rectY + rectHeight then
     return true
   end  
   return false
