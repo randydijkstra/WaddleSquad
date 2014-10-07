@@ -16,6 +16,8 @@ function createLevel(map)
   --engine:resizeViewport(width, level.height)
 
   function level:destroy()
+    engine.gameUI = nil
+    engine.uiIsActive = false
     engine:destroyAllObject()
   end
 

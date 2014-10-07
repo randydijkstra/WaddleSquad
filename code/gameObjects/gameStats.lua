@@ -1,21 +1,20 @@
 function createGameStats(levelName, defaultScore, defaultTimer)
   
   --Default gamestats at start of level
-  gameStats = {
-    score = defaultScore,
-    time = defaultTimer,
-    penguinsOnScreen = 0,
-    penguinsLeft = 10,
-    penguinsFinished = 0
-  }
+  local gameStats = createGameObject()
+  mergeTables(gameStats,
+    {
+      score = defaultScore,
+      time = defaultTimer,
+      penguinsOnScreen = 0,
+      penguinsLeft = 10,
+      penguinsFinished = 0
+    }
+  )
   
   function gameStats:start()
     --addGameObject(self.gameStats)
     print("Entering gamestats of "..levelName..". Score: "..defaultScore..". Timer: "..defaultTimer)
-  end
-  
-  function gameStats:destroy()
-    engine:destroyAllObject()
   end
   
   function gameStats:newPenguin()
@@ -27,11 +26,11 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     if condition == "snowflake" then
       self.score = self.score + 100
       local updatedScore = tostring(self.score)
-      gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
+      engine.gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
     elseif condition == "iglo" then
       self.score = self.score + 200
       local updatedScore = tostring(self.score)
-      gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
+      engine.gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
       self.penguinsFinished = self.penguinsFinished + 1
       self.penguinsOnScreen = self.penguinsOnScreen - 1
       self.penguinsLeft = self.penguinsLeft - 1

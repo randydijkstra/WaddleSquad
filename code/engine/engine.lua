@@ -20,12 +20,13 @@ engine = {
   box2DWorld,
   currentLevel = false, -- contains either false if no level is loaded or the current level
   uiIsActive = false,
+  gameUI = {}, -- holds the ui controler
+  gameStats = {}, -- holds the gameStats controller
   quads = {}, -- current loaded quads
   tileDecks = {}, -- current loaded tilesets,
   imageTextures = {}, -- current loaded image textures
   input,
-  inLevel, -- variable to check if a level is being played
-  gameStats
+  inLevel = false -- variable to check if a level is being played
 }
 engine.__index = engine
 
@@ -116,7 +117,11 @@ function engine:deleteGameObject(gameObject)
       self.gameObjects.factions[value][gameObject.id] = nil
     end
   end
-
+  
+  if gameObject.onDestroy then
+    gameObject:onDestroy()
+  end
+  
   gameObject = nil
 end
 
@@ -203,51 +208,32 @@ function engine:loadLevel(level)
     self.currentLevel:destroy()
   end
   
-  if self.gameStats then
-    self.gameStats:destroy()
-  end
-  
-  if self.uiIsActive then
-    self.uiIsActive:destroy()
-  end
-  
   print("loading: " .. level)
-  
-  function loadGameUI()
-    local gameUI = getGameUI()    
-    self.uiIsActive = gameUI
-    gameUI:start()
-  end
   
   if level == "level1" then
     local lvl1 = getLvl1()
     self.currentLevel = lvl1
     self.inLevel = true
     lvl1:start()
-    loadGameUI()
   elseif level == "level2" then
     local lvl2 = getLvl2()
     self.currentLevel = lvl2
     self.inLevel = true
     lvl2:start()
-    loadGameUI()
   elseif level == "level3" then
     local lvl3 = getLvl3()
     self.currentLevel = lvl3
     self.inLevel = true
     lvl3:start()
-    loadGameUI()
   elseif level == "level4" then
     local lvl4 = getLvl4()
     self.currentLevel = lvl4
     self.inLevel = true
     lvl4:start()   
-    loadGameUI()
   elseif level == "levelSelector" then
     self.inLevel = false
     local levelSelector = createLevelSelector()
     self.currentLevel = levelSelector
-    levelSelector:start()
   end
 end
 

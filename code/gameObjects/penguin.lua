@@ -144,7 +144,7 @@ function createPenguin(x, y)
           config.penguinJumpForce / config.unitToMeter
         )
          
-        penguin.preJump = false
+        self.preJump = false
         self:setAnimationTable(prop.jump)
       end
       
