@@ -39,12 +39,22 @@ function createLoopingTimer ( spanTime, callbackFunction, fireRightAway )
 	return timer
 end
 
-function resizeToScale(width, height, scaleWidth, scaleHeight)
+function fitToScale(width, height, scaleWidth, scaleHeight)
   
-  finalWidth = math.floor(width / scaleWidth) * scaleWidth
-  finalHeight = math.floor(height / scaleHeight) * scaleHeight
+  local finalWidth, finalHeight
   
-  return finalWidth, finalHeight
+  if math.ceil(width / scaleWidth) > math.ceil(height / scaleHeight) then
+    finalWidth = math.ceil(width / scaleWidth) * scaleWidth
+    finalHeight = (finalWidth / scaleWidth) * scaleHeight   
+  else
+    finalHeight = math.ceil(height / scaleHeight) * scaleHeight
+    finalWidth = (finalHeight / scaleHeight) * scaleWidth  
+  end
+  
+  local leftOverWidth = finalWidth - scaleWidth
+  local leftOverHeight = finalHeight - scaleHeight
+  
+  return finalWidth, finalHeight, leftOverWidth, leftOverHeight
 end
 
 function isStringInTable(table, string)
