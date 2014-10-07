@@ -23,7 +23,7 @@ function getGameUI()
       scoreCounterText = createHudText(
         config.prefferedWidth / 11, 
         (config.prefferedHeight/1.105)*-1, 
-        "Score: \n" .. gameStats.score,
+        "Score: \n" .. engine.gameStats.score,
         32, 
         156, 
         92,
@@ -160,13 +160,13 @@ function createGameUIButton(x, y, path, callback)
 
   Button.name = "uiButton"
   
-  function Button:onTouch(callback)
-    callback()
+  function Button:onTouch(onTouchCallback)
+    onTouchCallback()
   end
 end
 
-function jumpBoostCallback()
-  
+function spawnCallback()
+  penguin = engine:addGameObject(createPenguin(-50, -350))
 end
 
 function menuCallback()
