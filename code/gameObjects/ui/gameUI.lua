@@ -1,86 +1,81 @@
 --[[ Create / handle UI here ]]--
 function getGameUI()  
   
-  gameUI = {
-    name = "gameUI",
-    huds = {
-      scoreCounter = createHud(
-        config.prefferedWidth / 11, 
-        (config.prefferedHeight/1.1) * -1,
-        "assets/sprites/ui/Achtergrond4.png", 
-        128, 
-        64
-      ),
-      timeCounter = createHud(
-        config.prefferedWidth / 2, 
-        (config.prefferedHeight/ 11) * -1,
-        "assets/sprites/ui/Achtergrond4.png", 
-        128, 
-        64
-      )
-    },
-    hudTexts = {
-      scoreCounterText = createHudText(
-        config.prefferedWidth / 11, 
-        (config.prefferedHeight/1.105)*-1, 
-        "Score: \n" .. engine.gameStats.score,
-        32, 
-        156, 
-        92,
-        true
-       ),
-       timeCounterText = createHudText(
-        config.prefferedWidth / 2, 
-        (config.prefferedHeight/11)*-1, 
-        tostring(engine.gameStats.time),
-        50, 
-        128, 
-        64,
-        true  
-      )
-    },    
-    buttons = {
-      --penguinSpawnButton = createGameUIButton(x, y, path, spawnCallback),
-      --placeJumpBoostButton = createGameUIButton(x, y, path, jumpBoostCallback),
-      --menuButton = createGameUIButton(x, y, path, menuCallback)
-    }
+  local gameUI = createGameObject()
+  table.insert(gameUI.factions,"update")
+  
+  gameUI.name = "gameUI"
+  gameUI.huds = {
+    scoreCounter = createHud(
+      config.prefferedWidth / 11, 
+      (config.prefferedHeight/1.1) * -1,
+      "assets/sprites/ui/Achtergrond4.png", 
+      128, 
+      64
+    ),
+    timeCounter = createHud(
+      config.prefferedWidth / 2, 
+      (config.prefferedHeight/ 11) * -1,
+      "assets/sprites/ui/Achtergrond4.png", 
+      128, 
+      64
+    )
+  }
+  gameUI.hudTexts = {
+    scoreCounterText = createHudText(
+      config.prefferedWidth / 11, 
+      (config.prefferedHeight/1.105)*-1, 
+      "Score: \n" .. engine.gameStats.score,
+      32, 
+      156, 
+      92,
+      true
+     ),
+     timeCounterText = createHudText(
+      config.prefferedWidth / 2, 
+      (config.prefferedHeight/11)*-1, 
+      tostring(engine.gameStats.time),
+      50, 
+      128, 
+      64,
+      true  
+    )
+  } 
+  gameUI.buttons = {
+    --penguinSpawnButton = createGameUIButton(x, y, path, spawnCallback),
+    --placeJumpBoostButton = createGameUIButton(x, y, path, jumpBoostCallback),
+    --menuButton = createGameUIButton(x, y, path, menuCallback)
   }
   
   function gameUI:start()
-    print("Loading GameUI!")
     for keys, object in pairs(self.buttons) do
-      print("Found object, add it to game")
-      --print("name: " .. object)
       engine:addGameObject(object)
     end
     for keys, object in pairs(self.huds) do
-      print("Found object, add it to game")
-      --print("name: " .. object.name)
       engine:addGameObject(object)
     end
     for keys, object in pairs(self.hudTexts) do
-      print("Found object, add it to game")
-      --print("name: " .. object)
       engine:addGameObject(object)
     end
   end
   
   function gameUI:update()
-    self.huds.scoreCounter:updateInfo(gameStats.score)
-    self.huds.timerCounter:updateInfo(gameStats.time)
+    --self.huds.scoreCounter:updateInfo(engine.gameStats.score)
+    --self.huds.timerCounter:updateInfo(engine.gameStats.time)
     --gameStats.score = gameStats.score + 1
-    print(gameStats.score)
+    --print(engine.gameStats.score)
   end
   
-  function gameUI:destroy()
-    engine:destroyAllObject()
+  function gameUI:onDestroy()
+    engine.uiIsActive = false
   end
   
+  engine.uiIsActive = true
   return gameUI
 end
 
 function createHud(xLocContainer, yLocContainer, imagePath, width, height)
-  hudContainer = createDrawableGameObject(
+  local hudContainer = createDrawableGameObject(
     xLocContainer, 
     yLocContainer
   )
@@ -108,7 +103,7 @@ function createHud(xLocContainer, yLocContainer, imagePath, width, height)
 end
 
 function createHudText(xLocText, yLocText, string, fontSize, width, height, whiteColor)
-  hudText = createDrawableGameObject(
+  local hudText = createDrawableGameObject(
     xLocText, 
     yLocText
   )
@@ -153,7 +148,7 @@ end
 
 function createGameUIButton(x, y, path, callback)
   --create button object
-  Button = createDrawableGameObject(x, y)
+  local Button = createDrawableGameObject(x, y)
   onTouchCallback = callback
   table.insert(Button.factions, "touchables")
   table.insert(Button.factions, "ui")

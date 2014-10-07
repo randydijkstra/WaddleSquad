@@ -17,7 +17,7 @@ function newFontStyle( font, size )
   
 end
 
-function createPromise( spanTime, callbackFunction )
+function createPromise( spanTime, callbackFunction)
 	local timer = MOAITimer.new ()
 	timer:setSpan ( spanTime )
 	timer:setMode ( MOAITimer.NORMAL )
@@ -81,4 +81,16 @@ function iif(cond, A, B)
   else
     return B
   end
+end
+
+function mergeTables(t1, t2)
+  -- There is a change infinte loops will occur with this function
+  for k, v in pairs(t2) do
+      if (type(v) == "table") and (type(t1[k] or false) == "table") then
+          merge(t1[k], t2[k])
+      else
+          t1[k] = v
+      end
+  end
+  return t1
 end
