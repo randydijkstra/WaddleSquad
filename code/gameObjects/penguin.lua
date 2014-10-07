@@ -4,6 +4,8 @@ function createPenguin(x, y)
   table.insert(penguin.factions, 'penguins')
   table.insert(penguin.factions, 'update')
   
+  engine.gameStats:newPenguin()
+  
   local stateSwitched = false
   penguin.forceX = 10
   penguin.forceY = 100
@@ -166,19 +168,16 @@ end
 function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
+    print("Colided with snowflake")
     engine:deleteGameObject(fixtureB:getBody().parent)
-    engine.gameStats.score = engine.gameStats.score + 100
-    local updatedScore = tostring(engine.gameStats.score)
-    print("score: " .. updatedScore)
-    gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
+    engine.gameStats:updateStats("snowflake")
   end
   
+  --BUG TO FIX: collision is done multiple times before deletion: disrupts gameStats
   if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
+    print("Colided with iglo")
     engine:deleteGameObject(fixtureA:getBody().parent)
-    engine.gameStats.score = engine.gameStats.score + 200
-    local updatedScore = tostring(engine.gameStats.score)
-    print("score: " .. updatedScore)
-    gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
+    engine.gameStats:updateStats("iglo")
   end
   
 end
