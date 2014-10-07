@@ -51,8 +51,8 @@ function fitToScale(width, height, scaleWidth, scaleHeight)
     finalWidth = (finalHeight / scaleHeight) * scaleWidth  
   end
   
-  local leftOverWidth = finalWidth - scaleWidth
-  local leftOverHeight = finalHeight - scaleHeight
+  local leftOverWidth = finalWidth - width
+  local leftOverHeight = finalHeight - height
   
   return finalWidth, finalHeight, leftOverWidth, leftOverHeight
 end
