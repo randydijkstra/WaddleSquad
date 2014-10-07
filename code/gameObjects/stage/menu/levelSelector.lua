@@ -38,12 +38,12 @@ function createLevelSelector()
       lvl4buttonText = createTextBox(
         (config.prefferedWidth / 8) * 4 + 64, -300, 64, 64, "4", 54, true
       )
-    },
+    }--[[,
     highScores = {
       lvl1 = createTextBox(
         500, -430, 100, 50, tostring(levelHighScores.lvl1), 40, false
       )
-    }
+    }]]--
   }
   
   function levelSelector:start()

@@ -12,7 +12,13 @@ function getLvl4()
   
   function level:start()
     engine.inLevel = true
-    penguin = engine:addGameObject(createPenguin(-50, -380))
+    engine.gameStats = createGameStats(
+      'lvl4', 
+      0, 
+      defaultGameStats.levelStartTime.lvl4
+    )
+    engine.gameStats:start()
+    penguin = engine:addGameObject(createPenguin(-50, -480))
   end
   
   return level

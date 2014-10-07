@@ -32,7 +32,7 @@ function getGameUI()
        timeCounterText = createHudText(
         config.prefferedWidth / 2, 
         (config.prefferedHeight/11)*-1, 
-        tostring(gameStats.time),
+        tostring(engine.gameStats.time),
         50, 
         128, 
         64,

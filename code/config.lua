@@ -37,15 +37,12 @@ config = {
   splashScreenFinished = false
 }
 
-levelStartTime = {
-  --Time for Levels in seconds
-  lvl1 = 45,
-  lvl2 = 60,
-  lvl3 = 50,
-}
-
-levelHighScores = {
-  lvl1 = 900,
-  lvl2 = 40,
-  lvl3 = 0
+defaultGameStats = {
+  levelStartTime = {
+    --startTime for Levels in seconds
+    lvl1 = 45,
+    lvl2 = 60,
+    lvl3 = 50,
+    lvl4 = 60
+  }
 }

@@ -167,14 +167,18 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
     engine:deleteGameObject(fixtureB:getBody().parent)
-    gameStats.score = gameStats.score + 100
-    local updatedScore = tostring(gameStats.score)
+    engine.gameStats.score = engine.gameStats.score + 100
+    local updatedScore = tostring(engine.gameStats.score)
     print("score: " .. updatedScore)
     gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
   end
   
   if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
     engine:deleteGameObject(fixtureA:getBody().parent)
+    engine.gameStats.score = engine.gameStats.score + 200
+    local updatedScore = tostring(engine.gameStats.score)
+    print("score: " .. updatedScore)
+    gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
   end
   
 end
