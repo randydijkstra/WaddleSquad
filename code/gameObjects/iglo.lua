@@ -6,7 +6,7 @@ function createIglo(x, y)
   local texture = engine:loadImageTexture('assets/sprites/tiles/Iglo.png')
 
   local quad = MOAIGfxQuad2D.new()
-  -- Becase Moai somehow fucks up transparancy to white with imageTecture:load() we derictly set the texture here --
+  -- Becase Moai somehow fucks up transparancy to white with imageTecture:load() we directly set the texture here --
   quad:setTexture( 'assets/sprites/tiles/Iglo.png' )
   quad:setRect(
     0, 

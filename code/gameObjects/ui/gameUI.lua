@@ -59,6 +59,7 @@ function getGameUI()
     end
   end
   
+  --At the moment not used at all
   function gameUI:update()
     --self.huds.scoreCounter:updateInfo(engine.gameStats.score)
     --self.huds.timerCounter:updateInfo(engine.gameStats.time)
@@ -140,7 +141,7 @@ function createHudText(xLocText, yLocText, string, fontSize, width, height, whit
   end
     
   function hudText:updateInfo(value)
-    self.prop:setString("Score: \n"..value)
+    self.prop:setString(value)
   end
   
   return hudText
