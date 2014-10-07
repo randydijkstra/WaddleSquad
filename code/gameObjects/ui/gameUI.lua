@@ -7,10 +7,8 @@ function getGameUI()
     name = "gameUI",
     huds = {
       scoreCounter = createHud(
-        --[[config.prefferedWidth / 7, 
-        (config.prefferedHeight/1.1) * -1,]]--
-        config.prefferedWidth /2, 
-        (config.prefferedHeight/2) * -1,
+        config.prefferedWidth / 11, 
+        (config.prefferedHeight/1.1) * -1,
         "assets/sprites/ui/Achtergrond4.png", 
         128, 
         64
@@ -24,12 +22,12 @@ function getGameUI()
     },
     hudTexts = {
       scoreCounterText = createHudText(
-        config.prefferedWidth / 7, 
+        config.prefferedWidth / 11, 
         (config.prefferedHeight/1.1)*-1, 
-        "Score: " .. score,
-        25, 
-        200, 
-        50
+        "Score: \n" .. score,
+        28, 
+        156, 
+        92
        )
       --timeCounterText = createHudText(),
     },    

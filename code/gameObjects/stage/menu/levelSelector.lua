@@ -4,14 +4,14 @@ function createLevelSelector()
     name = "levelSelector",
     headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
     buttons = {
-      lvl1button = createButton(500, -360, "level1"),
-      lvl2button = createButton(650, -360, "level2"),
-      lvl3button = createButton(800, -360, "level3"),
+      lvl1button = createButton(475, -360, "level1"),
+      lvl2button = createButton(625, -360, "level2"),
+      lvl3button = createButton(775, -360, "level3"),
     },
     buttonTexts = {
-      lvl1buttonText = createTextBox(500, -360, 64, 64, "1", 50, true),
-      lvl2buttonText = createTextBox(650, -360, 64, 64, "2", 50, true),
-      lvl3buttonText = createTextBox(800, -360, 64, 64, "3", 50, true)
+      lvl1buttonText = createTextBox(475, -360, 64, 64, "1", 50, true),
+      lvl2buttonText = createTextBox(625, -360, 64, 64, "2", 50, true),
+      lvl3buttonText = createTextBox(775, -360, 64, 64, "3", 50, true)
     },
     highScores = {
       lvl1 = createTextBox(500, -430, 100, 50, tostring(levelHighScores.lvl1), 40, false)
@@ -47,6 +47,8 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     
     local textBox = createDrawableGameObject(xLoc, yLoc)
     table.insert(textBox.factions, "ui")
+    table.insert(textBox.factions, "touchables")
+
   
     local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
     local font = MOAIFont.new()
@@ -89,10 +91,7 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     local quad = MOAIGfxQuad2D.new()
     quad:setTexture( levelButton )
     quad:setRect(
-      -32, 
-      -32, 
-      32, 
-      32
+      0, 0, 64, 64
     )
   
     Button.prop = MOAIProp2D.new()
