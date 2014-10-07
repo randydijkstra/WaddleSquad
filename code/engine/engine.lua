@@ -4,7 +4,7 @@ engine = {
   mainLayer,
   menuLayer,
   uiLayer,
-  camera, -- handels what part can be vieuwed
+  camera, -- handels what part can be vieuwed in the mainLayer
   gameObjects = {
       all = {},
       factions = {
@@ -57,9 +57,6 @@ function engine:heartBeat()
   for id, gameObject in pairs(self.gameObjects.factions.update) do
     gameObject:update()
   end    
-  for id, gameObject in pairs(self.gameObjects.factions.moveable) do
-    gameObject.body:resetMassData()
-  end  
   
   if MOAIGfxDevice.setClearColor then
     MOAIGfxDevice.setClearColor(1,1,1,1)
@@ -89,9 +86,8 @@ function engine:addGameObject(gameObject)
   end
   
   if gameObject.prop and config.debugSpriteDraw then
-    if gameObject.name == "hudContainer" or gameObject.name == "hudText" or gameObject.name == "uiButton" then
+    if isStringInTable(gameObject.factions, "ui") then
       self.uiLayer:insertProp(gameObject.prop)
-      print("added to UI layer! " .. gameObject.name)
     else
       self.mainLayer:insertProp(gameObject.prop)
     end
@@ -111,7 +107,12 @@ function engine:deleteGameObject(gameObject)
   end
   
   if gameObject.prop then
-    self.mainLayer:removeProp(gameObject.prop)    
+    
+    if isStringInTable(gameObject.factions, "ui") then
+      self.uiLayer:removeProp(gameObject.prop) 
+    else
+      self.mainLayer:removeProp(gameObject.prop) 
+    end   
   end
   
   if gameObject.body then
