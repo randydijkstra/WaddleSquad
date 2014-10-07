@@ -1,9 +1,5 @@
 --[[ Create / handle UI here ]]--
-function getGameUI()
-  gameStats = {
-    score = 0,
-    time = 45,  
-  }
+function getGameUI()  
   
   gameUI = {
     name = "gameUI",
@@ -70,8 +66,10 @@ function getGameUI()
   end
   
   function gameUI:update()
-    self.huds.scoreCounter:updateInfo(score)
-    self.huds.timerCounter:updateInfo(time)
+    self.huds.scoreCounter:updateInfo(gameStats.score)
+    self.huds.timerCounter:updateInfo(gameStats.time)
+    --gameStats.score = gameStats.score + 1
+    print(gameStats.score)
   end
   
   function gameUI:destroy()
@@ -147,7 +145,7 @@ function createHudText(xLocText, yLocText, string, fontSize, width, height, whit
   end
     
   function hudText:updateInfo(value)
-    hudText:setString(value)
+    self.prop:setString("Score: \n"..value)
   end
   
   return hudText

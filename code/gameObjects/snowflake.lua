@@ -3,14 +3,19 @@ function createSnowflake(x, y, snowflaketype)
 
   table.insert(snowflake.factions, 'snowflakes')
   snowflake.type = snowflaketype
+  snowflake.name = nil
   
   local flaketype = snowflaketype
   local tileDeck = MOAITileDeck2D.new()
   
   if flaketype == "small" then  
-    tileDeck = engine:loadTileDeck( "assets/sprites/special/Sneeuwvlok-spreadsheet.png" )
+    tileDeck = engine:loadTileDeck( "assets/sprites/special/Sneeuwvlok-spreadsheet.png", 2, 1, 
+    0, 0, 25, 25 )
+    snowflake.name = "small"
   elseif flaketype == "big" then
-    tileDeck = engine:loadTileDeck("assets/sprites/special/Sneeuwvlok-big-spreadsheet.png")
+    tileDeck = engine:loadTileDeck("assets/sprites/special/Sneeuwvlok-big-spreadsheet.png", 2, 1, 
+    0, 0, 50, 50 )
+    snowflake.name = "big"
   end
 
   local prop = MOAIProp2D.new()

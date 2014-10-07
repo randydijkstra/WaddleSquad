@@ -7,6 +7,7 @@ function createPenguin(x, y)
   local stateSwitched = false
   penguin.forceX = 10
   penguin.forceY = 100
+  penguin.canTurn = false
   
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
   
@@ -89,7 +90,6 @@ function createPenguin(x, y)
       self:setAnimationTable(self.prop.landing)
       print('landing')
 
-      
       function backToWalk()
         self:setAnimationTable(self.prop.walk)
         print('walking')
@@ -97,11 +97,18 @@ function createPenguin(x, y)
         
       local promise = createPromise(0.30, backToWalk)
     end
-    
-    if self.currentVector.x == self.previousVector.x then
-      --print('Gotta turn this penguin booty!')
-      --self.forceX = self.forceX * -1
+
+    --[[if self.canTurn == true and self.currentVector.x == self.previousVector.x then
+      print('Gotta turn this penguin booty!')
     end
+    if self.canTurn == false then
+      print('canTurn = false.')
+      function checkToTurn()
+        self.canTurn = true
+        print('Change canTurn to true')
+      end
+      local promise = createPromise(0.2, checkToTurn)
+    end]]--
     
     self.previousVector.x = self.currentVector.x
     self.previousVector.y = self.currentVector.y
@@ -160,6 +167,10 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
     engine:deleteGameObject(fixtureB:getBody().parent)
+    gameStats.score = gameStats.score + 100
+    local updatedScore = tostring(gameStats.score)
+    print("score: " .. updatedScore)
+    gameUI.hudTexts.scoreCounterText:updateInfo(updatedScore)
   end
   
   if engine:isInFaction(fixtureB:getBody().parent, "iglos") then

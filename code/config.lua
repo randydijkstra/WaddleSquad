@@ -15,7 +15,7 @@ config = {
   prefferedHeight = 720,
   
   --startup settings
-  showSplashScreen = true,
+  showSplashScreen = false,
   startStage = 'lvl1',
   
   --box2D
@@ -39,7 +39,7 @@ config = {
 
 levelStartTime = {
   --Time for Levels in seconds
-  lvl1 = 30,
+  lvl1 = 45,
   lvl2 = 60,
   lvl3 = 50,
 }

@@ -4,19 +4,46 @@ function createLevelSelector()
     name = "levelSelector",
     headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
     buttons = {
-      lvl1button = createButton(475, -360, "level1"),
-      lvl2button = createButton(625, -360, "level2"),
-      lvl3button = createButton(775, -360, "level3"),
+      lvl1button = createButton(
+        (config.prefferedWidth / 8), 
+        -360, 
+        "level1"
+      ),
+      lvl2button = createButton(
+        (config.prefferedWidth / 8) * 2, 
+        -360, 
+        "level2"
+      ),
+      lvl3button = createButton(
+        (config.prefferedWidth / 8) * 3,
+        -360, 
+        "level3"
+      ),
+      lvl4button = createButton(
+        (config.prefferedWidth / 8) * 4, 
+        -360,
+        "level4"
+      )
     },
     buttonTexts = {
-      lvl1buttonText = createTextBox(505, -320, 64, 64, "1", 50, true),
-      lvl2buttonText = createTextBox(655, -320, 64, 64, "2", 50, true),
-      lvl3buttonText = createTextBox(805, -320, 64, 64, "3", 50, true)
+      lvl1buttonText = createTextBox(
+        (config.prefferedWidth / 8) + 64, -300, 64, 64, "1", 54, true
+      ),
+      lvl2buttonText = createTextBox(
+        (config.prefferedWidth / 8) * 2 + 64, -300, 64, 64, "2", 54, true
+      ),
+      lvl3buttonText = createTextBox(
+        (config.prefferedWidth / 8) * 3 + 64, -300, 64, 64, "3", 54, true
+      ),
+      lvl4buttonText = createTextBox(
+        (config.prefferedWidth / 8) * 4 + 64, -300, 64, 64, "4", 54, true
+      )
     },
     highScores = {
-      lvl1 = createTextBox(500, -430, 100, 50, tostring(levelHighScores.lvl1), 40, false)
+      lvl1 = createTextBox(
+        500, -430, 100, 50, tostring(levelHighScores.lvl1), 40, false
+      )
     }
-    --lvl4button = createButton(x, y, "4", "lvl4")
   }
   
   function levelSelector:start()
@@ -83,8 +110,8 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     table.insert(Button.factions, "ui")
     Button.levelName = levelName
     
-    xScale = 1.5
-    yScale = 1.5
+    xScale = 2
+    yScale = 2
     Button.width = 64 * xScale
     Button.height = 64 * yScale
     
