@@ -9,5 +9,9 @@ function createGameObject()
     draw = false, -- should this object be drawn 
   }
   
+  function gameObject:hasFaction(faction)
+    return isStringInTable(self.factions, faction)
+  end
+  
   return gameObject
 end

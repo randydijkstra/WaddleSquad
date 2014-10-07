@@ -125,7 +125,7 @@ function onGeneralTouch(x, y)
     --local layerX, layerY = ( isStringInTable(touchable.factions, 'ui') and engine.uiLayer:wndToWorld(x,y) or engine.mainLayer:wndToWorld(x,y) )
     
     local layerX, layerY
-    if isStringInTable(touchable.factions, 'ui') then
+    if engine:isInFaction(touchable, 'ui') then
       layerX, layerY = engine.uiLayer:wndToWorld(x,y)
     else
       layerX, layerY = engine.mainLayer:wndToWorld(x,y)

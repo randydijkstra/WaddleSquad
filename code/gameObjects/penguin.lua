@@ -158,12 +158,11 @@ end
 
 function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
-  if isStringInTable(fixtureB:getBody().parent.factions, "snowflakes") then
+  if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
     engine:deleteGameObject(fixtureB:getBody().parent)
-    
   end
   
-  if isStringInTable(fixtureB:getBody().parent.factions, "iglos") then
+  if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
     engine:deleteGameObject(fixtureA:getBody().parent)
   end
   

@@ -86,7 +86,7 @@ function engine:addGameObject(gameObject)
   end
   
   if gameObject.prop and config.debugSpriteDraw then
-    if isStringInTable(gameObject.factions, "ui") then
+    if self:isInFaction(gameObject, "ui") then
       self.uiLayer:insertProp(gameObject.prop)
     else
       self.mainLayer:insertProp(gameObject.prop)
@@ -100,15 +100,8 @@ function engine:deleteGameObject(gameObject)
   
   self.gameObjects.all[gameObject.id] = nil
   
-  if gameObject.factions then
-    for key, value in pairs(gameObject.factions) do
-      self.gameObjects.factions[value][gameObject.id] = nil
-    end
-  end
-  
   if gameObject.prop then
-    
-    if isStringInTable(gameObject.factions, "ui") then
+    if self:isInFaction(gameObject, "ui") then
       self.uiLayer:removeProp(gameObject.prop) 
     else
       self.mainLayer:removeProp(gameObject.prop) 
@@ -118,6 +111,12 @@ function engine:deleteGameObject(gameObject)
   if gameObject.body then
     gameObject.body:destroy()
   end 
+
+  if gameObject.factions then
+    for key, value in pairs(gameObject.factions) do
+      self.gameObjects.factions[value][gameObject.id] = nil
+    end
+  end
 
   gameObject = nil
 end
@@ -248,6 +247,14 @@ end
 function engine:destroyAllObject()
   for id, object in pairs(self.gameObjects.all) do
     self:deleteGameObject(object)
+  end
+end
+
+function engine:isInFaction(gameObject, faction)
+  if self.gameObjects.factions[faction] then
+    return self.gameObjects.factions[faction][gameObject.id] ~= nil
+  else
+    return false
   end
 end
 
