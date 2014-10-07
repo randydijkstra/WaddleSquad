@@ -46,6 +46,7 @@ end
 function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     
     local textBox = createDrawableGameObject(xLoc, yLoc)
+    table.insert(textBox.factions, "ui")
   
     local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
     local font = MOAIFont.new()
@@ -77,6 +78,7 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
   function createButton(x, y, levelName)
     Button = createDrawableGameObject(x, y)
     table.insert(Button.factions, "touchables")
+    table.insert(Button.factions, "ui")
     Button.levelName = levelName
     
     Button.width = 64 * 1.5

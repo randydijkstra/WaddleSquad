@@ -113,20 +113,27 @@ function handleKeyboardInput(key, down)
   
 end
 
-function onGeneralTouch(x,y)
+function onGeneralTouch(x, y)
   -- gets called on any touch
+  
+  print(x)
+  print(y)
   
   for id, touchable in pairs(engine.gameObjects.factions.touchables) do
     
-    if stringIsInTable(touchable.factions, 'ui') then
-      x, y = engine.uiLayer:wndToWorld(x,y)
+    -- Would have been awesome but because of multiply returns this is impoissble (even with the iff(cond,a,b) function
+    --local layerX, layerY = ( isStringInTable(touchable.factions, 'ui') and engine.uiLayer:wndToWorld(x,y) or engine.mainLayer:wndToWorld(x,y) )
+    
+    local layerX, layerY
+    if isStringInTable(touchable.factions, 'ui') then
+      layerX, layerY = engine.uiLayer:wndToWorld(x,y)
     else
-      x, y = engine.mainLayer:wndToWorld(x,y)
+      layerX, layerY = engine.mainLayer:wndToWorld(x,y)
     end
     
-    if pointInsideRect(touchable.x, touchable.y, touchable.width, touchable.height, x, y) then
+    if pointInsideRect(touchable.x, touchable.y, touchable.width, touchable.height, layerX, layerY) then
       canTouch = false
-      touchable:onTouch(x, y)
+      touchable:onTouch(layerX, layerY)
     end
   end
   

@@ -64,3 +64,11 @@ function pointInsideRect(rectX, rectY, rectWidth, rectHeight, x, y)
   end  
   return false
 end
+
+function iif(cond, A, B)
+  if cond then
+    return A
+  else
+    return B
+  end
+end
