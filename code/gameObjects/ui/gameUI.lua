@@ -14,25 +14,34 @@ function getGameUI()
         "assets/sprites/ui/Achtergrond4.png", 
         128, 
         64
-       )--[[,
-      --timeCounter = createHud(
-        xLocContainer, 
-        yLocContainer, 
-        imagePath, 
-        width, 
-        height)]]--
+      ),
+      timeCounter = createHud(
+        config.prefferedWidth / 2, 
+        (config.prefferedHeight/ 11) * -1,
+        "assets/sprites/ui/Achtergrond4.png", 
+        128, 
+        64
+      )
     },
     hudTexts = {
       scoreCounterText = createHudText(
         config.prefferedWidth / 11, 
         (config.prefferedHeight/1.105)*-1, 
         "Score: \n" .. gameStats.score,
-        30, 
+        32, 
         156, 
         92,
         true
-       )
-      --timeCounterText = createHudText(),
+       ),
+       timeCounterText = createHudText(
+        config.prefferedWidth / 2, 
+        (config.prefferedHeight/11)*-1, 
+        tostring(gameStats.time),
+        50, 
+        128, 
+        64,
+        true  
+      )
     },    
     buttons = {
       --penguinSpawnButton = createGameUIButton(x, y, path, spawnCallback),
