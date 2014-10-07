@@ -28,7 +28,7 @@ function createInput()
       function( isMouseDown )
         if( isMouseDown ) then
           
-          onGeneralTouch( engine.mainLayer:wndToWorld(MOAIInputMgr.device.pointer:getLoc() ) )
+          onGeneralTouch(MOAIInputMgr.device.pointer:getLoc())
           
           print( 'Mouse is down, yo' )
           if canTouch and engine.currentLevel.name == "splashScreen" then
@@ -115,7 +115,15 @@ end
 
 function onGeneralTouch(x,y)
   -- gets called on any touch
+  
   for id, touchable in pairs(engine.gameObjects.factions.touchables) do
+    
+    if stringIsInTable(touchable.factions, 'ui') then
+      x, y = engine.uiLayer:wndToWorld(x,y)
+    else
+      x, y = engine.mainLayer:wndToWorld(x,y)
+    end
+    
     if pointInsideRect(touchable.x, touchable.y, touchable.width, touchable.height, x, y) then
       canTouch = false
       touchable:onTouch(x, y)

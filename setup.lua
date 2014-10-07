@@ -31,16 +31,15 @@ if not initialized then
   
   engine.mainLayer = layer
   
-  local viewport2 = MOAIViewport.new()
-  viewport2:setSize(config.screenWidth, config.screenHeight)
-  viewport2:setScale(config.prefferedWidth, config.prefferedHeight)
-  viewport2:setOffset(-1, 1)
+  local uiViewport = MOAIViewport.new()
+  uiViewport:setSize(config.screenWidth, config.screenHeight)
+  uiViewport:setScale(config.prefferedWidth, config.prefferedHeight)
+  uiViewport:setOffset(-1, 1)
   
-  engine.uiViewport = viewport2
+  engine.uiViewport = uiViewport 
   
   local uiLayer = MOAILayer2D.new()
   uiLayer:setViewport(engine.uiViewport)
-  uiLayer:setCamera(engine.camera)
   MOAISim.pushRenderPass(uiLayer)
   
   engine.uiLayer = uiLayer
