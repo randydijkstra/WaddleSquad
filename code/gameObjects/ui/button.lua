@@ -42,7 +42,7 @@ function createButton(x, y, width, height, imagePath, callback, text, isTextWhit
   end
   
   function button:onTouch(x, y)
-    self.callback()
+    self.callback(self)
   end
   
   return button
