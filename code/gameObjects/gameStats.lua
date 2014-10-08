@@ -18,6 +18,10 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     self:gameTimer(self.time)
   end
   
+  function gameStats:update()
+    --will check condidtions for gameover, level complete and suchs things.
+  end
+  
   function gameStats:newPenguin()
     self.penguinsOnScreen = self.penguinsOnScreen + 1
     self.penguinsLeft = self.penguinsLeft - 1
