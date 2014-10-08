@@ -191,10 +191,6 @@ function createGameUIButton(x, y, width, height, path, callback)
   return button
 end
 
-function afterLevelOverlay()
-  
-end
-
 function spawnCallback()
   --Some if statements to limit spawn amount
   penguin = engine:addGameObject(createPenguin(-50, -350))
