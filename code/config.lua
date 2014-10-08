@@ -2,6 +2,8 @@
   This file should only exist as an object container all configurable 
 --]]--
 
+--viewportWidth, viewportHeight = MOAIGfxDevice.getViewSize()
+
 print('Loading config...')
 
 config = {

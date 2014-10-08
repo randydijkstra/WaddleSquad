@@ -18,12 +18,6 @@ function createSnowflake(x, y, snowflaketype)
   snowflake.type = snowflaketype
   snowflake.name = iif( snowflaketype == "small", "small", "big")
   
-  if snowflake.name == "small" then
-    snowflake.body:addRect(0, 0, 32, 32):setSensor(true)
-  else
-    snowflake.body:addRect(0, 0, 64, 64):setSensor(true)
-  end
-  
   local snowflakeAnimTable = {1, 2, 3, 4, 0}
   
   local animCurve = MOAIAnimCurve.new()
@@ -38,6 +32,12 @@ function createSnowflake(x, y, snowflaketype)
   anim:setLink( 1, animCurve, snowflake.prop, MOAIProp2D.ATTR_INDEX )
   anim:setMode( MOAITimer.LOOP )
   anim:start()
+  
+  if snowflake.name == "small" then
+    snowflake.body:addRect(0, 0, 32, 32):setSensor(true)
+  else
+    snowflake.body:addRect(0, 0, 64, 64):setSensor(true)
+  end
 
   return snowflake
 end

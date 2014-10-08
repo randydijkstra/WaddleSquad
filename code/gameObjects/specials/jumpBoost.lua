@@ -1,13 +1,31 @@
-function createJumpBoost()
-  local texture = engine:loadImageTexture('assets/sprites/special/bear.png')
-  local deck = engine:loadQuad('assets/sprites/special.png', texture:getSize())
+function createJumpBoost(x, y)
   
-  local iglo = createCollidingGameObject(x, y, deck, MOAIBox2DBody.STATIC)
+  local tileDeck = engine:loadTileDeck(
+    'assets/sprites/special/bear.png',
+    6, 1,
+    0, 0, 64, 64
+  )
+  
+  local jumpBoost = createCollidingGameObject(x, y, tileDeck, MOAIBox2DBody.STATIC)
 
-  table.insert(iglo.factions, 'iglos')
+  table.insert(jumpBoost.factions, 'jumpBoosts')
+  
+  local animTable = {1, 2, 3, 4, 5, 6, 0}
+  
+  animCurve = MOAIAnimCurve.new()
+  animCurve:reserveKeys( #animTable)
 
-  iglo.body:addRect(50, 0, texture:getSize())
+  for i = 1, #animTable, 1 do
+    animCurve:setKey( i, 0.5 * (i-1), #animTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
+  end
+
+  anim = MOAIAnim.new()
+  anim:reserveLinks( 1 )
+  anim:setLink( 1, animCurve, penguin.prop, MOAIProp2D.ATTR_INDEX )
+  anim:setMode( MOAITimer.LOOP )
+  anim:start()
   
-  return iglo
+  jumpBoost.body:addRect(0, 0, 64, 64)
   
+  return jumpBoost
 end
