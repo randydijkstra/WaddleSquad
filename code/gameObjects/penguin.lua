@@ -38,7 +38,7 @@ function createPenguin(x, y)
   
   local pengRect = penguin.body:addRect(15, 0, 49, 44)
   pengRect:setFriction( config.penguinFriction )
-  pengRect:setCollisionHandler(penguinCollisionHandler)  
+  pengRect:setCollisionHandler(penguinCollisionHandler, MOAIBox2DArbiter.BEGIN)  
   
   
   penguin.previousVector = { x = 0, y = 0 }

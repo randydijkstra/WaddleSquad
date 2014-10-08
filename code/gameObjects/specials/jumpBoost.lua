@@ -26,7 +26,7 @@ function createJumpBoost(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  jumpBoost.body:addRect(0, 0, 64, 64)
+  jumpBoost.body:addRect(10, 0, 64, 64)
   
   return jumpBoost
 end
