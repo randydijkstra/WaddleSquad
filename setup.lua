@@ -5,14 +5,22 @@
 print('Title of the game is: '..config.gameTitle)
 
 if not initialized then
+  viewportWidth, viewportHeight = MOAIGfxDevice.getViewSize()
+  
+  if config.launchOnMobile == false then
+    --overwrite data to ensure launch
+    viewportWidth = config.screenWidth
+    viewportHeight = config.screenHeight
+  end
+  
   MOAISim.openWindow(
     config.gameTitle, 
-    config.screenWidth, 
-    config.screenHeight
+    viewportWidth, 
+    viewportHeight
   )
-   
+  
   local viewport = MOAIViewport.new()
-  viewport:setSize(config.screenWidth, config.screenHeight)
+  viewport:setSize(viewportWidth, viewportHeight)
   viewport:setScale(config.prefferedWidth, config.prefferedHeight)
   viewport:setOffset(-1, 1)
     
@@ -32,7 +40,7 @@ if not initialized then
   engine.mainLayer = layer
   
   local uiViewport = MOAIViewport.new()
-  uiViewport:setSize(config.screenWidth, config.screenHeight)
+  uiViewport:setSize(viewportWidth, viewportHeight)
   uiViewport:setScale(config.prefferedWidth, config.prefferedHeight)
   uiViewport:setOffset(-1, 1)
   
