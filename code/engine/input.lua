@@ -30,7 +30,6 @@ function createInput()
           
           onGeneralTouch(MOAIInputMgr.device.pointer:getLoc())
           
-          print( 'Mouse is down, yo' )
           if canTouch and engine.currentLevel.name == "splashScreen" then
             if config.splashScreenFinished == true then
               print('Start game!')

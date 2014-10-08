@@ -42,17 +42,16 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   function gameStats:updateStats(condition)
     if condition == "snowflake" then
       self.score = self.score + 100
-      local updatedScore = tostring(self.score)
-      engine.gameUI.hudTexts.scoreCounterText:updateInfo("Score: \n"..updatedScore)
     elseif condition == "iglo" then
       self.score = self.score + 200
-      local updatedScore = tostring(self.score)
-      engine.gameUI.hudTexts.scoreCounterText:updateInfo("Score: \n"..updatedScore)
+      
       self.penguinsFinished = self.penguinsFinished + 1
       self.penguinsOnScreen = self.penguinsOnScreen - 1
       self.penguinsLeft = self.penguinsLeft - 1
     end
     
+     engine.gameUI:updateScore(self.score)
+     
     --[[print(
       "score: ".. self.score ..
       "\n time: ".. self.time ..
@@ -72,9 +71,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     
     local timer = createLoopingTimer(1, function()
       self.time = self.time - 1      
-      local updatedTime = tostring(self.time)
-      --print("Time left: ".. updatedTime)
-      engine.gameUI.hudTexts.timeCounterText:updateInfo(updatedTime)
+      engine.gameUI:updateTime(self.time)
         
       if self.time <= 0 then
         self.timer:stop()
