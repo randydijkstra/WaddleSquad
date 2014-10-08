@@ -14,7 +14,7 @@ function createTile(deck, index, x, y, width, height, isHard)
     table.insert(tile.factions, 'hard')
     local body = engine.box2DWorld:addBody( MOAIBox2DBody.STATIC )
     body:setTransform(tile.x, tile.y)
-    body:addRect( -1, 0, width+1, height) -- the -1 and +1 are because objects sometimes colide against the tile next to the one below them and overlaping seems to fix it
+    body:addRect( -2, 0, width+2, height) -- the -2 and +2 are because objects sometimes colide against the tile next to the one below them and overlaping seems to fix it
     
     tile.body = body
   end

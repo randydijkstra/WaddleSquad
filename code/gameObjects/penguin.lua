@@ -85,16 +85,13 @@ function createPenguin(x, y)
 
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
       self:setAnimationTable(self.prop.falling)
-      print('falliiing')
     end
     
     if self.currentVector.y == 0 and self.previousVector.y ~= 0 then
       self:setAnimationTable(self.prop.landing)
-      print('landing')
-
+      
       function backToWalk()
         self:setAnimationTable(self.prop.walk)
-        print('walking')
       end
         
       local promise = createPromise(0.30, backToWalk)
@@ -137,7 +134,6 @@ function createPenguin(x, y)
     if y == 0 and penguin.preJump == false then 
     
       self:setAnimationTable(prop.preJump)
-      print("prejump")
       function jump()
         self.body:applyLinearImpulse(
           0, 
@@ -168,7 +164,6 @@ end
 function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
-    print("Colided with snowflake")
     engine:deleteGameObject(fixtureB:getBody().parent)
     engine.gameStats:updateStats("snowflake")
   end

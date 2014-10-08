@@ -8,12 +8,12 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       time = defaultTimer,
       penguinsOnScreen = 0,
       penguinsLeft = 10,
-      penguinsFinished = 0
+      penguinsFinished = 0,
+      timer, -- holds the countdown timer
     }
   )
   
   function gameStats:start()
-    --addGameObject(self.gameStats)
     print("Entering gamestats of "..levelName..". Score: "..defaultScore..". Timer: "..defaultTimer)
     self:gameTimer(self.time)
   end
@@ -46,29 +46,28 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     )]]--
   end
   
-  function gameStats:gameTimer(startTime)
+  function gameStats:onDestroy()
+    self.timer:stop()
+    self.timer = nil
+  end
+  
+  function gameStats:gameTimer()
     print("Start the Timer!")
-    local countdown = startTime
-
-    local timer = MOAITimer.new()
-    timer:setMode( MOAITimer.LOOP )
-    timer:setSpan( 1 )
-    timer:setListener( 
-      MOAITimer.EVENT_TIMER_LOOP, 
-      function()
-        countdown = countdown - 1      
-        self.time = countdown
-        local updatedTime = tostring(self.time)
-        --print("Time left: ".. updatedTime)
-        engine.gameUI.hudTexts.timeCounterText:updateInfo(updatedTime)
+    
+    local timer = createLoopingTimer(1, function()
+      self.time = self.time - 1      
+      local updatedTime = tostring(self.time)
+      --print("Time left: ".. updatedTime)
+      engine.gameUI.hudTexts.timeCounterText:updateInfo(updatedTime)
         
-        if countdown == 0 then
-          timer:stop()
-          print("Time is up!")
-        end
+      if self.time <= 0 then
+        self.timer:stop()
+        print("Time is up!")    
       end
-    )
-    timer:start()
+        
+    end)
+
+    self.timer = timer:start()
   end
   
   return gameStats

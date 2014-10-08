@@ -77,8 +77,7 @@ function createInput()
 end
 
 function handleKeyboardInput(key, down)
-  print(key)
-
+  
   if down then
     --gravity
     if key == keyBoardTable.d then
@@ -115,10 +114,7 @@ end
 
 function onGeneralTouch(x, y)
   -- gets called on any touch
-  
-  print(x)
-  print(y)
-  
+
   for id, touchable in pairs(engine.gameObjects.factions.touchables) do
     
     -- Would have been awesome but because of multiply returns this is impoissble (even with the iff(cond,a,b) function
@@ -140,7 +136,6 @@ function onGeneralTouch(x, y)
 end
 
 function onInLevelTouch( x, y )
-  print( 'Jump le penguins' )
   for id, penguin in pairs(engine.gameObjects.factions.penguins) do
     penguin:jump()
   end

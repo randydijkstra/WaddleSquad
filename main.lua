@@ -9,9 +9,7 @@ require 'setup'
 --Launch SplashScreen
 
 if config.showSplashScreen then
-  local splashScreen = getSplashScreen()
-  splashScreen:start() 
+  getSplashScreen():start() 
 else
-  local levelSelector = createLevelSelector()
-  levelSelector:start()
+  createLevelSelector():start()
 end

@@ -105,15 +105,15 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
   end
   
   function createButton(x, y, levelName)
-    Button = createDrawableGameObject(x, y)
-    table.insert(Button.factions, "touchables")
-    table.insert(Button.factions, "ui")
-    Button.levelName = levelName
+    local button = createDrawableGameObject(x, y)
+    table.insert(button.factions, "touchables")
+    table.insert(button.factions, "ui")
+    button.levelName = levelName
     
-    xScale = 2
-    yScale = 2
-    Button.width = 64 * xScale
-    Button.height = 64 * yScale
+    local xScale = 2
+    local yScale = 2
+    button.width = 64 * xScale
+    button.height = 64 * yScale
     
     local levelButton = engine:loadImageTexture('assets/sprites/ui/EmptyButton.png')
   
@@ -123,20 +123,20 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
       0, 0, 64, 64
     )
   
-    Button.prop = MOAIProp2D.new()
-    Button.prop:setDeck(quad)
-    Button.prop:setScl(xScale, yScale)
-    Button.prop:setLoc(
-      Button.x, 
-      Button.y
+    button.prop = MOAIProp2D.new()
+    button.prop:setDeck(quad)
+    button.prop:setScl(xScale, yScale)
+    button.prop:setLoc(
+      button.x, 
+      button.y
     )
     
     --Button.prop:setColor ( 0, 0, 0, 0 )
     
-    function Button:onTouch(x,y)
+    function button:onTouch(x,y)
       print("button was touched in touch")
       engine:loadLevel(self.levelName)
     end
     
-    return Button
+    return button
   end
