@@ -120,6 +120,10 @@ function handleKeyboardInput(key, down)
     if key == keyBoardTable.four then
       engine:loadLevel("level4")
     end
+    
+     if key == keyBoardTable.zero then
+      engine:loadLevel("levelSelector")
+    end
   end
   
 end
@@ -143,5 +147,5 @@ keyBoardTable = {
   seven=55,
   eight=56,
   nine=57,
-  zero=58,
+  zero=48,
 }

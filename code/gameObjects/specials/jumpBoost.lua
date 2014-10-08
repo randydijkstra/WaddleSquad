@@ -6,7 +6,7 @@ function createJumpBoost(x, y)
     0, 0, 64, 64
   )
   
-  local jumpBoost = createCollidingGameObject(x, y, tileDeck, MOAIBox2DBody.STATIC)
+  local jumpBoost = createMoveableGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC)
 
   table.insert(jumpBoost.factions, 'jumpBoosts')
   jumpBoost.name = "jumpBoost"
@@ -26,7 +26,21 @@ function createJumpBoost(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  jumpBoost.body:addRect(10, 0, 64, 64)
+  jumpBoost.body:addRect(10, 0, 64, 56)
+  jumpBoost.previousVector = { x = 0, y = 0 }
+  jumpBoost.currentVector = { x = 0, y = 0 }
+
+  jumpBoost.update = jumpBoost:extend(jumpBoost.update, function(self)
+    self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
+
+    local velX, velY = self.body:getLinearVelocity()
+    
+    self.body:applyLinearImpulse(0, config.unitToMeter)
+    
+    self.previousVector.x = self.currentVector.x
+    self.previousVector.y = self.currentVector.y
+  end)
+  
   
   return jumpBoost
 end
