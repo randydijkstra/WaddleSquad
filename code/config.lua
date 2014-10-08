@@ -23,7 +23,7 @@ config = {
   gravityX = 0,
   gravityY = -9.8,
   unitToMeter = 1/30, 
-  debug2DDraw = true,
+  debug2DDraw = false,
   debugSpriteDraw = true,
   
   --penguin settings

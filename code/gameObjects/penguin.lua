@@ -9,7 +9,7 @@ function createPenguin(x, y)
   
   table.insert(penguin.factions, 'penguins')
   
-  penguin.canTurn = false
+  --penguin.canTurn = false
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
   
   -- ,0 are beacuse the last frame is never played
@@ -36,7 +36,7 @@ function createPenguin(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  local pengRect = penguin.body:addRect(15, 2, 49, 42)
+  local pengRect = penguin.body:addRect(15, 3, 49, 42)
   pengRect:setFriction( config.penguinFriction )
   pengRect:setCollisionHandler(penguinCollisionHandler, MOAIBox2DArbiter.BEGIN)  
   
@@ -69,18 +69,6 @@ function createPenguin(x, y)
         self:setAnimationTable(self.prop.walk)  
       end)
     end
-
-    --[[if self.canTurn == true and self.currentVector.x == self.previousVector.x then
-      print('Gotta turn this penguin booty!')
-    end
-    if self.canTurn == false then
-      print('canTurn = false.')
-      function checkToTurn()
-        self.canTurn = true
-        print('Change canTurn to true')
-      end
-      local promise = createPromise(0.2, checkToTurn)
-    end]]--
     
     self.previousVector.x = self.currentVector.x
     self.previousVector.y = self.currentVector.y
@@ -141,7 +129,6 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
     engine.gameStats:updateStats("snowflake")
   end
   
-  --BUG TO FIX: collision is done multiple times before deletion: disrupts gameStats
   if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
     print("Colided with iglo")
     engine:deleteGameObject(fixtureA:getBody().parent)
@@ -150,8 +137,6 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
     print("Colided with jumpBoost")
-    --engine:deleteGameObject(fixtureA:getBody().parent)
-    --engine.gameStats:updateStats("iglo")
     fixtureA:getBody():applyLinearImpulse(
       0, 
       (config.penguinJumpForce * 2) / config.unitToMeter
