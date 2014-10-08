@@ -8,24 +8,23 @@ function getSplashScreen()
   }
   
   function splashScreen:start()
-    function afterText()
-      splashScreen.textBox.prop:seekColor ( 1, 1, 1, 0, 0.8)
-      splashScreen.wsLogo.prop:seekColor ( 1, 1, 1, 1, 4 ) 
-      
-      function afterlogo()   
-        splashScreen:createStartMenu()
-      end
-      
-      local promise = createPromise(1, afterlogo)
-      
-    end
+   
+    engine.input.states.locked = true
     
     --engine:addGameObject(self.sbLogo)
     engine:addGameObject(self.textBox)
     engine:addGameObject(self.wsLogo)
     engine:addGameObject(self.versionTextBox)
     
-    local promise = createPromise(2, afterText)
+    local promise = createPromise(2, function()
+      splashScreen.textBox.prop:seekColor ( 1, 1, 1, 0, 0.8)
+      splashScreen.wsLogo.prop:seekColor ( 1, 1, 1, 1, 4 ) 
+      
+      local promise = createPromise(1, function()
+        splashScreen:createStartMenu()   
+      end)
+            
+    end)
   end
   
   function splashScreen:createStartMenu()
@@ -44,20 +43,19 @@ function getSplashScreen()
     )
     splashScreen.textBox.prop:seekColor ( 0, 0, 0, 1, 2)
     splashScreen.versionTextBox.prop:seekColor ( 0, 0, 0, 0.5, 2)
-
-    
-    function startGameCallback()
-      config.splashScreenFinished = true
-    end
   
-    local startGamePromise = createPromise(1.5, startGameCallback) 
+    local startGamePromise = createPromise(1.5, function()
+        
+      engine.input:setTouchPromise(function()
+        engine:loadLevel('levelSelector')
+      end)
+        
+      engine.input.locked = false  
+    end) 
   end
 
-  function splashScreen:destroy()   
-    --engine:deleteGameObject(self.sblogo)
-    engine:deleteGameObject(self.wsLogo)
-    engine:deleteGameObject(self.textBox)
-    engine:deleteGameObject(self.versionTextBox)
+  function splashScreen:destroy()  
+    engine:destroyAllObject()
   end
 
   engine.currentLevel = splashScreen

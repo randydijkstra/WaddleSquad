@@ -4,48 +4,34 @@
 
 print('controller loaded')
 
-input = {}
-input.__index = input
-
-
 canTouch = true -- used to prevent  clickign trough buttons
 
 function createInput()
   
   local input = createGameObject()
-  table.insert(input.factions,"update")
+
+  input.states = {
+    locked = false, -- when nothing is supposed to be happening
+    triggered = false, -- when a button has been triggered (resets after the loop)
+    draggin = false -- when something is being dragged
+  }
   
-  if(MOAIInputMgr.device.keyboard) then
+  input.touchPromise = nil-- This will be called when set and removed right after
+  
+  if MOAIInputMgr.device.keyboard then
     print("Keyboard")
     MOAIInputMgr.device.keyboard:setCallback( handleKeyboardInput )
-  else
-
   end
 
   if MOAIInputMgr.device.pointer then
     -- Ok, er is een muis
     MOAIInputMgr.device.mouseLeft:setCallback(
       function( isMouseDown )
-        if( isMouseDown ) then
-          
-          onGeneralTouch(MOAIInputMgr.device.pointer:getLoc())
-          
-          if canTouch and engine.currentLevel.name == "splashScreen" then
-            if config.splashScreenFinished == true then
-              print('Start game!')
-             
-              engine:loadLevel('levelSelector')
-            else
-              print('Splashscreen still busy..')
-            end
-          elseif canTouch and engine.inLevel == true then
-            onInLevelTouch( engine.mainLayer:wndToWorld( MOAIInputMgr.device.pointer:getLoc() ) )
-          elseif canTouch and engine.currentLevel.name == "levelSelector" then
-            print("Choose a level!")
-            onLevelSelectorTouch( engine.mainLayer:wndToWorld(MOAIInputMgr.device.pointer:getLoc()) )
+        if input.states.locked ~= false then
+          if( isMouseDown ) then
+            input:onGeneralTouch(MOAIInputMgr.device.pointer:getLoc()) 
           end
-          
-          canTouch = true
+          input.states.triggered = false
         end
       end
     )
@@ -53,38 +39,61 @@ function createInput()
     -- Er is een touch
     MOAIInputMgr.device.touch:setCallback(
       function( eventType, idx, x, y, tapCount )
-        if tapCount > 1 then
-          -- Niks doen
-        elseif eventType == MOAITouchSensor.TOUCH_DOWN then
-          print( 'GIT YER GRIMY FINGERS OFF MAH SCREEN BOYO' )
-          --onTouch( x, y )
-          onGeneralTouch(x,y)
-          
-          if canTouch and engine.currentLevel.name == "splashScreen" then
-            if config.splashScreenFinished == true then
-              print('Start game!')
-             
-              engine:loadLevel('levelSelector')
-            else
-              print('Splashscreen still busy..')
-            end
-          elseif canTouch and engine.inLevel == true then
-            onInLevelTouch( engine.mainLayer:wndToWorld(x, y ) )
-          elseif canTouch and engine.currentLevel.name == "levelSelector" then
-            print("Choose a level!")
-            onLevelSelectorTouch( engine.mainLayer:wndToWorld(x,y) )
+        if input.states.locked ~= false then
+          if tapCount > 1 then
+            -- Niks doen
+          elseif eventType == MOAITouchSensor.TOUCH_DOWN then
+            input:onGeneralTouch(x,y)
           end
-        
-          canTouch = true
+          input.states.triggered = false
         end
       end
     )
   end
 
+  function input:onGeneralTouch(x, y)
+    -- gets called on any touch
 
-  
-  function input:update()
-    --engine.penguin.body:setActive(true)
+    if self.touchPromise then
+      self.touchPromise()
+      self.touchPromise = nil
+      self.states.triggered = true
+    end
+
+    if self.states.triggered == false then
+      for id, touchable in pairs(engine.gameObjects.factions.touchables) do
+        
+        -- Would have been awesome but because of multiply returns this is impoissble (even with the iff(cond,a,b) function
+        --local layerX, layerY = ( isStringInTable(touchable.factions, 'ui') and engine.uiLayer:wndToWorld(x,y) or engine.mainLayer:wndToWorld(x,y) )
+        
+        local layerX, layerY
+        if engine:isInFaction(touchable, 'ui') then
+          layerX, layerY = engine.uiLayer:wndToWorld(x,y)
+        else
+          layerX, layerY = engine.mainLayer:wndToWorld(x,y)
+        end
+        
+        if pointInsideRect(touchable.x, touchable.y, touchable.width, touchable.height, layerX, layerY) then
+          self.states.triggered = true
+          touchable:onTouch(layerX, layerY)
+          break
+        end
+      end
+    end
+    
+    if engine.inLevel and self.states.triggered == false then
+      self:onInLevelTouch( engine.mainLayer:wndToWorld( x, y ) )
+    end
+  end
+
+  function input:onInLevelTouch( x, y )
+    for id, penguin in pairs(engine.gameObjects.factions.penguins) do
+      penguin:jump()
+    end
+  end
+
+  function input:setTouchPromise(callback)
+    self.touchPromise = callback
   end
   
   input.isWalkingRight = false;
@@ -95,21 +104,7 @@ end
 
 function handleKeyboardInput(key, down)
   
-  if down then
-    --gravity
-    if key == keyBoardTable.d then
-      engine.box2DWorld:setGravity(-config.gravityY / config.unitToMeter, config.gravityX)
-    end 
-    if key == keyBoardTable.a then
-      engine.box2DWorld:setGravity(config.gravityY / config.unitToMeter, config.gravityX)
-    end  
-    if key == keyBoardTable.s then
-      engine.box2DWorld:setGravity(config.gravityX, config.gravityY / config.unitToMeter)
-    end  
-    if key == keyBoardTable.w then
-      engine.box2DWorld:setGravity(config.gravityX, -config.gravityY / config.unitToMeter)
-    end
-    
+  if down then    
     if key == keyBoardTable.one then
       engine:loadLevel("level1")
     end
@@ -127,41 +122,6 @@ function handleKeyboardInput(key, down)
     end
   end
   
-end
-
-function onGeneralTouch(x, y)
-  -- gets called on any touch
-
-  for id, touchable in pairs(engine.gameObjects.factions.touchables) do
-    
-    -- Would have been awesome but because of multiply returns this is impoissble (even with the iff(cond,a,b) function
-    --local layerX, layerY = ( isStringInTable(touchable.factions, 'ui') and engine.uiLayer:wndToWorld(x,y) or engine.mainLayer:wndToWorld(x,y) )
-    
-    local layerX, layerY
-    if engine:isInFaction(touchable, 'ui') then
-      layerX, layerY = engine.uiLayer:wndToWorld(x,y)
-    else
-      layerX, layerY = engine.mainLayer:wndToWorld(x,y)
-    end
-    
-    if pointInsideRect(touchable.x, touchable.y, touchable.width, touchable.height, layerX, layerY) then
-      canTouch = false
-      touchable:onTouch(layerX, layerY)
-    end
-  end
-  
-end
-
-function onInLevelTouch( x, y )
-  for id, penguin in pairs(engine.gameObjects.factions.penguins) do
-    penguin:jump()
-  end
-end
-
-function onLevelSelectorTouch( x, y )
-  --for name, button in pairs(engine.currentLevel.buttons) do
-  --  if rectContainsPoint(button.x, button.y, button.width, button.height, x, y)
- -- end
 end
 
 keyBoardTable = { 
