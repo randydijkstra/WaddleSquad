@@ -15,7 +15,7 @@ config = {
   prefferedHeight = 720,
   
   --startup settings
-  showSplashScreen = false,
+  showSplashScreen = true,
   startStage = 'lvl1',
   
   --box2D
@@ -30,9 +30,11 @@ config = {
   penguinJumpForce = 7,
   penguinFriction = 0,
   
-  --settings
+  --general
   muteSound = false,
   leftyFlip = false,
+  
+  useTextureLoad = true, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)
   
   splashScreenFinished = false
 }

@@ -33,12 +33,12 @@ function createTextBox(x, y, width, height, string, fontSize, whiteColor, backgr
     backgroundObject.width = width
     backgroundObject.height = height
     
-    local quad = MOAIGfxQuad2D.new()
-    quad:setTexture( engine:loadImageTexture(background) )
-    quad:setRect(0, 0, backgroundObject.width, backgroundObject.height)
-    
     backgroundObject.prop = MOAIProp2D.new()
-    backgroundObject.prop:setDeck(quad)
+    backgroundObject.prop:setDeck( engine:loadQuad(
+      background, 
+      backgroundObject.width, 
+      backgroundObject.height
+    ))
     backgroundObject.prop:setLoc(backgroundObject.x, backgroundObject.y)
     
     textBox.background = backgroundObject

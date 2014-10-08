@@ -140,20 +140,6 @@ function engine:getNewId (params)
   return id;
 end
 
-function engine:loadQuad(path, xMin, yMin, xMax, yMax)
-  if self.quads[path] then
-    return self.quads[path]
-  end
-  
-  local quad = MOAIGfxQuad2D.new()
-  quad:setTexture(path)
-  quad:setRect(xMin, yMin, xMax, yMax)
- 
-  self.quads[path] = quad
-  
-  return quad
-end
-
 function engine:activateMoveAbleGameObjects()
   
   -- Doesn't work (the setActive call) atm and no idea why
@@ -168,16 +154,14 @@ function engine:activateMoveAbleGameObjects()
 end
 
 
-function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)  
+function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   
   if self.tileDecks[path] then
     return self.tileDecks[path]
   end
   
-  --print("Loading texture: "..path.." "..deckXRows.." "..deckYRows.." "..xMin.." "..yMin.." "..xMax.." "..yMax)
-  
   local tileDeck = MOAITileDeck2D.new()
-  tileDeck:setTexture(path)
+  tileDeck:setTexture( iif(config.useTextureLoad, engine:loadImageTexture(path), path) )
   tileDeck:setSize(deckXRows, deckYRows)
   tileDeck:setRect( xMin, yMin, xMax, yMax )
   
@@ -185,6 +169,22 @@ function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   
   return tileDeck
 end
+
+function engine:loadQuad(path, width, height)
+  if self.quads[path..width..height] then
+    return self.quads[path..width..height]
+  end
+  
+  local quad = MOAIGfxQuad2D.new()
+  
+  quad:setTexture( iif(config.useTextureLoad, engine:loadImageTexture(path), path) )
+  quad:setRect(0, 0, width, height) -- we position everything from the right top
+ 
+  self.quads[path..width..height] = quad
+  
+  return quad
+end
+
 
 function engine:loadImageTexture(path)  
   
@@ -259,6 +259,7 @@ function engine:loadLevel(level)
     self.inLevel = false
     local levelSelector = createLevelSelector()
     self.currentLevel = levelSelector
+    levelSelector:start()
   end
 end
 
