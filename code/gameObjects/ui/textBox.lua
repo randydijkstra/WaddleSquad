@@ -1,4 +1,4 @@
-function createTextBox(x, y, width, height, string, fontSize, whiteColor)
+function createTextBox(x, y, width, height, string, fontSize, whiteColor, background)
   local textBox = createDrawableGameObject(x, y)
   table.insert(textBox.factions, "ui")
   table.insert(textBox.factions, "textBoxes")
@@ -21,6 +21,29 @@ function createTextBox(x, y, width, height, string, fontSize, whiteColor)
     MOAITextBox.CENTER_JUSTIFY 
   )
   textBox.prop:setYFlip( true )
+    
+  if background then
+    local backgroundObject = createDrawableGameObject(
+      textBox.x - width / 2, 
+      textBox.y - height / 2
+    )
+    table.insert(backgroundObject.factions, "ui")
+    table.insert(backgroundObject.factions, "textBoxBackgrounds")
+    
+    backgroundObject.width = width
+    backgroundObject.height = height
+    
+    local quad = MOAIGfxQuad2D.new()
+    quad:setTexture( engine:loadImageTexture(background) )
+    quad:setRect(0, 0, backgroundObject.width, backgroundObject.height)
+    
+    backgroundObject.prop = MOAIProp2D.new()
+    backgroundObject.prop:setDeck(quad)
+    backgroundObject.prop:setLoc(backgroundObject.x, backgroundObject.y)
+    
+    textBox.background = backgroundObject
+    engine:addGameObject(textBox.background) -- Currently here for z-index reasons
+  end
     
   function textBox:updateInfo(value)
     self.prop:setString(value)
