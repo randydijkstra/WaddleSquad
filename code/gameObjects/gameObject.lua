@@ -9,6 +9,7 @@ function createGameObject()
   }
   
   function gameObject:hasFaction(faction)
+    -- Slower than engine:isInFaction so only use this before the object is added to the engine
     return isStringInTable(self.factions, faction)
   end
   

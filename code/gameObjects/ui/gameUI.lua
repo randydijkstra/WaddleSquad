@@ -154,19 +154,19 @@ function createHudText(xLocText, yLocText, string, fontSize, width, height, whit
   return hudText
 end
 
-function createGameUIButton(x, y, width, height, path, callbackFunction)
+function createGameUIButton(x, y, width, height, path, callback)
   --create button object
-  local Button = createDrawableGameObject(x, y)
-  local callback = callbackFunction
-  table.insert(Button.factions, "touchables")
-  table.insert(Button.factions, "ui")
+  local button = createDrawableGameObject(x, y)
+  button.callback = callback
+  table.insert(button.factions, "touchables")
+  table.insert(button.factions, "ui")
 
-  Button.name = "uiButton"
+  button.name = "uiButton"
   
   local xScale = 1.5
   local yScale = 1.5
-  Button.width = width * xScale
-  Button.height = height * yScale
+  button.width = width * xScale
+  button.height = height * yScale
     
   local buttonTexture = engine:loadImageTexture(path)
   
@@ -176,19 +176,19 @@ function createGameUIButton(x, y, width, height, path, callbackFunction)
     0, 0, width, height 
   )
 
-  Button.prop = MOAIProp2D.new()
-  Button.prop:setDeck(quad)
-  Button.prop:setScl(xScale, yScale)
-  Button.prop:setLoc(
-    Button.x, 
-    Button.y
+  button.prop = MOAIProp2D.new()
+  button.prop:setDeck(quad)
+  button.prop:setScl(xScale, yScale)
+  button.prop:setLoc(
+    button.x, 
+    button.y
   )
   
-  function Button:onTouch(x, y)
-    callback()
+  function button:onTouch(x, y)
+    self.callback()
   end
   
-  return Button
+  return button
 end
 
 function spawnCallback()

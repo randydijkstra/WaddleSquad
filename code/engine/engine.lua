@@ -93,6 +93,10 @@ function engine:addGameObject(gameObject)
     end
   end  
 
+  if gameObject.onAdd then
+    gameObject:onAdd()
+  end
+
   return gameObject
 end
 
