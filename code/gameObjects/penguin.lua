@@ -154,7 +154,7 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
     --engine.gameStats:updateStats("iglo")
     fixtureA:getBody():applyLinearImpulse(
       0, 
-      (config.penguinJumpForce *1.5) / config.unitToMeter
+      (config.penguinJumpForce * 2) / config.unitToMeter
     )
   end
 end
