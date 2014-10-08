@@ -20,7 +20,7 @@ function createTile(tileset, index, x, y, isHard)
   
   if isHard then
     table.insert(tile.factions, 'hardTiles')
-    tile.body:addRect( -2, 0, tileset.tilewidth+2, tileset.tileheight) -- the -2 and +2 are because objects sometimes colide against the tile next to the one below them and overlaping seems to lessen this issue
+    tile.body:addRect( -2, -2, tileset.tilewidth+2, tileset.tileheight+2) -- the -2 and +2 are because objects sometimes colide against the tile next to the one below them and overlaping seems to lessen this issue
   end
   
   return tile
