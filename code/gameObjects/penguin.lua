@@ -148,4 +148,13 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
     engine.gameStats:updateStats("iglo")
   end
   
+  if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
+    print("Colided with jumpBoost")
+    --engine:deleteGameObject(fixtureA:getBody().parent)
+    --engine.gameStats:updateStats("iglo")
+    fixtureA:getBody():applyLinearImpulse(
+      0, 
+      (config.penguinJumpForce *1.5) / config.unitToMeter
+    )
+  end
 end

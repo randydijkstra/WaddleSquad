@@ -44,7 +44,6 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       self.score = self.score + 100
     elseif condition == "iglo" then
       self.score = self.score + 200
-      
       self.penguinsFinished = self.penguinsFinished + 1
       self.penguinsOnScreen = self.penguinsOnScreen - 1
       self.penguinsLeft = self.penguinsLeft - 1

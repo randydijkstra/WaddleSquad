@@ -22,6 +22,7 @@ function getLvl2()
     engine.gameUI:start()
     
     engine:addGameObject(createPenguin(-50, -380))
+    engine:addGameObject(createJumpBoost(925, -512))
   end
   
   return level

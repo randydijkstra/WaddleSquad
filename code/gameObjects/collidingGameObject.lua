@@ -4,7 +4,7 @@ function createCollidingGameObject(x, y, deck, MOAIBox2DBodyType)
   --]]
   
   local collidingGameObject = createDrawableGameObject(x, y, deck)
-  table.insert(collidingGameObject.factions, 'clolisions')
+  table.insert(collidingGameObject.factions, 'collisions')
   
   local body = engine.box2DWorld:addBody( MOAIBox2DBodyType )
   body:setTransform(collidingGameObject.x, collidingGameObject.y)
