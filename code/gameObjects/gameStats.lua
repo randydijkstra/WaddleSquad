@@ -37,13 +37,13 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       self.penguinsLeft = self.penguinsLeft - 1
     end
     
-    print(
+    --[[print(
       "score: ".. self.score ..
       "\n time: ".. self.time ..
       "\n penguinsOnScreen: ".. self.penguinsOnScreen ..
       "\n penguinsLeft: ".. self.penguinsLeft ..
       "\n penguinsFinished: ".. self.penguinsFinished
-    )
+    )]]--
   end
   
   function gameStats:gameTimer(startTime)
@@ -64,6 +64,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
         
         if countdown == 0 then
           timer:stop()
+          print("Time is up!")
         end
       end
     )

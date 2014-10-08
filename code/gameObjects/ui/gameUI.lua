@@ -42,19 +42,25 @@ function getGameUI()
     )
   } 
   gameUI.buttons = {
-    --penguinSpawnButton = createGameUIButton(x, y, path, spawnCallback),
+    penguinSpawnButton = createGameUIButton(
+      config.prefferedWidth / 10 * 8,
+      (config.prefferedHeight/1.03) * -1,
+      64,
+      64,
+      "assets/sprites/ui/Spawn.png", 
+      spawnCallback)
     --placeJumpBoostButton = createGameUIButton(x, y, path, jumpBoostCallback),
     --menuButton = createGameUIButton(x, y, path, menuCallback)
   }
   
   function gameUI:start()
-    for keys, object in pairs(self.buttons) do
-      engine:addGameObject(object)
-    end
     for keys, object in pairs(self.huds) do
       engine:addGameObject(object)
     end
     for keys, object in pairs(self.hudTexts) do
+      engine:addGameObject(object)
+    end
+    for keys, object in pairs(self.buttons) do
       engine:addGameObject(object)
     end
   end
@@ -82,6 +88,7 @@ function createHud(xLocContainer, yLocContainer, imagePath, width, height)
   )
   table.insert(hudContainer.factions, "ui")
   
+  print('spawn button')
   hudContainer.name = "hudContainer"
   hudContainer.width = width
   hudContainer.height = height
@@ -147,21 +154,45 @@ function createHudText(xLocText, yLocText, string, fontSize, width, height, whit
   return hudText
 end
 
-function createGameUIButton(x, y, path, callback)
+function createGameUIButton(x, y, width, height, path, callbackFunction)
   --create button object
   local Button = createDrawableGameObject(x, y)
-  onTouchCallback = callback
+  local callback = callbackFunction
   table.insert(Button.factions, "touchables")
   table.insert(Button.factions, "ui")
 
   Button.name = "uiButton"
   
-  function Button:onTouch(onTouchCallback)
-    onTouchCallback()
+  local xScale = 1.5
+  local yScale = 1.5
+  Button.width = width * xScale
+  Button.height = height * yScale
+    
+  local buttonTexture = engine:loadImageTexture(path)
+  
+  local quad = MOAIGfxQuad2D.new()
+  quad:setTexture( buttonTexture )
+  quad:setRect(
+    0, 0, width, height 
+  )
+
+  Button.prop = MOAIProp2D.new()
+  Button.prop:setDeck(quad)
+  Button.prop:setScl(xScale, yScale)
+  Button.prop:setLoc(
+    Button.x, 
+    Button.y
+  )
+  
+  function Button:onTouch(x, y)
+    callback()
   end
+  
+  return Button
 end
 
 function spawnCallback()
+  --Some if statements to limit spawn amount
   penguin = engine:addGameObject(createPenguin(-50, -350))
 end
 
