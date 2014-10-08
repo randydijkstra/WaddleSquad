@@ -3,14 +3,8 @@ function createTextBox(x, y, string, fontSize, width, height, whiteColor)
   table.insert(textBox.factions, "ui")
   table.insert(textBox.factions, "textBoxes")
   
-  --create hud text
-  local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
-  local font = MOAIFont.new()
-  font:load( 'assets/fonts/BNMachine.ttf' )
-  font:preloadGlyphs( charCodes, 24 )
-  
   textBox.prop = MOAITextBox.new()
-  textBox.prop:setStyle( newFontStyle( font, fontSize ) )
+  textBox.prop:setStyle( loadFontStyle( 'assets/fonts/BNMachine.ttf', fontSize ) )
   textBox.prop:setString( string )
   textBox.prop:spool()
   textBox.prop:setRect(-(width/2), -(height/2), (width/2), (height/2) )

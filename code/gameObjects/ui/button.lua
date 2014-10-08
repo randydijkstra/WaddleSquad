@@ -4,6 +4,7 @@ function createButton(x, y, width, height, imagePath, callback, text, isTextWhit
   button.callback = callback
   table.insert(button.factions, "touchables")
   table.insert(button.factions, "ui")
+  table.insert(button.factions, "buttons")
 
   local xScale = 1.5
   local yScale = 1.5

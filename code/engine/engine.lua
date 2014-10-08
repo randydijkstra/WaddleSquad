@@ -26,7 +26,8 @@ engine = {
   tileDecks = {}, -- current loaded tilesets,
   imageTextures = {}, -- current loaded image textures
   input,
-  inLevel = false -- variable to check if a level is being played
+  inLevel = false, -- variable to check if a level is being played
+  fonts = {} -- table that hold all loaded fonts
 }
 engine.__index = engine
 
@@ -198,6 +199,25 @@ function engine:loadImageTexture(path)
   self.imageTextures[path] = texture
   
   return texture
+end
+
+function engine:loadFontStyle(path, size)
+  local fontStyle = MOAITextStyle.new()
+  local font
+  if self.fonts[path] then
+    font = self.fonts[path]
+  else
+    local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
+    font = MOAIFont.new()
+    font:load( path )
+    font:preloadGlyphs( charCodes, 24 )
+  end
+
+  fontStyle:setFont( font )
+  fontStyle:setSize( size )
+  fontStyle:setColor( 0,0,0,1 )
+
+  return fontStyle
 end
 
 function engine:resizeViewport(width, height)

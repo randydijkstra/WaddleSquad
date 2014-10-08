@@ -2,40 +2,40 @@ function createLevelSelector()
   
   local levelSelector = {
     name = "levelSelector",
-    headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
+    headerText = createTextBoxTemp(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
     buttons = {
-      lvl1button = createButton(
+      lvl1button = createButtonTemp(
         (config.prefferedWidth / 8), 
         -360, 
         "level1"
       ),
-      lvl2button = createButton(
+      lvl2button = createButtonTemp(
         (config.prefferedWidth / 8) * 2, 
         -360, 
         "level2"
       ),
-      lvl3button = createButton(
+      lvl3button = createButtonTemp(
         (config.prefferedWidth / 8) * 3,
         -360, 
         "level3"
       ),
-      lvl4button = createButton(
+      lvl4button = createButtonTemp(
         (config.prefferedWidth / 8) * 4, 
         -360,
         "level4"
       )
     },
     buttonTexts = {
-      lvl1buttonText = createTextBox(
+      lvl1buttonText = createTextBoxTemp(
         (config.prefferedWidth / 8) + 64, -300, 64, 64, "1", 54, true
       ),
-      lvl2buttonText = createTextBox(
+      lvl2buttonText = createTextBoxTemp(
         (config.prefferedWidth / 8) * 2 + 64, -300, 64, 64, "2", 54, true
       ),
-      lvl3buttonText = createTextBox(
+      lvl3buttonText = createTextBoxTemp(
         (config.prefferedWidth / 8) * 3 + 64, -300, 64, 64, "3", 54, true
       ),
-      lvl4buttonText = createTextBox(
+      lvl4buttonText = createTextBoxTemp(
         (config.prefferedWidth / 8) * 4 + 64, -300, 64, 64, "4", 54, true
       )
     }--[[,
@@ -70,7 +70,7 @@ function createLevelSelector()
   return levelSelector
 end
 
-function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
+function createTextBoxTemp(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     
     local textBox = createDrawableGameObject(xLoc, yLoc)
     table.insert(textBox.factions, "ui")
@@ -104,7 +104,7 @@ function createTextBox(xLoc, yLoc, width, height, string, fontSize, whiteColor)
     return textBox
   end
   
-  function createButton(x, y, levelName)
+  function createButtonTemp(x, y, levelName)
     local button = createDrawableGameObject(x, y)
     table.insert(button.factions, "touchables")
     table.insert(button.factions, "ui")
