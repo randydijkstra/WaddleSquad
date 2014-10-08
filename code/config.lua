@@ -31,6 +31,7 @@ config = {
   penguinJumpForce = 7,
   penguinFriction = 0,
   penguinAnimationSpeed = 0.15,
+  jumpBoostSpeed = 14,
   
   --general
   muteSound = false,

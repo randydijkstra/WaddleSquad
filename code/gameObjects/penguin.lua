@@ -137,9 +137,13 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
     print("Colided with jumpBoost")
-    fixtureA:getBody():applyLinearImpulse(
-      0, 
-      (config.penguinJumpForce * 2) / config.unitToMeter
-    )
+    
+    local body = fixtureA:getBody()
+    local velX, velY = body:getLinearVelocity()
+    local velChange = config.jumpBoostSpeed / config.unitToMeter - velX
+    local impulse = body:getMass() * velChange
+    
+    body:applyLinearImpulse(0, impulse)
+
   end
 end
