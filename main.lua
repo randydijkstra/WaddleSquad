@@ -15,6 +15,7 @@ else
 end
 
 
+--[[
 -- proof extend chains works without self bulshit
 function test1()
   print('imanewb')
@@ -30,7 +31,7 @@ end)
 
 test1()
 
--- test if extends works in self
+-- object extend testing. Passign paramters doens't work yet
 function obj1()
   local obj = {
    val1 = 1,
@@ -38,8 +39,9 @@ function obj1()
    val3 = "string"
   }
   
-  function obj:name()
+  function obj:name(test, test2, test3, test4)
     print("val3: "..self.val3)
+    print(test)
   end
   
   function obj:int()
@@ -50,14 +52,22 @@ function obj1()
     self.val1 = self.val1+1
   end
   
+  function obj:extend(old, new)
+    return function(at1, at2, at3, at4, at5, at6, at7)
+      old(self, at1, at2, at3, at4, at5, at6, at7)
+      new(self, at1, at2, at3, at4, at5, at6, at7)
+    end
+  end
+  
   return obj
 end
 
 function obj11()
+  
+  local self = obj
+  
   local obj = obj1()
   obj.val3 = "Obj11"
-  
-  
   
   return obj
 end
@@ -71,7 +81,19 @@ end
 
 o1 = obj12()
 
-o1["name"]()
-o1:int()
-o1:test()
-o1:int()
+o1:name("lol")
+
+o1.name = o1:extend(o1.name, function(self, test)
+  print("test: "..self.val1)
+  print(test)
+end)
+
+o1:name("lol")
+
+o1.name = o1:extend(o1.name, function(self)
+  print("test2: "..self.val3)
+end)
+
+o1:name("lol")
+
+--]]

@@ -40,11 +40,13 @@ function createPenguin(x, y)
   pengRect:setFriction( config.penguinFriction )
   pengRect:setCollisionHandler(penguinCollisionHandler)  
   
-  function penguin:update()
+  
+  penguin.previousVector = { x = 0, y = 0 }
+  penguin.currentVector = { x = 0, y = 0 }
+  
+  penguin.update = penguin:extend(penguin.update, function(self)
     self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
-   
-    local x, y = self.body:getPosition()
- 
+
     if self.stateSwitched == true then
       self:setAnimation(self.activeTable)
       self.stateSwitched = false
@@ -55,9 +57,6 @@ function createPenguin(x, y)
     local impulse = self.body:getMass() * velChange
     
     self.body:applyLinearImpulse(impulse, 0)
-    
-    -- This can and wil porabply be linked automaticly
-    self.prop:setLoc(x, y)
 
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
       self:setAnimationTable(self.prop.falling)
@@ -85,7 +84,7 @@ function createPenguin(x, y)
     
     self.previousVector.x = self.currentVector.x
     self.previousVector.y = self.currentVector.y
-  end 
+  end)
 
   function penguin:setAnimation(activeTable)
     animCurve = MOAIAnimCurve.new()

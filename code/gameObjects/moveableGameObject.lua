@@ -5,8 +5,10 @@ function createMoveableGameObject(x, y, deck, MOAIBox2DBodyType)
   table.insert(gameObject.factions, 'update') 
   
   
-  gameObject.previousVector = { x = 0, y = 0 }
-  gameObject.currentVector = { x = 0, y = 0 }
+  function gameObject:update()
+    self.prop:setLoc(self.body:getPosition())
+    self.x, self.y = self.body:getPosition()
+  end
   
   return gameObject
 end

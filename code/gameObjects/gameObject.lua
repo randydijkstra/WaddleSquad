@@ -13,5 +13,14 @@ function createGameObject()
     return isStringInTable(self.factions, faction)
   end
   
+  function gameObject:extend(old, new)
+    -- super magic afro-elvish vodoo to have "extend" functionality
+    -- only works without parameters for now
+    return function()
+      old(self)
+      new(self)
+    end
+  end
+  
   return gameObject
 end
