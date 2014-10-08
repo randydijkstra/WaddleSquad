@@ -5,10 +5,9 @@ function createPenguin(x, y)
     0, 0, 64, 64
   )
   
-  local penguin = createCollidingGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC )
+  local penguin = createMoveableGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC )
   
   table.insert(penguin.factions, 'penguins')
-  table.insert(penguin.factions, 'update')
   
   penguin.canTurn = false
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
@@ -41,9 +40,6 @@ function createPenguin(x, y)
   pengRect:setFriction( config.penguinFriction )
   pengRect:setCollisionHandler(penguinCollisionHandler)  
   
-  penguin.previousVector = { x = 0, y = 0 }
-  penguin.currentVector = { x = 0, y = 0 }
-  
   function penguin:update()
     self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
    
@@ -69,12 +65,10 @@ function createPenguin(x, y)
     
     if self.currentVector.y == 0 and self.previousVector.y ~= 0 then
       self:setAnimationTable(self.prop.landing)
-      
-      function backToWalk()
-        self:setAnimationTable(self.prop.walk)
-      end
         
-      local promise = createPromise(0.30, backToWalk)
+      local promise = createPromise(0.30, function()
+        self:setAnimationTable(self.prop.walk)  
+      end)
     end
 
     --[[if self.canTurn == true and self.currentVector.x == self.previousVector.x then

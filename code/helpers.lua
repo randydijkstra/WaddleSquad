@@ -94,3 +94,10 @@ function mergeTables(t1, t2)
   end
   return t1
 end
+
+function extendFunction(old, new)
+  return function() 
+    old()
+    new()
+  end
+end
