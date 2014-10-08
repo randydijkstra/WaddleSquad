@@ -1,22 +1,16 @@
 function createTile(deck, index, x, y, width, height, isHard) 
   
-  local tile = createDrawableGameObject(x, y)
+  local tile = iif( isHard,
+    createCollidingGameObject(x, y, engine:loadTileDeck(deck), MOAIBox2DBody.STATIC ),
+    createDrawableGameObject(x, y, engine:loadTileDeck(deck) )
+  )
   table.insert(tile.factions, 'tiles')
   
-  local prop = MOAIProp2D.new()
-  prop:setDeck(engine:loadTileDeck(deck))
-  prop:setLoc(tile.x, tile.y)
-  prop:setIndex(index)
-  
-  tile.prop = prop
+  tile.prop:setIndex(index)
   
   if isHard then
-    table.insert(tile.factions, 'hard')
-    local body = engine.box2DWorld:addBody( MOAIBox2DBody.STATIC )
-    body:setTransform(tile.x, tile.y)
-    body:addRect( -2, 0, width+2, height) -- the -2 and +2 are because objects sometimes colide against the tile next to the one below them and overlaping seems to fix it
-    
-    tile.body = body
+    table.insert(tile.factions, 'hardTiles')
+    tile.body:addRect( -2, 0, width+2, height) -- the -2 and +2 are because objects sometimes colide against the tile next to the one below them and overlaping seems to lessen this issue
   end
   
   return tile

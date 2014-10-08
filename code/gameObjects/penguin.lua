@@ -1,78 +1,58 @@
 function createPenguin(x, y)
-  local penguin = createMoveableGameObject(x, y)
-  
-  table.insert(penguin.factions, 'penguins')
-  table.insert(penguin.factions, 'update')
-  
-  engine.gameStats:newPenguin()
-  
-  local stateSwitched = false
-  penguin.forceX = 10
-  penguin.forceY = 100
-  penguin.canTurn = false
-  
-  penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
-  
   local tileDeck = engine:loadTileDeck(
     "assets/sprites/penguin/penguinspreadsheet.png",
     8, 7, 
     0, 0, 64, 64
   )
   
-  local prop = MOAIProp2D.new()
-  prop:setDeck(tileDeck)
-  prop:setLoc(penguin.x, -penguin.y)
+  local penguin = createCollidingGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC )
   
-  --animation tables 
-  local animationSpeed = 0.15
+  table.insert(penguin.factions, 'penguins')
+  table.insert(penguin.factions, 'update')
+  
+  penguin.canTurn = false
+  penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
+  
   -- ,0 are beacuse the last frame is never played
-  prop.walk = {1, 2, 3, 4, 5, 6, 7, 8, 0}
-  prop.preJump = {9, 10, 11, 12, 0}
-  prop.jump = {17, 18, 19, 20, 21, 0}
-  prop.falling = {25, 0}
-  prop.landing = {33, 34, 35, 36, 0}
-  prop.idle = {41, 42, 43, 44, 0}
-  prop.death = {49, 50, 0}
-  
-  local activeTable = prop.walk
-  
-  penguin.prop = prop
+  mergeTables(penguin.prop, {
+    walk = {1, 2, 3, 4, 5, 6, 7, 8, 0},
+    preJump = {9, 10, 11, 12, 0},
+    jump = {17, 18, 19, 20, 21, 0},
+    falling = {25, 0},
+    landing = {33, 34, 35, 36, 0},
+    idle = {41, 42, 43, 44, 0},
+    death = {49, 50, 0}
+  })
   
   animCurve = MOAIAnimCurve.new()
-  animCurve:reserveKeys( #activeTable)
+  animCurve:reserveKeys( #penguin.prop.walk)
 
-  for i = 1, #activeTable, 1 do
-    animCurve:setKey( i, animationSpeed * (i-1), prop.walk[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
+  for i = 1, #penguin.prop.walk, 1 do
+    animCurve:setKey( i, config.penguinAnimationSpeed * (i-1), penguin.prop.walk[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
   end
 
   anim = MOAIAnim.new()
   anim:reserveLinks( 1 )
-  anim:setLink( 1, animCurve, prop, MOAIProp2D.ATTR_INDEX )
+  anim:setLink( 1, animCurve, penguin.prop, MOAIProp2D.ATTR_INDEX )
   anim:setMode( MOAITimer.LOOP )
   anim:start()
-
-  local body = engine.box2DWorld:addBody( MOAIBox2DBody.DYNAMIC )
-  body:setTransform(penguin.x, penguin.y)
   
-  local pengRect = body:addRect(15, 0, 49, 44)
+  local pengRect = penguin.body:addRect(15, 0, 49, 44)
   pengRect:setFriction( config.penguinFriction )
   pengRect:setCollisionHandler(penguinCollisionHandler)  
   
-  penguin.body = body
-  
   penguin.previousVector = { x = 0, y = 0 }
   penguin.currentVector = { x = 0, y = 0 }
- 
+  
   function penguin:update()
     self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
    
-    local x, y = body:getPosition()
+    local x, y = self.body:getPosition()
  
     if self.stateSwitched == true then
       self:setAnimation(self.activeTable)
       self.stateSwitched = false
     end
-    
     
     local velX, velY = self.body:getLinearVelocity()
     local velChange = config.penguinSpeed - velX
@@ -118,12 +98,12 @@ function createPenguin(x, y)
     animCurve:reserveKeys( #activeTable)
 
     for i = 1, #activeTable, 1 do
-        animCurve:setKey( i, animationSpeed * (i-1), activeTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
+        animCurve:setKey( i, config.penguinAnimationSpeed * (i-1), activeTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
     end
 
     anim = MOAIAnim.new()
     anim:reserveLinks( 1 )
-    anim:setLink( 1, animCurve, prop, MOAIProp2D.ATTR_INDEX )
+    anim:setLink( 1, animCurve, self.prop, MOAIProp2D.ATTR_INDEX )
     anim:setMode( MOAITimer.LOOP )
     anim:start()
   end
@@ -133,20 +113,19 @@ function createPenguin(x, y)
     
     if y == 0 and penguin.preJump == false then 
     
-      self:setAnimationTable(prop.preJump)
-      function jump()
+      self:setAnimationTable(self.prop.preJump)
+      penguin.preJump = true
+      
+      local promise = createPromise(0.30, function()        
         self.body:applyLinearImpulse(
           0, 
           config.penguinJumpForce / config.unitToMeter
         )
          
         self.preJump = false
-        self:setAnimationTable(prop.jump)
-      end
-      
-      penguin.preJump = true
-      
-      local promise = createPromise(0.30, jump)
+        self:setAnimationTable(self.prop.jump)        
+      end)
+    
     end
   end
   
@@ -157,6 +136,7 @@ function createPenguin(x, y)
   end
   
   penguin:setAnimationTable(penguin.prop.walk)
+  engine.gameStats:newPenguin()
   
   return penguin
 end

@@ -300,5 +300,3 @@ function engine:isInFaction(gameObject, faction)
     return false
   end
 end
-
-print('engine loaded')
