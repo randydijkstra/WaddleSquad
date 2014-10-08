@@ -20,6 +20,18 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   
   function gameStats:update()
     --will check condidtions for gameover, level complete and suchs things.
+    
+    --If no penguins crossed the finishline when timer = 0, call gameOver()
+    
+    --When timer = 0 and at least 1 penguin is finished, level complete.
+  end
+  
+  function gameStats:gameOver()
+    
+  end
+  
+  function gameStats:levelComplete()
+    
   end
   
   function gameStats:newPenguin()
