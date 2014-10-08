@@ -1,10 +1,14 @@
-function createTextBox(x, y, string, fontSize, width, height, whiteColor)
+function createTextBox(x, y, width, height, string, fontSize, whiteColor)
   local textBox = createDrawableGameObject(x, y)
   table.insert(textBox.factions, "ui")
   table.insert(textBox.factions, "textBoxes")
   
+  local fontStyle = engine:loadFontStyle( 'assets/fonts/BNMachine.ttf', fontSize )
+  if whiteColor then fontStyle:setColor( 1,1,1,1 ) end
+ 
   textBox.prop = MOAITextBox.new()
-  textBox.prop:setStyle( loadFontStyle( 'assets/fonts/BNMachine.ttf', fontSize ) )
+  textBox.prop:setStyle( fontStyle )
+  
   textBox.prop:setString( string )
   textBox.prop:spool()
   textBox.prop:setRect(-(width/2), -(height/2), (width/2), (height/2) )
@@ -17,14 +21,6 @@ function createTextBox(x, y, string, fontSize, width, height, whiteColor)
     MOAITextBox.CENTER_JUSTIFY 
   )
   textBox.prop:setYFlip( true )
-  
-  if whiteColor == true then
-    local fontStyle = MOAITextStyle.new()
-    fontStyle:setFont( font )
-    fontStyle:setSize( fontSize )
-    fontStyle:setColor( 1,1,1,1 )  
-    textBox.prop:setStyle(fontStyle)
-  end
     
   function textBox:updateInfo(value)
     self.prop:setString(value)

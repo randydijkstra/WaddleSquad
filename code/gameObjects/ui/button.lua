@@ -6,10 +6,8 @@ function createButton(x, y, width, height, imagePath, callback, text, isTextWhit
   table.insert(button.factions, "ui")
   table.insert(button.factions, "buttons")
 
-  local xScale = 1.5
-  local yScale = 1.5
-  button.width = width * xScale
-  button.height = height * yScale
+  button.width = width
+  button.height = height
     
   local buttonTexture = engine:loadImageTexture(imagePath)
   
@@ -21,7 +19,6 @@ function createButton(x, y, width, height, imagePath, callback, text, isTextWhit
 
   button.prop = MOAIProp2D.new()
   button.prop:setDeck(quad)
-  button.prop:setScl(xScale, yScale)
   button.prop:setLoc(
     button.x, 
     button.y
@@ -32,7 +29,7 @@ function createButton(x, y, width, height, imagePath, callback, text, isTextWhit
       fontSize = self.width / 2 -- should be improved
     end
 
-    button.textBox = createTextBox(x+width/2, y+height/2, text, fontSize, self.width, self.height, isTextWhite)
+    button.textBox = createTextBox(button.x+width/2, button.y+height/2, button.width, button.height, text, fontSize, isTextWhite)
   end
   
   function button:onAdd()

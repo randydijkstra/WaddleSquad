@@ -27,7 +27,7 @@ engine = {
   imageTextures = {}, -- current loaded image textures
   input,
   inLevel = false, -- variable to check if a level is being played
-  fonts = {} -- table that hold all loaded fonts
+  fonts = {}, -- table that hold all loaded fonts
 }
 engine.__index = engine
 
@@ -202,7 +202,7 @@ function engine:loadImageTexture(path)
 end
 
 function engine:loadFontStyle(path, size)
-  local fontStyle = MOAITextStyle.new()
+
   local font
   if self.fonts[path] then
     font = self.fonts[path]
@@ -213,6 +213,7 @@ function engine:loadFontStyle(path, size)
     font:preloadGlyphs( charCodes, 24 )
   end
 
+  local fontStyle = MOAITextStyle.new()
   fontStyle:setFont( font )
   fontStyle:setSize( size )
   fontStyle:setColor( 0,0,0,1 )
