@@ -66,7 +66,16 @@ end
 
 function spawnCallback()
   --Some if statements to limit spawn amount
-  penguin = engine:addGameObject(createPenguin(-50, -350))
+  function callback()
+    engine.gameStats.penguinCanBeSpawned = true
+  end
+  
+  if engine.gameStats.penguinCanBeSpawned == true then
+    penguin = engine:addGameObject(createPenguin(-50, -350))
+  end
+  
+  engine.gameStats.penguinCanBeSpawned = false
+  local promise = createPromise(1.5, callback)
 end
 
 function menuCallback()
