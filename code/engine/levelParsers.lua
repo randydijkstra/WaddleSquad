@@ -2,24 +2,6 @@
   Contains the logic needed to load / parse level data
 --]]--
 
-function loadAssetsFrom(level)
-  
-  -- load tile maps needed for this level
-  
-  for key, tileset in pairs(level.map.tilesets) do
-      engine:loadTileDeck(
-      tileset.image, 
-      tileset.imagewidth / tileset.tilewidth, 
-      tileset.imageheight / tileset.tileheight,
-      0, -- - (tileset.tilewidth / 2),
-      0, -- - (tileset.tileheight / 2),
-      tileset.tilewidth,
-      tileset.tileheight
-    )
-  end
-  
-end
-
 function getSpecialTiles(level)
   if level.specialTiles and #level.specialTiles > 0 then
     return level.specialTiles
@@ -76,12 +58,10 @@ function parseLayer(layer, level)
       end
       
       local tile = createTile(
-        tileSet.image, 
+        tileSet, 
         tileId - (tileSet.firstgid-1), 
         x, 
         y,
-        tileSet.tilewidth, 
-        tileSet.tileheight,
         isHard
       );
       

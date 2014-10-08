@@ -159,8 +159,8 @@ end
 
 function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   
-  if self.storage.tileDecks[path] then
-    return self.storage.tileDecks[path]
+  if self.storage.tileDecks[path..xMax..yMax] then
+    return self.storage.tileDecks[path..xMax..yMax]
   end
   
   local tileDeck = MOAITileDeck2D.new()
@@ -168,7 +168,7 @@ function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   tileDeck:setSize(deckXRows, deckYRows)
   tileDeck:setRect( xMin, yMin, xMax, yMax )
   
-  self.storage.tileDecks[path] = tileDeck
+  self.storage.tileDecks[path..xMax..yMax] = tileDeck
   
   return tileDeck
 end

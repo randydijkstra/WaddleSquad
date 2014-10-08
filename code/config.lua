@@ -9,8 +9,8 @@ config = {
   gameVersion = "Alpha v1.0",
  
   --viewport
-  screenWidth = 640,
-  screenHeight = 360,
+  screenWidth = 1280,
+  screenHeight = 720,
   prefferedWidth = 1280,
   prefferedHeight = 720,
   
