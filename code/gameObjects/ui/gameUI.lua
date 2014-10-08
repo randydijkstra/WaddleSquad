@@ -37,7 +37,6 @@ function getGameUI()
       "assets/sprites/ui/Jumping.png", 
       jumpBoostCallback
     )
-    --placeJumpBoostButton = createGameUIButton(x, y, path, jumpBoostCallback),
     --menuButton = createGameUIButton(x, y, path, menuCallback)
   }
   
