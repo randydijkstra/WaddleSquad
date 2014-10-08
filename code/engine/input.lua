@@ -57,7 +57,25 @@ function createInput()
           -- Niks doen
         elseif eventType == MOAITouchSensor.TOUCH_DOWN then
           print( 'GIT YER GRIMY FINGERS OFF MAH SCREEN BOYO' )
-          onTouch( x, y )
+          --onTouch( x, y )
+          onGeneralTouch(x,y)
+          
+          if canTouch and engine.currentLevel.name == "splashScreen" then
+            if config.splashScreenFinished == true then
+              print('Start game!')
+             
+              engine:loadLevel('levelSelector')
+            else
+              print('Splashscreen still busy..')
+            end
+          elseif canTouch and engine.inLevel == true then
+            onInLevelTouch( engine.mainLayer:wndToWorld(x, y ) )
+          elseif canTouch and engine.currentLevel.name == "levelSelector" then
+            print("Choose a level!")
+            onLevelSelectorTouch( engine.mainLayer:wndToWorld(x,y) )
+          end
+        
+          canTouch = true
         end
       end
     )

@@ -24,7 +24,7 @@ function createSnowflake(x, y, snowflaketype)
   animCurve:reserveKeys( #snowflakeAnimTable )
 
   for i = 1, #snowflakeAnimTable, 1 do
-    animCurve:setKey( i, 0.45 * (i-1), snowflakeAnimTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
+    animCurve:setKey( i, 0.4 * (i-1), snowflakeAnimTable[i], MOAIEaseType.FLAT) -- hoeveelste, tijd, index in sheet, easing type
   end
   
   local anim = MOAIAnim.new()
