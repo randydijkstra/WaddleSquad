@@ -6,6 +6,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     {
       score = defaultScore,
       time = defaultTimer,
+      penguinCanBeSpawned = true,
       penguinsOnScreen = 0,
       penguinsLeft = 10,
       penguinsFinished = 0,
