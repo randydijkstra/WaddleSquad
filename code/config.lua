@@ -34,7 +34,7 @@ config = {
   muteSound = false,
   leftyFlip = false,
   
-  useTextureLoad = true, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)
+  useTextureLoad = false, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)
   
   splashScreenFinished = false
 }

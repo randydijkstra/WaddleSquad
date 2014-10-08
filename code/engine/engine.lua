@@ -22,12 +22,15 @@ engine = {
   uiIsActive = false,
   gameUI = {}, -- holds the ui controler
   gameStats = {}, -- holds the gameStats controller
-  quads = {}, -- current loaded quads
-  tileDecks = {}, -- current loaded tilesets,
-  imageTextures = {}, -- current loaded image textures
+  storage = {
+    quads = {}, -- current loaded quads
+    tileDecks = {}, -- current loaded tilesets,
+    imageTextures = {}, -- current loaded image textures
+    fonts = {}, -- table that hold all loaded fonts 
+    fontStyles = {}, -- table that hold all loaded fonts 
+  },
   input,
   inLevel = false, -- variable to check if a level is being played
-  fonts = {}, -- table that hold all loaded fonts
 }
 engine.__index = engine
 
@@ -156,8 +159,8 @@ end
 
 function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   
-  if self.tileDecks[path] then
-    return self.tileDecks[path]
+  if self.storage.tileDecks[path] then
+    return self.storage.tileDecks[path]
   end
   
   local tileDeck = MOAITileDeck2D.new()
@@ -165,14 +168,14 @@ function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   tileDeck:setSize(deckXRows, deckYRows)
   tileDeck:setRect( xMin, yMin, xMax, yMax )
   
-  self.tileDecks[path] = tileDeck
+  self.storage.tileDecks[path] = tileDeck
   
   return tileDeck
 end
 
 function engine:loadQuad(path, width, height)
-  if self.quads[path..width..height] then
-    return self.quads[path..width..height]
+  if self.storage.quads[path..width..height] then
+    return self.storage.quads[path..width..height]
   end
   
   local quad = MOAIGfxQuad2D.new()
@@ -180,7 +183,7 @@ function engine:loadQuad(path, width, height)
   quad:setTexture( iif(config.useTextureLoad, engine:loadImageTexture(path), path) )
   quad:setRect(0, 0, width, height) -- we position everything from the right top
  
-  self.quads[path..width..height] = quad
+  self.storage.quads[path..width..height] = quad
   
   return quad
 end
@@ -188,36 +191,47 @@ end
 
 function engine:loadImageTexture(path)  
   
-  if self.imageTextures[path] then
-    return self.imageTextures[path]
+  if self.storage.imageTextures[path] then
+    return self.storage.imageTextures[path]
   end
   
   local texture = MOAIImageTexture.new()
   texture:load( path )
   texture:invalidate() -- power of two thingy
   
-  self.imageTextures[path] = texture
+  self.storage.imageTextures[path] = texture
   
   return texture
 end
 
+function engine:loadFont(path)
+  
+  if self.storage.fonts[path] then
+    return self.storage.fonts[path]
+  end
+  
+  local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
+  local font = MOAIFont.new()
+  font:load( path )
+  font:preloadGlyphs( charCodes, 24 )  
+  
+  self.storage.fonts[path] = font
+  
+  return font
+end
+
 function engine:loadFontStyle(path, size)
 
-  local font
-  if self.fonts[path] then
-    font = self.fonts[path]
-  else
-    local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
-    font = MOAIFont.new()
-    font:load( path )
-    font:preloadGlyphs( charCodes, 24 )
+  if self.storage.fontStyles[path..size] then
+    return self.storage.fontStyles[path..size]
   end
 
   local fontStyle = MOAITextStyle.new()
-  fontStyle:setFont( font )
+  fontStyle:setFont( self:loadFont(path) )
   fontStyle:setSize( size )
   fontStyle:setColor( 0,0,0,1 )
 
+  self.storage.fontStyles[path..size] = fontstyle
   return fontStyle
 end
 
@@ -266,6 +280,16 @@ end
 function engine:destroyAllObject()
   for id, object in pairs(self.gameObjects.all) do
     self:deleteGameObject(object)
+  end
+end
+
+function engine:clearStorage(target)
+  if target then
+    self.storage[target] = nil
+  else
+    for name, group in pairs(self.storage) do    
+      self.storage[name] = nil
+    end  
   end
 end
 
