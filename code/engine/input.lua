@@ -87,10 +87,11 @@ function createInput()
   end
 
   function input:onInLevelTouch( x, y )
-    if engine.toggleJumpBoostSpawner == true then
+    if engine.gameStats.toggleJumpBoostSpawner == true then
       engine:addGameObject(createJumpBoost(x, y))
-      engine.toggleJumpBoostSpawner = false
-       engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.3)
+      engine.gameStats.toggleJumpBoostSpawner = false
+      engine.gameStats.score = engine.gameStats.score - 400
+      engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.3)
     else
       for id, penguin in pairs(engine.gameObjects.factions.penguins) do
         penguin:jump()

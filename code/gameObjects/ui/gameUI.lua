@@ -90,11 +90,11 @@ function spawnCallback()
 end
 
 function jumpBoostCallback()
-  if engine.gameStats.toggleJumpBoostSpawner == false then
-    engine.toggleJumpBoostSpawner = true
+  if engine.gameStats.toggleJumpBoostSpawner == false and engine.gameStats.score >= 400 then
+    engine.gameStats.toggleJumpBoostSpawner = true
     print('spawn Gunter the icebear')
-    engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.9, 0.9, 0.9, 0.7, 0.3)
-  else
+    engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.7, 0.7, 0.7, 1, 0.3)
+  elseif engine.gameStats.toggleJumpBoostSpawner == true then
     engine.gameStats.toggleJumpBoostSpawner = false
     print('not spawning Gunter the icebear.. :( ')
     engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.3)
