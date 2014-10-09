@@ -27,7 +27,14 @@ function getGameUI()
       140, 90,
       "x " .. engine.gameStats.penguinsLeft,     
       60
-     )
+     )--[[,
+     amountOfPenguinsFinished = createTextBox(   
+      config.prefferedWidth / 10 * 9, 
+      (config.prefferedHeight/1.3) * -1,
+      100, 50,
+      "x " .. engine.gameStats.penguinsFinished,     
+      30
+     )]]--
   } 
   gameUI.buttons = {
     penguinSpawnButton = createButton(
@@ -43,8 +50,14 @@ function getGameUI()
       96, 96,
       "assets/sprites/ui/Jumping.png", 
       jumpBoostCallback
+    ),
+    menuButton = createButton(
+      config.prefferedWidth / 10 * 0.25, 
+      (config.prefferedHeight/ 9) * -1,
+      64, 64,
+      "assets/sprites/ui/Pause.png", 
+      menuCallback
     )
-    --menuButton = createGameUIButton(x, y, path, menuCallback)
   }
   
   function gameUI:start()
@@ -65,11 +78,51 @@ function getGameUI()
   function gameUI:updateAmountOfPenguinsLeft(penguinsLeft)
     self.hud.amountOfPenguinsLeft:updateInfo("x "..tostring(penguinsLeft))
   end
+  function gameUI:updateAmountOfPenguinsFinished(penguinsFinished)
+    self.hud.amountOfPenguinsFinished:updateInfo("x "..tostring(penguinsFinished))
+  end
+  
+  
+  function gameUI:spawnGameOverScreen()
+    gameUI.gameOverScreen = {
+      gameOverScreen = createTextBox(  
+        config.prefferedWidth / 2, (config.prefferedHeight/2)*-1, 
+        900, 300,
+        "GAME OVER !\nFinal score: " .. engine.gameStats.score,
+        60, 
+        false
+      )
+    }
+
+    for keys, object in pairs(self.gameOverScreen) do
+      engine:addGameObject(object)
+    end
+  end
+  
+  function gameUI:spawnLevelCompleteScreen()
+    gameUI.levelCompleteScreen = {
+      levelCompleteScreen = createTextBox(  
+        config.prefferedWidth / 2, (config.prefferedHeight/2)*-1, 
+        900, 300,
+        "LEVEL COMPLETE !\nFinal score: " .. engine.gameStats.score,
+        60, 
+        false
+      )
+    }
+    
+    for keys, object in pairs(self.levelCompleteScreen) do
+      engine:addGameObject(object)
+    end
+    
+  end
+  
+  
   function gameUI:onDestroy()
     engine.uiIsActive = false
   end
   
   engine.uiIsActive = true
+  
   return gameUI
 end
 
@@ -102,5 +155,5 @@ function jumpBoostCallback()
 end
 
 function menuCallback()
-  
+  engine:loadLevel('levelSelector')
 end

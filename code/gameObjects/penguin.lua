@@ -59,7 +59,7 @@ function createPenguin(x, y)
   
   penguin.update = penguin:extend(penguin.update, function(self)
     self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
-
+    
     if self.stateSwitched == true then
       self:setAnimation(self.activeTable)
       self.stateSwitched = false

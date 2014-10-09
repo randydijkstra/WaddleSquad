@@ -6,6 +6,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     {
       score = defaultScore,
       time = defaultTimer,
+      firstPenguin = true, --stays false somehow after 2nd level loaded
       penguinCanBeSpawned = true,
       penguinsOnScreen = 0,
       penguinsLeft = 10,
@@ -15,33 +16,56 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     }
   )
   
+  table.insert(gameStats.factions, 'update')
+  
   function gameStats:start()
     print("Entering gamestats of "..levelName..". Score: "..defaultScore..". Timer: "..defaultTimer)
     self:gameTimer(self.time)
+    self.score = defaultScore
+    self.time = defaultTimer
+    self.firstPenguin = true
+    self.penguinCanBeSpawned = true
+    self.penguinsOnScreen = 0
+    self.penguinsLeft = 10
+    self.penguinsFinished = 0
+    self.toggleJumpBoostSpawner = false
   end
   
   function gameStats:update()
-    if self.score < 0 then
+    if self.time > 0 and self.score < 0 then
       self.score = 0
+    end
+ 
+    if self.time == 0 and self.penguinsFinished == 0 then
+      self:gameOver()
+    elseif self.penguinsOnScreen <= 0 and self.score < 300 then
+      self:gameOver()
+    elseif self.time == 0 and self.penguinsFinished > 0 then
+      self:levelComplete()
+     elseif self.penguinsFinished == 10 then
+      self:levelComplete()
     end
   end
   
   function gameStats:gameOver()
-    
+    --print("Game over!")
+    engine.gameUI:spawnGameOverScreen()
   end
   
   function gameStats:levelComplete()
-    
+    --print("Level complete")
+    engine.gameUI:spawnLevelCompleteScreen()
   end
   
   function gameStats:newPenguin()
-    
-    self.score = self.score - 300
+    if firstPenguin == false then 
+      self.score = self.score - 300
+      self.penguinsLeft = self.penguinsLeft - 1
+      engine.gameUI:updateAmountOfPenguinsLeft(self.penguinsLeft)
+      engine.gameUI:updateScore(self.score)
+    end
     self.penguinsOnScreen = self.penguinsOnScreen + 1
-    self.penguinsLeft = self.penguinsLeft - 1
-    engine.gameUI:updateAmountOfPenguinsLeft(self.penguinsLeft)
-    engine.gameUI:updateScore(self.score)
-  
+    firstPenguin = false
   end
   
   function gameStats:updateStats(condition)
@@ -51,7 +75,6 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       self.score = self.score + 400
       self.penguinsFinished = self.penguinsFinished + 1
       self.penguinsOnScreen = self.penguinsOnScreen - 1
-      self.penguinsLeft = self.penguinsLeft - 1
     end
     
     engine.gameUI:updateScore(self.score)
@@ -79,7 +102,8 @@ function createGameStats(levelName, defaultScore, defaultTimer)
         
       if self.time <= 0 then
         self.timer:stop()
-        print("Time is up!")    
+        print("Time is up!")
+        
       end
         
     end)

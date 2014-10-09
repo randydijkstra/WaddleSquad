@@ -4,6 +4,7 @@ function createTextBox(x, y, width, height, string, fontSize, whiteColor, backgr
   table.insert(textBox.factions, "textBoxes")
   
   local fontStyle = engine:loadFontStyle( 'assets/fonts/BNMachine.ttf', fontSize )
+
   if whiteColor then fontStyle:setColor( 1,1,1,1 ) end
  
   textBox.prop = MOAITextBox.new()
