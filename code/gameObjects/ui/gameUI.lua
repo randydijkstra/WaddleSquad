@@ -129,16 +129,17 @@ function spawnCallback()
 end
 
 function jumpBoostCallback()
-  --if engine.gameStats.toggleJumpBoostSpawner == false and engine.gameStats.score >= 400 then
-  if engine.gameStats.toggleJumpBoostSpawner == false then
-    engine.gameStats.toggleJumpBoostSpawner = true
-    print('spawn Gunter the icebear')
-    engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.7, 0.7, 0.7, 1, 0.3)
-  elseif engine.gameStats.toggleJumpBoostSpawner == true then
+  engine.gameStats.toggleJumpBoostSpawner = true -- not neccesary anymore?
+  engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.7, 0.7, 0.7, 1, 0.3)
+  
+  engine.input:setTouchPromise(function(x, y)
+    x, y = engine.mainLayer:wndToWorld(x, y)
+    engine:addGameObject(createJumpBoost(x - 32, y - 32))
     engine.gameStats.toggleJumpBoostSpawner = false
-    print('not spawning Gunter the icebear.. :( ')
+    engine.gameStats.score = engine.gameStats.score - 400
     engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.3)
-  end
+  end)
+  
 end
 
 function menuCallback()

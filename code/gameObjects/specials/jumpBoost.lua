@@ -30,21 +30,7 @@ function createJumpBoost(x, y)
   jumpBoost.body:addRect(10, 0, 64, 56):setSensor()
 
   jumpBoost.previousVector = { x = 0, y = 0 }
-  jumpBoost.currentVector = { x = 0, y = 0 }
-
-  jumpBoost.update = jumpBoost:extend(jumpBoost.update, function(self)
-    self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
-    
-    --make check to turn static after fall?
-    
-    local velX, velY = self.body:getLinearVelocity()
-    self.velX = 0
-    self.body:applyLinearImpulse(0, config.unitToMeter)
-    
-    self.previousVector.x = self.currentVector.x
-    self.previousVector.y = self.currentVector.y
-  end)
-  
+  jumpBoost.currentVector = { x = 0, y = 0 }  
   
   return jumpBoost
 end
