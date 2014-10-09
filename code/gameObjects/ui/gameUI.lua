@@ -82,38 +82,27 @@ function getGameUI()
     self.hud.amountOfPenguinsFinished:updateInfo("x "..tostring(penguinsFinished))
   end
   
-  
-  function gameUI:spawnGameOverScreen()
-    gameUI.gameOverScreen = {
-      gameOverScreen = createTextBox(  
-        config.prefferedWidth / 2, (config.prefferedHeight/2)*-1, 
-        900, 300,
-        "GAME OVER !\nFinal score: " .. engine.gameStats.score,
-        60, 
-        false
-      )
-    }
-
-    for keys, object in pairs(self.gameOverScreen) do
-      engine:addGameObject(object)
-    end
-  end
-  
-  function gameUI:spawnLevelCompleteScreen()
-    gameUI.levelCompleteScreen = {
-      levelCompleteScreen = createTextBox(  
-        config.prefferedWidth / 2, (config.prefferedHeight/2)*-1, 
-        900, 300,
-        "LEVEL COMPLETE !\nFinal score: " .. engine.gameStats.score,
-        60, 
-        false
-      )
-    }
+  function gameUI:completeScreen(win, score)
     
-    for keys, object in pairs(self.levelCompleteScreen) do
-      engine:addGameObject(object)
-    end
+    local text = iif(win,"LEVEL COMPLETE !\nFinal score: ", "GAME OVER !\nFinal score: ")
+    engine:addGameObject(createTextBox(  
+      config.prefferedWidth / 2, (config.prefferedHeight/2)*-1, 
+      900, 300,
+      text .. score,
+      60, 
+      false
+    ))
     
+    engine.input.locked = false  
+    createPromise(2, function()
+        
+      engine.input:setTouchPromise(function()
+        engine:loadLevel('levelSelector')
+      end)
+        
+      engine.input.locked = false  
+    end) 
+  
   end
   
   
@@ -127,23 +116,21 @@ function getGameUI()
 end
 
 function spawnCallback()
-  --Some if statements to limit spawn amount
-  function callback()
-    engine.gameStats.penguinCanBeSpawned = true
-  end
-  
-  if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 300 and engine.gameStats.penguinsLeft > 0 then
+
+  --if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 300 and engine.gameStats.penguinsLeft > 0 then
+  if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.penguinsLeft > 0 then
     penguin = engine:addGameObject(createPenguin(-50, -350))
-  else
-    print("Ain't gonna spawn no penguin")
   end
   
   engine.gameStats.penguinCanBeSpawned = false
-  local promise = createPromise(1.5, callback)
+  local promise = createPromise(1.5, function()
+    engine.gameStats.penguinCanBeSpawned = true 
+  end)
 end
 
 function jumpBoostCallback()
-  if engine.gameStats.toggleJumpBoostSpawner == false and engine.gameStats.score >= 400 then
+  --if engine.gameStats.toggleJumpBoostSpawner == false and engine.gameStats.score >= 400 then
+  if engine.gameStats.toggleJumpBoostSpawner == false then
     engine.gameStats.toggleJumpBoostSpawner = true
     print('spawn Gunter the icebear')
     engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.7, 0.7, 0.7, 1, 0.3)

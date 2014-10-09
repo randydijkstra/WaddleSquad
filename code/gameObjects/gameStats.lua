@@ -48,13 +48,11 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:gameOver()
-    --print("Game over!")
-    engine.gameUI:spawnGameOverScreen()
+    engine.gameUI:completeScreen(false ,gameStats.score)
   end
   
   function gameStats:levelComplete()
-    --print("Level complete")
-    engine.gameUI:spawnLevelCompleteScreen()
+    engine.gameUI:completeScreen(true, gameStats.score)
   end
   
   function gameStats:newPenguin()

@@ -5,8 +5,8 @@ function createIglo(x, y)
   local iglo = createCollidingGameObject(x, y, deck, MOAIBox2DBody.STATIC)
 
   table.insert(iglo.factions, 'iglos')
-
-  iglo.body:addRect(50, 0, texture:getSize())
+  local width, height = texture:getSize()
+  iglo.body:addRect(50, 0, width, height - 80)
   
   return iglo
 end

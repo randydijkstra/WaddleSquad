@@ -26,9 +26,9 @@ function createJumpBoost(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  local jumpBoostRect = jumpBoost.body:addRect(10, 0, 64, 56)
-  --jumpBoostRect:setFriction()
-  
+  jumpBoost.body:addRect(25, 0, 44, 50)
+  jumpBoost.body:addRect(10, 0, 64, 56):setSensor()
+
   jumpBoost.previousVector = { x = 0, y = 0 }
   jumpBoost.currentVector = { x = 0, y = 0 }
 

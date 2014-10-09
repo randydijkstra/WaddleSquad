@@ -25,7 +25,7 @@ function createPromise( spanTime, callbackFunction, params)
 	timer:setListener ( MOAITimer.EVENT_TIMER_END_SPAN, function()
     callbackFunction(params)
     timer = nil
-  )
+  end)
 	timer:start ()
 
   table.insert(promises, timer)

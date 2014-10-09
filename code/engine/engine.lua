@@ -30,7 +30,7 @@ engine = {
     fontStyles = {}, -- table that hold all loaded fonts 
   },
   input,
-  ids, -- holds every generated id
+  ids = {}, -- holds every generated id
   inLevel = false, -- variable to check if a level is being played
 }
 engine.__index = engine
