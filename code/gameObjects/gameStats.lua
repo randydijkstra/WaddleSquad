@@ -25,34 +25,41 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     self.time = defaultTimer
     self.firstPenguin = true
     self.penguinCanBeSpawned = true
-    self.penguinsOnScreen = 0
     self.penguinsLeft = 10
     self.penguinsFinished = 0
     self.toggleJumpBoostSpawner = false
   end
   
   function gameStats:update()
+    
+    self.penguinsOnScreen = countTable(engine:getFaction('penguins'))
+    
     if self.time > 0 and self.score < 0 then
       self.score = 0
     end
  
-    if self.time == 0 and self.penguinsFinished == 0 then
-      self:gameOver()
-    elseif self.penguinsOnScreen <= 0 and self.score < 300 then
+    if self.time == 0 and self.penguinsFinished <= 0 then
       self:gameOver()
     elseif self.time == 0 and self.penguinsFinished > 0 then
       self:levelComplete()
-     elseif self.penguinsFinished == 10 then
-      self:levelComplete()
+    --elseif self.penguinsOnScreen <= 0 and self.score < 300 then
+    --  self:gameOver()
+    elseif self.penguinsOnScreen <= 0 and self.penguinsLeft <= 0 and self.score > 0 then
+      self:levelComplete()    
+    elseif self.penguinsOnScreen <= 0 and self.penguinsLeft <= 0 and self.score < 0 then
+      self:gameOver()
     end
+
   end
   
   function gameStats:gameOver()
-    engine.gameUI:completeScreen(false ,gameStats.score)
+    engine:removeFromFaction(self, 'update')
+    engine.gameUI:completeScreen(false, self.score)
   end
   
   function gameStats:levelComplete()
-    engine.gameUI:completeScreen(true, gameStats.score)
+    engine:removeFromFaction(self, 'update')
+    engine.gameUI:completeScreen(true, self.score)
   end
   
   function gameStats:newPenguin()
@@ -62,7 +69,6 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       engine.gameUI:updateAmountOfPenguinsLeft(self.penguinsLeft)
       engine.gameUI:updateScore(self.score)
     end
-    self.penguinsOnScreen = self.penguinsOnScreen + 1
     firstPenguin = false
   end
   
@@ -72,7 +78,6 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     elseif condition == "iglo" then
       self.score = self.score + 400
       self.penguinsFinished = self.penguinsFinished + 1
-      self.penguinsOnScreen = self.penguinsOnScreen - 1
     end
     
     engine.gameUI:updateScore(self.score)

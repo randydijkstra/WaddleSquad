@@ -127,3 +127,11 @@ function createSmoothEdgePolygon(minX, minY, maxX, maxY, smoothX, smoothY)
     minX, maxY - smoothY
   }
 end
+
+function countTable(table)
+  local count = 0
+  for key, value in pairs(table) do
+    count = count + 1 
+  end
+  return count
+end

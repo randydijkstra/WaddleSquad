@@ -55,7 +55,7 @@ end
 
 function engine:heartBeat()  
     
-  for id, gameObject in pairs(self.gameObjects.factions.update) do
+  for id, gameObject in pairs(engine:getFaction("update")) do
     gameObject:update()
   end    
   
@@ -145,7 +145,7 @@ function engine:activateMoveAbleGameObjects()
   
   -- Doesn't work (the setActive call) atm and no idea why
 
-  for id, gameObject in pairs(self.gameObjects.factions.moveable) do
+  for id, gameObject in pairs(engine:getFaction("moveable")) do
     if gameObject.body then
       gameObject.body:setActive(true)
     else
@@ -306,4 +306,17 @@ function engine:isInFaction(gameObject, faction)
   else
     return false
   end
+end
+
+function engine:removeFromFaction(gameObject, faction)
+  if self.gameObjects.factions[faction] then
+    self.gameObjects.factions[faction][gameObject.id] = nil
+  end
+end
+
+function engine:getFaction(faction)
+  return iif( self.gameObjects.factions[faction],
+    self.gameObjects.factions[faction],
+    {}
+  )
 end

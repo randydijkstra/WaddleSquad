@@ -85,6 +85,11 @@ function createPenguin(x, y)
     
     self.previousVector.x = self.currentVector.x
     self.previousVector.y = self.currentVector.y
+    
+    if self.x < -200 or self.y > 200 or self.x > engine.currentLevel.width + 200 or self.y < -engine.currentLevel.height - 200 then
+      engine:deleteGameObject(self)
+    end    
+    
   end)
 
   function penguin:setAnimation(activeTable)
