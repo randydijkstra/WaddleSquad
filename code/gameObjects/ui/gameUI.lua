@@ -6,32 +6,39 @@ function getGameUI()
   gameUI.name = "gameUI"
   gameUI.hud = {
     score = createTextBox(   
-      config.prefferedWidth / 11, (config.prefferedHeight/1.105)*-1, 
-      156, 92,
+      config.prefferedWidth / 10 * 4 + 32, (config.prefferedHeight/11)*-1, 
+      150, 90,
       "Score: \n" .. engine.gameStats.score,     
       32, 
       true,
       "assets/sprites/ui/Achtergrond4.png"
      ),
      time = createTextBox(
-      config.prefferedWidth / 2, (config.prefferedHeight/11)*-1, 
+      config.prefferedWidth / 10 * 5 + 64, (config.prefferedHeight/11)*-1, 
       128, 64,
       tostring(engine.gameStats.time),
       50, 
       true,
       "assets/sprites/ui/Achtergrond4.png"
-    )
+    ),
+    amountOfPenguinsLeft = createTextBox(   
+      config.prefferedWidth / 10 * 1.75, 
+      (config.prefferedHeight/1.1) * -1,
+      140, 90,
+      "x " .. engine.gameStats.penguinsLeft,     
+      60
+     )
   } 
   gameUI.buttons = {
     penguinSpawnButton = createButton(
-      config.prefferedWidth / 10 * 9, 
+      config.prefferedWidth / 10 * 0.5, 
       (config.prefferedHeight/1.03) * -1,
       96, 96,
       "assets/sprites/ui/Spawn.png", 
       spawnCallback
     ),
     jumpBoostButton = createButton(
-      config.prefferedWidth / 10 * 8, 
+      config.prefferedWidth / 10 * 9, 
       (config.prefferedHeight/1.03) * -1,
       96, 96,
       "assets/sprites/ui/Jumping.png", 
@@ -55,7 +62,9 @@ function getGameUI()
   function gameUI:updateTime(time)
     self.hud.time:updateInfo(tostring(time))
   end
-  
+  function gameUI:updateAmountOfPenguinsLeft(penguinsLeft)
+    self.hud.amountOfPenguinsLeft:updateInfo("x "..tostring(penguinsLeft))
+  end
   function gameUI:onDestroy()
     engine.uiIsActive = false
   end
@@ -70,18 +79,28 @@ function spawnCallback()
     engine.gameStats.penguinCanBeSpawned = true
   end
   
-  if engine.gameStats.penguinCanBeSpawned == true then
+  if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 300 and engine.gameStats.penguinsLeft > 0 then
     penguin = engine:addGameObject(createPenguin(-50, -350))
+  else
+    print("Ain't gonna spawn no penguin")
   end
   
   engine.gameStats.penguinCanBeSpawned = false
   local promise = createPromise(1.5, callback)
 end
 
-function menuCallback()
-  
+function jumpBoostCallback()
+  if engine.gameStats.toggleJumpBoostSpawner == false then
+    engine.toggleJumpBoostSpawner = true
+    print('spawn Gunter the icebear')
+    engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.9, 0.9, 0.9, 0.7, 0.3)
+  else
+    engine.gameStats.toggleJumpBoostSpawner = false
+    print('not spawning Gunter the icebear.. :( ')
+    engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.3)
+  end
 end
 
-function jumpBoostCallback()
-  print('spawn Gunter the icebear')
+function menuCallback()
+  
 end
