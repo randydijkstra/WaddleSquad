@@ -30,6 +30,7 @@ engine = {
     fontStyles = {}, -- table that hold all loaded fonts 
   },
   input,
+  ids, -- holds every generated id
   inLevel = false, -- variable to check if a level is being played
 }
 engine.__index = engine
@@ -129,13 +130,14 @@ function engine:deleteGameObject(gameObject)
   gameObject = nil
 end
 
-function engine:getNewId (params)
-  id = math.random(9001)
+function engine:getNewId()
+  id = tostring(math.random(9001))
   
-  while self.gameObjects.all[id] do 
-    id = math.random(9001)
+  while self.ids[id] do 
+    id = tostring(math.random(9001))
   end
   
+  self.ids[id] = true
   return id;
 end
 
@@ -276,7 +278,16 @@ end
 function engine:destroyAllObject()
   for id, object in pairs(self.gameObjects.all) do
     self:deleteGameObject(object)
+  end  
+end
+
+function engine:clearAll()
+  self:destroyAllObject()
+  for key, timer in pairs(promises) do
+    timer:stop()
+    timer = nil
   end
+  self.input.touchPromise = nil
 end
 
 function engine:clearStorage(target)

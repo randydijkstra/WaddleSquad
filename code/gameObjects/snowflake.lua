@@ -34,9 +34,9 @@ function createSnowflake(x, y, snowflaketype)
   anim:start()
   
   if snowflake.name == "small" then
-    snowflake.body:addRect(0, 0, 32, 32):setSensor(true)
+    snowflake.body:addRect(0, 0, 32, 32):setSensor()
   else
-    snowflake.body:addRect(0, 0, 64, 64):setSensor(true)
+    snowflake.body:addRect(0, 0, 64, 64):setSensor()
   end
 
   return snowflake

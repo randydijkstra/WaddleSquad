@@ -18,7 +18,7 @@ function createLevel(map)
   function level:destroy()
     engine.gameUI = nil
     engine.uiIsActive = false
-    engine:destroyAllObject()
+    engine:clearAll()
   end
 
   return level

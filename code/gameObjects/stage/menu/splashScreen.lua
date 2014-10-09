@@ -64,7 +64,7 @@ function getSplashScreen()
   end
 
   function splashScreen:destroy()  
-    engine:destroyAllObject()
+    engine:clearAll()
   end
 
   engine.currentLevel = splashScreen

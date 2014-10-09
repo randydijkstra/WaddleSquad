@@ -17,12 +17,18 @@ function newFontStyle( font, size )
   
 end
 
-function createPromise( spanTime, callbackFunction)
+promises = {} -- hold all promises so they can be deleted before firing
+function createPromise( spanTime, callbackFunction, params)
 	local timer = MOAITimer.new ()
 	timer:setSpan ( spanTime )
 	timer:setMode ( MOAITimer.NORMAL )
-	timer:setListener ( MOAITimer.EVENT_TIMER_END_SPAN, callbackFunction )
+	timer:setListener ( MOAITimer.EVENT_TIMER_END_SPAN, function()
+    callbackFunction(params)
+    timer = nil
+  )
 	timer:start ()
+
+  table.insert(promises, timer)
 
 	return timer
 end
@@ -100,4 +106,24 @@ function extendFunction(old, new)
     old()
     new()
   end
+end
+
+function createSmoothEdgePolygon(minX, minY, maxX, maxY, smoothX, smoothY)
+  return {
+    --top left
+    minX, minY + smoothY, 
+    minX + smoothX, minY,  
+    
+    -- top right
+    maxX - smoothX, minY,
+    maxX, minY + smoothY,
+    
+    -- bottom right
+    maxX, maxY - smoothY,
+    maxX - smoothX, maxY,
+    
+    -- bottom left
+    minX + smoothX, maxY,
+    minX, maxY - smoothY
+  }
 end

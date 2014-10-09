@@ -20,7 +20,7 @@ function createTile(tileset, index, x, y, isHard)
   
   if isHard then
     table.insert(tile.factions, 'hardTiles')
-    tile.body:addRect( 5, 0, tileset.tilewidth - 5, tileset.tileheight) -- the -2 and +2 are because objects sometimes colide against the tile next to the one below them and overlaping seems to lessen this issue
+    tile.body:addRect( -2, 0, tileset.tilewidth+2, tileset.tileheight) -- we add 4 pixl to the width to lessen the box2d tile collision bug
   end
   
   return tile

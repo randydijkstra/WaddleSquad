@@ -36,7 +36,7 @@ function createPenguin(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  local pengRect = penguin.body:addRect(15, 3, 49, 42)
+  local pengRect = penguin.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42, 4, 4))
   
   --[[ the 'getting stuck problem ' is an problem known to box2d. apparently adding edges / chain could make the problem less apparant. Does work sometimes, but not reliable. Fails with multiple penguins on screen.
   http://www.iforce2d.net/b2dtut/ghost-vertices
