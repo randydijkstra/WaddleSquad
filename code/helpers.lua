@@ -7,16 +7,6 @@ function math.Clamp(val, lower, upper)
     return math.max(lower, math.min(upper, val))
 end
 
-function newFontStyle( font, size )
-  
-  local fontStyle = MOAITextStyle.new()
-  fontStyle:setFont( font )
-  fontStyle:setSize( size )
-  fontStyle:setColor( 0,0,0,1 )
-  return fontStyle
-  
-end
-
 promises = {} -- hold all promises so they can be deleted before firing
 function createPromise( spanTime, callbackFunction, params)
 	local timer = MOAITimer.new ()

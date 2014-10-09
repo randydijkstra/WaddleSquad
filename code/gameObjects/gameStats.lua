@@ -63,13 +63,13 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:newPenguin()
-    if firstPenguin == false then 
+    if self.firstPenguin == false then 
       self.score = self.score - 300
       self.penguinsLeft = self.penguinsLeft - 1
       engine.gameUI:updateAmountOfPenguinsLeft(self.penguinsLeft)
       engine.gameUI:updateScore(self.score)
     end
-    firstPenguin = false
+    self.firstPenguin = false
   end
   
   function gameStats:updateStats(condition)
