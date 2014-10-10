@@ -22,7 +22,8 @@ engine = {
   uiIsActive = false,
   gameUI = {}, -- holds the ui controler
   gameStats = {}, -- holds the gameStats controller
-  storage = {
+  storage = {}, -- persitent data between games
+  cache = {
     quads = {}, -- current loaded quads
     tileDecks = {}, -- current loaded tilesets,
     imageTextures = {}, -- current loaded image textures
@@ -147,17 +148,15 @@ function engine:activateMoveAbleGameObjects()
   for id, gameObject in pairs(engine:getFaction("moveable")) do
     if gameObject.body then
       gameObject.body:setActive(true)
-    else
-      print("Object "..id.."Has no body")
-    end
+     end
   end
 end
 
 
 function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   
-  if self.storage.tileDecks[path..xMax..yMax] then
-    return self.storage.tileDecks[path..xMax..yMax]
+  if self.cache.tileDecks[path..xMax..yMax] then
+    return self.cache.tileDecks[path..xMax..yMax]
   end
   
   local tileDeck = MOAITileDeck2D.new()
@@ -165,14 +164,14 @@ function engine:loadTileDeck(path, deckXRows, deckYRows, xMin, yMin, xMax, yMax)
   tileDeck:setSize(deckXRows, deckYRows)
   tileDeck:setRect( xMin, yMin, xMax, yMax )
   
-  self.storage.tileDecks[path..xMax..yMax] = tileDeck
+  self.cache.tileDecks[path..xMax..yMax] = tileDeck
   
   return tileDeck
 end
 
 function engine:loadQuad(path, width, height)
-  if self.storage.quads[path..width..height] then
-    return self.storage.quads[path..width..height]
+  if self.cache.quads[path..width..height] then
+    return self.cache.quads[path..width..height]
   end
   
   local quad = MOAIGfxQuad2D.new()
@@ -180,7 +179,7 @@ function engine:loadQuad(path, width, height)
   quad:setTexture( iif(config.useTextureLoad, engine:loadImageTexture(path), path) )
   quad:setRect(0, 0, width, height) -- we position everything from the right top
  
-  self.storage.quads[path..width..height] = quad
+  self.cache.quads[path..width..height] = quad
   
   return quad
 end
@@ -188,23 +187,23 @@ end
 
 function engine:loadImageTexture(path)  
   
-  if self.storage.imageTextures[path] then
-    return self.storage.imageTextures[path]
+  if self.cache.imageTextures[path] then
+    return self.cache.imageTextures[path]
   end
   
   local texture = MOAIImageTexture.new()
   texture:load( path )
   texture:invalidate() -- power of two thingy
   
-  self.storage.imageTextures[path] = texture
+  self.cache.imageTextures[path] = texture
   
   return texture
 end
 
 function engine:loadFont(path)
   
-  if self.storage.fonts[path] then
-    return self.storage.fonts[path]
+  if self.cache.fonts[path] then
+    return self.cache.fonts[path]
   end
   
   local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
@@ -212,25 +211,29 @@ function engine:loadFont(path)
   font:load( path )
   font:preloadGlyphs( charCodes, 24 ) 
   
+<<<<<<< HEAD
   self.storage.fonts[path] = font
+=======
+  self.cache.fonts[path] = font
+  
+>>>>>>> FETCH_HEAD
   return font
 end
 
 function engine:loadFontStyle(path, size)
 
-  if self.storage.fontStyles[path..size] then
-    return self.storage.fontStyles[path..size]
-  else
-     local fontStyle = MOAITextStyle.new()
-    fontStyle:setFont( self:loadFont(path) )
-    fontStyle:setSize( size )
-    fontStyle:setColor( 0,0,0,1 )
-    print("load new font")
-    
-    self.storage.fontStyles[path..size] = fontStyle
-    return fontStyle
+  if self.cache.fontStyles[path..size] then
+    return self.cache.fontStyles[path..size]
   end
 
+  local fontStyle = MOAITextStyle.new()
+  fontStyle:setFont( self:loadFont(path) )
+  fontStyle:setSize( size )
+  fontStyle:setColor( 0,0,0,1 )
+
+  self.cache.fontStyles[path..size] = fontstyle
+  return fontStyle
+  
 end
 
 function engine:resizeViewport(width, height)
@@ -296,12 +299,12 @@ function engine:clearAll()
   self.input.touchPromise = nil
 end
 
-function engine:clearStorage(target)
+function engine:clearCache(target)
   if target then
-    self.storage[target] = nil
+    self.cache[target] = nil
   else
-    for name, group in pairs(self.storage) do    
-      self.storage[name] = nil
+    for name, group in pairs(self.cache) do    
+      self.cache[name] = nil
     end  
   end
 end

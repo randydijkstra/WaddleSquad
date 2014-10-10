@@ -14,6 +14,18 @@ else
   createLevelSelector():start()
 end
 
+--[[
+  -- storage tests
+
+  engine.storage:set("testVarData", "testVarName")
+  engine.storage:set("testGroup1Data", "testgroup1VarName", "testGroupName")
+  engine.storage:set("testGroup2Data", "testgroup2VarName", "testGroupName")
+
+  print(engine.storage:get("testVarName"))
+  print(engine.storage:get("testgroup1VarName", "testGroupName"))
+  print(engine.storage:get("testgroup2VarName", "testGroupName"))
+  print(engine.storage:get("testGroupName"))
+--]]
 
 --[[
 -- proof extend chains works without self bulshit

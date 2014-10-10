@@ -60,5 +60,8 @@ if not initialized then
   engine.mainLayer:setBox2DWorld( world )
   engine.box2DWorld = world
   
+  engine.storage = createStorage()
+  engine.storage:load()
+  
   engine:start()
 end
