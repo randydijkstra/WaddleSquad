@@ -211,12 +211,8 @@ function engine:loadFont(path)
   font:load( path )
   font:preloadGlyphs( charCodes, 24 ) 
   
-<<<<<<< HEAD
-  self.storage.fonts[path] = font
-=======
   self.cache.fonts[path] = font
   
->>>>>>> FETCH_HEAD
   return font
 end
 
