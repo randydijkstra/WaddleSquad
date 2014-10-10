@@ -99,23 +99,35 @@ function extendFunction(old, new)
 end
 
 function createSmoothEdgePolygon(minX, minY, maxX, maxY, smoothX, smoothY)
-  return {
-    --top left
-    minX, minY + smoothY, 
-    minX + smoothX, minY,  
+  
+  if smoothSquares then
     
-    -- top right
-    maxX - smoothX, minY,
-    maxX, minY + smoothY,
-    
-    -- bottom right
-    maxX, maxY - smoothY,
-    maxX - smoothX, maxY,
-    
-    -- bottom left
-    minX + smoothX, maxY,
-    minX, maxY - smoothY
-  }
+    return {
+      --top left
+      minX, minY + smoothY, 
+      minX + smoothX, minY,  
+      
+      -- top right
+      maxX - smoothX, minY,
+      maxX, minY + smoothY,
+      
+      -- bottom right
+      maxX, maxY - smoothY,
+      maxX - smoothX, maxY,
+      
+      -- bottom left
+      minX + smoothX, maxY,
+      minX, maxY - smoothY
+    }
+  else
+    return {
+      minX, minY,
+      maxX, minY,
+      maxX, maxY,
+      minX, maxY
+    }
+  end
+  
 end
 
 function countTable(table)

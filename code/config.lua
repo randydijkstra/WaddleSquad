@@ -25,6 +25,7 @@ config = {
   unitToMeter = 1/30, 
   debug2DDraw = false,
   debugSpriteDraw = true,
+  smoothSquares = false,
   
   --penguin settings
   penguinSpeed = 70,

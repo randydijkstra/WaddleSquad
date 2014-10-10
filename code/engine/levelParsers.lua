@@ -34,10 +34,9 @@ function parseLayer(layer, level)
     return
   end
   
-  if layer.properties.hard then
+  if layer.properties["Hard"] then
     createBox2DBoxes(layer, level)
   end
-  
   
   local offsetX = layer.x
   local offsetY = layer.y + 64
@@ -57,17 +56,11 @@ function parseLayer(layer, level)
       local x = ( tileNumber - (math.floor(tileNumber / layer.width) * layer.width) ) * level.map.tilewidth + offsetX
       local y = - (math.floor(tileNumber / layer.width) * level.map.tileheight + offsetY) 
       
-      local isHard = false
-      if layer.properties["Hard"] then
-        isHard = true
-      end
-      
       local tile = createTile(
         tileSet, 
         tileId - (tileSet.firstgid-1), 
         x, 
-        y,
-        isHard
+        y
       );
       
       engine:addGameObject(tile) 
@@ -101,18 +94,91 @@ function parseObjectLayer(layer, level)
 end
 
 function createBox2DBoxes(layer, level)
-  --[[
-    0, 0, 0, 0, 0, 0, 0, 0
-    1, 1, 0, 0, 0, 1, 1, 1
-    1, 1, 1, 1, 0, 1, 1, 1
-    0, 0, 1, 1, 0, 1, 0, 0
-    0, 1, 1, 1, 0, 1, 0, 0
-  --]]
+
+  -- list all tiles and their relation to other tiles  
+  local tiles = {
+    -- tileNumber = { tileNumber, belongsTo }
+  }  
   
   for tileNumber, tileId in pairs(layer.data) do
-    
+   
+    tileNumber  = tileNumber -1 -- table should start at key 0
+   
+    if tileId > 0 then
+      -- Tile found
+      local tileIdLeft = iif( tileNumber % layer.width == 0, 0, layer.data[tileNumber] )
+      local tileIdTop = iif( tileNumber < layer.width, 0, layer.data[tileNumber+1 - layer.width])
+      local tileIdLeftTop = iif( 
+        tileNumber % layer.width == 0 and tileNumber < layer.width, 
+        0, 
+        layer.data[tileNumber - layer.width]
+      )
+      
+      local belongsTo = false
+      
+      if tileIdTop > 0 then
+        belongsTo =  tileNumber - layer.width
+      elseif tileIdLeft > 0 and tileIdLeftTop <= 0 then
+        belongsTo = tileNumber - 1 
+      end
+      
+      tiles[tostring(tileNumber)] = { 
+        tileNumber = tileNumber, 
+        belongsTo = belongsTo
+      }
+      
+    end
   end
   
+  -- sort all tiles into sets
+  local sets = {
+    -- topLeftId = { tileNumber, tileNumber }
+  }
+  
+  function getParentTile(tileNumber)
+    if tiles[tostring(tileNumber)].belongsTo then
+      return getParentTile(tiles[tostring(tileNumber)].belongsTo)
+    else
+      return tileNumber
+    end
+  end
+
+  for key, tile in pairs(tiles) do 
+    local belongsTo = getParentTile(tile.tileNumber)
+    if sets[tostring(belongsTo)] then
+      table.insert(sets[tostring(belongsTo)], tile.tileNumber)
+    else
+      sets[tostring(belongsTo)] = {}
+      table.insert(sets[tostring(belongsTo)], tile.tileNumber)
+    end
+  end
+  
+  for key,value in pairs(tiles) do print(key,value) end
+  
+  -- create all box2DBoxes
+  local boxes = {
+    --{ x, y, width, height } 
+  }
+  
+  for firstTileNumer, subTiles in pairs(sets) do
+    local x = ( firstTileNumer - (math.floor(firstTileNumer / layer.width) * layer.width) ) * level.map.tilewidth + layer.x
+    local y = - (math.floor(firstTileNumer / layer.width) * level.map.tileheight + layer.y) 
+    
+    local highestTileNumber = 0 -- the bottomRight tile
+    for key, tileNumber in pairs(subTiles) do 
+      if highestTileNumber < tileNumber then highestTileNumber = tileNumber end
+    end
+    
+    local xMax = ( highestTileNumber - (math.floor(highestTileNumber / layer.width) * layer.width) ) * level.map.tilewidth + layer.x + level.map.tilewidth
+    local yMax = - (math.floor(highestTileNumber / layer.width) * level.map.tileheight + level.map.tileheight) 
+    
+    table.insert(boxes, { x = x, y = y, width = xMax - x, height = yMax - y})
+  end
+  
+  -- add boxes to the engine
+  for key, box in pairs(boxes) do
+    engine:addGameObject(createCollisionBox(box.x, box.y, box.width, box.height))
+  end
 end
 
 function getTileSetFromTileId(tileId, map)
