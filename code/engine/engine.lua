@@ -22,6 +22,7 @@ engine = {
   uiIsActive = false,
   gameUI = {}, -- holds the ui controler
   gameStats = {}, -- holds the gameStats controller
+  userData = {}, -- persitent data between games
   storage = {
     quads = {}, -- current loaded quads
     tileDecks = {}, -- current loaded tilesets,

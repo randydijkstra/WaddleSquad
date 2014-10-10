@@ -34,6 +34,11 @@ function parseLayer(layer, level)
     return
   end
   
+  if layer.properties.hard then
+    createBox2DBoxes(layer, level)
+  end
+  
+  
   local offsetX = layer.x
   local offsetY = layer.y + 64
   
@@ -90,6 +95,21 @@ function parseObjectLayer(layer, level)
       local snowflakeBig = createSnowflake(object.x, -object.y, "big")
       engine:addGameObject(snowflakeBig)
     end
+    
+  end
+  
+end
+
+function createBox2DBoxes(layer, level)
+  --[[
+    0, 0, 0, 0, 0, 0, 0, 0
+    1, 1, 0, 0, 0, 1, 1, 1
+    1, 1, 1, 1, 0, 1, 1, 1
+    0, 0, 1, 1, 0, 1, 0, 0
+    0, 1, 1, 1, 0, 1, 0, 0
+  --]]
+  
+  for tileNumber, tileId in pairs(layer.data) do
     
   end
   
