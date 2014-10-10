@@ -17,14 +17,14 @@ end
 --[[
   -- storage tests
 
-  --engine.userData:set("testVarData", "testVarName")
-  --engine.userData:set("testGroup1Data", "testgroup1VarName", "testGroupName")
-  --engine.userData:set("testGroup2Data", "testgroup2VarName", "testGroupName")
+  engine.storage:set("testVarData", "testVarName")
+  engine.storage:set("testGroup1Data", "testgroup1VarName", "testGroupName")
+  engine.storage:set("testGroup2Data", "testgroup2VarName", "testGroupName")
 
-  print(engine.userData:get("testVarName"))
-  print(engine.userData:get("testgroup1VarName", "testGroupName"))
-  print(engine.userData:get("testgroup2VarName", "testGroupName"))
-  print(engine.userData:get("testGroupName"))
+  print(engine.storage:get("testVarName"))
+  print(engine.storage:get("testgroup1VarName", "testGroupName"))
+  print(engine.storage:get("testgroup2VarName", "testGroupName"))
+  print(engine.storage:get("testGroupName"))
 --]]
 
 --[[
