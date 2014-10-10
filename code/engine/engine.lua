@@ -39,7 +39,6 @@ function engine:start()
   print('Starting engine')
 
   self.input = self:addGameObject(createInput());  
-   
   engine.box2DWorld:start() 
 
   local thread = MOAICoroutine.new()
@@ -211,10 +210,9 @@ function engine:loadFont(path)
   local charCodes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm!?@#$%^&*()_'
   local font = MOAIFont.new()
   font:load( path )
-  font:preloadGlyphs( charCodes, 24 )  
+  font:preloadGlyphs( charCodes, 24 ) 
   
   self.storage.fonts[path] = font
-  
   return font
 end
 
@@ -222,15 +220,17 @@ function engine:loadFontStyle(path, size)
 
   if self.storage.fontStyles[path..size] then
     return self.storage.fontStyles[path..size]
+  else
+     local fontStyle = MOAITextStyle.new()
+    fontStyle:setFont( self:loadFont(path) )
+    fontStyle:setSize( size )
+    fontStyle:setColor( 0,0,0,1 )
+    print("load new font")
+    
+    self.storage.fontStyles[path..size] = fontStyle
+    return fontStyle
   end
 
-  local fontStyle = MOAITextStyle.new()
-  fontStyle:setFont( self:loadFont(path) )
-  fontStyle:setSize( size )
-  fontStyle:setColor( 0,0,0,1 )
-
-  self.storage.fontStyles[path..size] = fontstyle
-  return fontStyle
 end
 
 function engine:resizeViewport(width, height)
@@ -244,6 +244,12 @@ function engine:loadLevel(level)
   if self.currentLevel then
     self.currentLevel:destroy()
   end
+  
+  --attempts to stop the mem leak by flushing cache. it didnt help much. Discoverd that mem leak differs per run.
+--[[  if self.storage.fonts ~= nil and self.storage.fontStyles ~= nil then
+    self.storage.fontStyles = {}
+    self.storage.fonts = {nil} 
+  end]]-- 
   
   print("loading: " .. level)
   

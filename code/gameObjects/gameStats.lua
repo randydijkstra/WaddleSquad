@@ -64,31 +64,40 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   
   function gameStats:newPenguin()
     if self.firstPenguin == false then 
-      self.score = self.score - 300
+      self.score = self.score - 100
       self.penguinsLeft = self.penguinsLeft - 1
-      engine.gameUI:updateAmountOfPenguinsLeft(self.penguinsLeft)
-      engine.gameUI:updateScore(self.score)
+      engine.gameUI:updateAmountOfPenguinsLeft(
+        "Penguins left: " .. tostring(self.penguinsLeft)..
+        "\nPenguins arrived: " .. tostring(self.penguinsFinished)
+      )
+      engine.gameUI:updateScore(tostring(self.score))
     end
     self.firstPenguin = false
   end
   
   function gameStats:updateStats(condition)
-    if condition == "snowflake" then
-      self.score = self.score + 100
+    if condition == "small" then
+      self.score = self.score + 25
+    elseif condition == "big" then
+      self.score = self.score + 50
     elseif condition == "iglo" then
-      self.score = self.score + 400
+      self.score = self.score + 200
       self.penguinsFinished = self.penguinsFinished + 1
+      engine.gameUI:updateAmountOfPenguinsLeft(
+        "Penguins left: " .. tostring(self.penguinsLeft)..
+        "\nPenguins arrived: " .. tostring(self.penguinsFinished)
+      )
     end
     
-    engine.gameUI:updateScore(self.score)
+    engine.gameUI:updateScore(tostring(self.score))
      
-    print(
+    --[[print(
       "score: ".. self.score ..
       "\n time: ".. self.time ..
       "\n penguinsOnScreen: ".. self.penguinsOnScreen ..
       "\n penguinsLeft: ".. self.penguinsLeft ..
       "\n penguinsFinished: ".. self.penguinsFinished
-    )
+    )]]--
   end
   
   function gameStats:onDestroy()
@@ -101,12 +110,14 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     
     local timer = createLoopingTimer(1, function()
       self.time = self.time - 1      
-      engine.gameUI:updateTime(self.time)
-        
+      engine.gameUI:updateTime("Time: \n"..tostring(self.time))
+      
+      --print("font table length: "..countTable(engine.storage.fonts))
+      --print("fontstyle table length: "..countTable(engine.storage.fontStyles))
+
       if self.time <= 0 then
         self.timer:stop()
         print("Time is up!")
-        
       end
         
     end)

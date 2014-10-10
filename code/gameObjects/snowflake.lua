@@ -2,12 +2,12 @@ function createSnowflake(x, y, snowflaketype)
   local tileDeck = iif( snowflaketype == "small",
     engine:loadTileDeck( 
       "assets/sprites/special/Sneeuwvlok-spreadsheet.png", 
-      4, 1, 
+      8, 1, 
       0, 0, 32, 32 
     ),
     engine:loadTileDeck(
       "assets/sprites/special/Sneeuwvlok-big-spreadsheet.png", 
-      4, 1, 
+      8, 1, 
       0, 0, 64, 64 
     )
   )
@@ -18,13 +18,13 @@ function createSnowflake(x, y, snowflaketype)
   snowflake.type = snowflaketype
   snowflake.name = iif( snowflaketype == "small", "small", "big")
   
-  local snowflakeAnimTable = {1, 2, 3, 4, 0}
+  local snowflakeAnimTable = {1, 2, 3, 4, 5, 6, 7, 8, 0}
   
   local animCurve = MOAIAnimCurve.new()
   animCurve:reserveKeys( #snowflakeAnimTable )
 
   for i = 1, #snowflakeAnimTable, 1 do
-    animCurve:setKey( i, 0.4 * (i-1), snowflakeAnimTable[i], MOAIEaseType.FLAT) -- hoeveelste, tijd, index in sheet, easing type
+    animCurve:setKey( i, 0.1 * (i-1), snowflakeAnimTable[i], MOAIEaseType.FLAT) -- hoeveelste, tijd, index in sheet, easing type
   end
   
   local anim = MOAIAnim.new()

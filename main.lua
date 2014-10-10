@@ -48,7 +48,7 @@ function obj1()
     print(self.val1)
   end
   
-  function obj:test()
+  function obj:tes1t()
     self.val1 = self.val1+1
   end
   

@@ -6,27 +6,30 @@ function getGameUI()
   gameUI.name = "gameUI"
   gameUI.hud = {
     score = createTextBox(   
-      config.prefferedWidth / 10 * 4 + 32, (config.prefferedHeight/11)*-1, 
+      ((config.prefferedWidth / 10) * 5 + 80), (config.prefferedHeight/11)*-1, 
       150, 90,
-      "Score: \n" .. engine.gameStats.score,     
+      "Score: \n" .. tostring(engine.gameStats.score),     
       32, 
       true,
       "assets/sprites/ui/Achtergrond4.png"
      ),
      time = createTextBox(
-      config.prefferedWidth / 10 * 5 + 64, (config.prefferedHeight/11)*-1, 
-      128, 64,
-      tostring(engine.gameStats.time),
-      50, 
+      config.prefferedWidth / 10 * 7 - 10 , (config.prefferedHeight/11)*-1, 
+      150, 90,
+      "Time:\n"..tostring(engine.gameStats.time),
+      32, 
       true,
       "assets/sprites/ui/Achtergrond4.png"
     ),
     amountOfPenguinsLeft = createTextBox(   
-      config.prefferedWidth / 10 * 1.75, 
-      (config.prefferedHeight/1.1) * -1,
-      140, 90,
-      "x " .. engine.gameStats.penguinsLeft,     
-      60
+      config.prefferedWidth / 10 * 9 - 30, 
+      (config.prefferedHeight/11)*-1,
+      300, 90,
+      "Penguins left: " .. tostring(engine.gameStats.penguinsLeft)..
+      "\nPenguins arrived: " .. tostring(engine.gameStats.penguinsFinished),
+      28,
+      true,
+      "assets/sprites/ui/Achtergrond4.png"
      )--[[,
      amountOfPenguinsFinished = createTextBox(   
       config.prefferedWidth / 10 * 9, 
@@ -76,10 +79,10 @@ function getGameUI()
     self.hud.time:updateInfo(tostring(time))
   end
   function gameUI:updateAmountOfPenguinsLeft(penguinsLeft)
-    self.hud.amountOfPenguinsLeft:updateInfo("x "..tostring(penguinsLeft))
+    self.hud.amountOfPenguinsLeft:updateInfo(tostring(penguinsLeft))
   end
   function gameUI:updateAmountOfPenguinsFinished(penguinsFinished)
-    self.hud.amountOfPenguinsFinished:updateInfo("x "..tostring(penguinsFinished))
+    self.hud.amountOfPenguinsFinished:updateInfo(tostring(penguinsFinished))
   end
   
   function gameUI:completeScreen(win, score)
@@ -123,7 +126,7 @@ function spawnCallback()
   end
   
   engine.gameStats.penguinCanBeSpawned = false
-  local promise = createPromise(1.5, function()
+  local promise = createPromise(1, function()
     engine.gameStats.penguinCanBeSpawned = true 
   end)
 end
