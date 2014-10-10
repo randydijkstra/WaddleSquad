@@ -242,21 +242,6 @@ return {
           name = "sneeuwvloksmall",
           type = "sneeuwvloksmall",
           shape = "rectangle",
-          x = 15,
-          y = 370,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          gid = 104,
-          visible = true,
-          properties = {
-            ["sneeuwvloksmall"] = "sneeuwvloksmall"
-          }
-        },
-        {
-          name = "sneeuwvloksmall",
-          type = "sneeuwvloksmall",
-          shape = "rectangle",
           x = 83,
           y = 429.333,
           width = 0,

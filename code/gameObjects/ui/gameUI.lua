@@ -41,14 +41,14 @@ function getGameUI()
   } 
   gameUI.buttons = {
     penguinSpawnButton = createButton(
-      config.prefferedWidth / 10 * 0.5, 
+       config.prefferedWidth / 10 * 9,  
       (config.prefferedHeight/1.03) * -1,
       96, 96,
       "assets/sprites/ui/Spawn.png", 
       spawnCallback
     ),
     jumpBoostButton = createButton(
-      config.prefferedWidth / 10 * 9, 
+      config.prefferedWidth / 10 * 8, 
       (config.prefferedHeight/1.03) * -1,
       96, 96,
       "assets/sprites/ui/Jumping.png", 

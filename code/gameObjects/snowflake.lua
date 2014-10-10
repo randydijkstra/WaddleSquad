@@ -38,6 +38,25 @@ function createSnowflake(x, y, snowflaketype)
   else
     snowflake.body:addRect(0, 0, 64, 64):setSensor()
   end
+  
+  function snowflake:onPenguinCollision()
+    --print(iif(snowflake.type == "small","+25 points","+50 points"))
+    local showAddedScore = createTextBox(x+30, y-55, 60, 30, iif(snowflake.type == "small", "+25", "+50"), 25, true)
+    showAddedScore.prop:moveScl(0.4, 0.4, 1, 0.8, MOAIEaseType.EASE_IN)
+    local x, y = showAddedScore.prop:getLoc()
+    showAddedScore.prop:seekLoc(
+      x, 
+      y + 20,
+      1,
+      1.5,
+      MOAIEaseType.EASE_IN
+    )
+    engine:addGameObject(showAddedScore)
+    
+    local promise = createPromise(1.1, function()        
+      engine:deleteGameObject(showAddedScore)
+    end)
+  end
 
   return snowflake
 end

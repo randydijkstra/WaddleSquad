@@ -145,14 +145,16 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
     --print("name: "..fixtureB:getBody().parent.name)
     local snowflakename = fixtureB:getBody().parent.name
+    fixtureB:getBody().parent:onPenguinCollision()    
     engine:deleteGameObject(fixtureB:getBody().parent)
     engine.gameStats:updateStats(snowflakename)
   end
   
   if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
     print("Colided with iglo")
-    engine:deleteGameObject(fixtureA:getBody().parent)
     engine.gameStats:updateStats("iglo")
+    fixtureB:getBody().parent:onPenguinCollision()
+    engine:deleteGameObject(fixtureA:getBody().parent)
   end
   
   if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then

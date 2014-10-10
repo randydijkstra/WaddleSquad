@@ -23,11 +23,11 @@ config = {
   gravityX = 0,
   gravityY = -9.8,
   unitToMeter = 1/30, 
-  debug2DDraw = true,
+  debug2DDraw = false,
   debugSpriteDraw = true,
   
   --penguin settings
-  penguinSpeed = 60,
+  penguinSpeed = 70,
   penguinJumpForce = 7,
   penguinFriction = 0,
   penguinAnimationSpeed = 0.15,
