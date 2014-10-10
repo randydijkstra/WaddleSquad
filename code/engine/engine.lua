@@ -132,10 +132,10 @@ function engine:deleteGameObject(gameObject)
 end
 
 function engine:getNewId()
-  id = tostring(math.random(9001))
+  id = tostring(math.random(900001))
   
   while self.ids[id] do 
-    id = tostring(math.random(9001))
+    id = tostring(math.random(900001))
   end
   
   self.ids[id] = true
