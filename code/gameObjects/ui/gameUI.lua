@@ -120,8 +120,7 @@ end
 
 function spawnCallback()
 
-  --if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 300 and engine.gameStats.penguinsLeft > 0 then
-  if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.penguinsLeft > 0 then
+  if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 100 and engine.gameStats.penguinsLeft > 0 then
     penguin = engine:addGameObject(createPenguin(-50, -350))
   end
   
@@ -132,17 +131,20 @@ function spawnCallback()
 end
 
 function jumpBoostCallback()
-  engine.gameStats.toggleJumpBoostSpawner = true -- not neccesary anymore?
-  engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.7, 0.7, 0.7, 1, 0.3)
   
-  engine.input:setTouchPromise(function(x, y)
-    x, y = engine.mainLayer:wndToWorld(x, y)
-    engine:addGameObject(createJumpBoost(x - 32, y - 32))
-    engine.gameStats.toggleJumpBoostSpawner = false
-    engine.gameStats.score = engine.gameStats.score - 400
-    engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.3)
-  end)
-  
+  if engine.gameStats.score >= 50 then
+    engine.gameStats.toggleJumpBoostSpawner = true -- not neccesary anymore?
+    engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.6, 0.6, 0.6, 1, 0.2)
+
+    engine.input:setTouchPromise(function(x, y)
+      x, y = engine.mainLayer:wndToWorld(x, y)
+      engine:addGameObject(createJumpBoost(x - 32, y - 32))
+      engine.gameStats.toggleJumpBoostSpawner = false
+      engine.gameStats.score = engine.gameStats.score - 50
+      engine.gameUI:updateScore(tostring(engine.gameStats.score))
+      engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)
+    end)
+  end
 end
 
 function menuCallback()
