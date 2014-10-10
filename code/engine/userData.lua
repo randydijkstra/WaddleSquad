@@ -2,8 +2,8 @@
   This file will load and save all persistent data in engine.userData
 -]]
 
-function createUserData()
-  local userData = {
+function createStorage()
+  local storage = {
     path = (MOAIEnvironment.documentDirectory or "./") .. "/userData_.lua",
     data = {
       application = config.gameTitle,
@@ -11,7 +11,7 @@ function createUserData()
     }
   }
    
-  function userData:set(data, varName, group)
+  function storage:set(data, varName, group)
     if group then 
       if self.data[group] then 
         self.data[group][varName] = data
@@ -26,7 +26,7 @@ function createUserData()
     self:save()
   end
   
-  function userData:get(varName, group)
+  function storage:get(varName, group)
     if group then
       return self.data[group][varName]
     else
@@ -34,7 +34,7 @@ function createUserData()
     end
   end
   
-  function userData:save()
+  function storage:save()
     local serializer = MOAISerializer.new()
     serializer:serialize ( self.data )
     local userDataString = serializer:exportToString()
@@ -47,18 +47,18 @@ function createUserData()
     
   end
   
-  function userData:load()
+  function storage:load()
     local file = loadfile(self.path) or nil
     if file then
-      self.userData = file()
+      self.data = file()
     end
   end
   
-  function userData:reset()
-    self = createUserData()
+  function storage:reset()
+    self = createStorage()
     self:save()
   end
   
-  return userData
+  return storage
 end
  
