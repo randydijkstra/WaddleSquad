@@ -1,5 +1,0 @@
-function createTutorial()
-  
-  
-
-end
