@@ -55,13 +55,16 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:gameOver()
+    self.timer:stop()
     self.levelComplete = true
     engine:removeFromFaction(self, 'update')
     engine.gameUI:completeScreen(false, self.score)
     self:setHighScore()
+    
   end
   
   function gameStats:levelComplete()
+    self.timer:stop()
     self.levelComplete = true
     engine:removeFromFaction(self, 'update')
     engine.gameUI:completeScreen(true, self.score)
