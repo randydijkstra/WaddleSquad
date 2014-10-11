@@ -45,7 +45,7 @@ config = {
 defaultGameStats = {
   levelStartTime = {
     --startTime for Levels in seconds
-    lvl1 = 55,
+    lvl1 = 4,
     lvl2 = 70,
     lvl3 = 70,
     lvl4 = 60

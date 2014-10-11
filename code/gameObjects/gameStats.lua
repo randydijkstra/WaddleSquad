@@ -57,7 +57,8 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   function gameStats:gameOver()
     self.levelComplete = true
     engine:removeFromFaction(self, 'update')
-    engine.gameUI:completeScreen(false, self.score)    
+    engine.gameUI:completeScreen(false, self.score)
+    self:setHighScore()
   end
   
   function gameStats:levelComplete()
@@ -120,7 +121,11 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:setHighScore()
-    
+    if engine.storage:get(engine.currentLevel.name, "highscores") > self.score then
+      print("Got highscore! Overwrite data...")
+    else
+      print("No new highscore. Do nothing")
+    end
   end
   
   return gameStats
