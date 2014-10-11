@@ -125,8 +125,8 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:setHighScore()
-    print("current lvl highscore: " .. engine.storage:get(engine.currentLevel.name, "highscores"))
-    print("current score: " .. self.score)
+    --print("current lvl highscore: " .. engine.storage:get(engine.currentLevel.name, "highscores"))
+    --print("current score: " .. self.score)
     
     if engine.storage:get(engine.currentLevel.name, "highscores") then
       if 
