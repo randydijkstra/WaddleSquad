@@ -13,7 +13,7 @@ function createSnowflake(x, y, snowflaketype)
   )
   
   local snowflake = createCollidingGameObject(x, y, tileDeck, MOAIBox2DBody.STATIC)
-
+    
   table.insert(snowflake.factions, 'snowflakes')
   snowflake.type = snowflaketype
   snowflake.name = iif( snowflaketype == "small", "small", "big")
@@ -41,8 +41,10 @@ function createSnowflake(x, y, snowflaketype)
   
   function snowflake:onPenguinCollision()
     --print(iif(snowflake.type == "small","+25 points","+50 points"))
-    local x, y = snowflake.prop:getLoc()
-    local showAddedScore = createTextBox(x+20, y-55, 60, 30, iif(snowflake.type == "small", "+25", "+50"), 25, false)
+    local x, y = engine.uiLayer:worldToWnd(engine.mainLayer:worldToWnd(self.prop:getLoc()))
+    local width = iif(self.type == "small",32,64)
+    local height = iif(self.type == "small",32,64)
+    local showAddedScore = createTextBox(x + width/2, y+height, 60, 30, iif(self.type == "small", "+25", "+50"), 25, true)
     showAddedScore.prop:moveScl(0.4, 0.4, 1, 0.8, MOAIEaseType.EASE_IN)
     local xText, yText = showAddedScore.prop:getLoc()
     showAddedScore.prop:seekLoc(
