@@ -44,8 +44,8 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       self:gameOver()
     elseif self.time == 0 and self.penguinsFinished > 0 then
       self:levelComplete()
-    --elseif self.penguinsOnScreen <= 0 and self.score < 300 then
-    --  self:gameOver()
+    elseif self.penguinsOnScreen <= 0 and self.score < 100 then
+      self:gameOver()
     elseif self.penguinsOnScreen <= 0 and self.penguinsLeft <= 0 and self.score > 0 then
       self:levelComplete()    
     elseif self.penguinsOnScreen <= 0 and self.penguinsLeft <= 0 and self.score < 0 then
