@@ -53,18 +53,15 @@ function createHowToPlay()
       )
     }
   }
-  print("create how to play")
   
   function howToPlay:start()
-    -- show first screen
-    print("Screen 1")
+
     engine:addGameObject(self.tutorialScreens.screen1)
     engine:addGameObject(self.textBoxes.screen1TextBox)
 
     
     engine.input:setTouchPromise(function()
-      -- show second screen
-      print("Screen 2")
+
       engine:deleteGameObject(self.textBoxes.screen1TextBox)
       engine:addGameObject(self.tutorialScreens.screen2)
       engine:addGameObject(self.textBoxes.screen2TextBox1)
@@ -88,11 +85,8 @@ function createHowToPlay()
 end
 
 function createTutorialScreen(path, width, height)
-  print("width " .. width .. " height " .. height)
   deck = engine:loadQuad(path, width, height)
-  
-  --print("loc x"..config.prefferedWidth .. " height "..config.prefferedHeight) 
-  
+
   tutorialScreen = createDrawableGameObject(
     0,
     config.prefferedHeight * -1,

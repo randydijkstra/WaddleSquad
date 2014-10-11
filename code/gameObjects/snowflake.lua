@@ -40,7 +40,7 @@ function createSnowflake(x, y, snowflaketype)
   end
   
   function snowflake:onPenguinCollision()
-    --print(iif(snowflake.type == "small","+25 points","+50 points"))
+
     local x, y = engine.uiLayer:worldToWnd(engine.mainLayer:worldToWnd(self.prop:getLoc()))
     local width = iif(self.type == "small",32,64)
     local height = iif(self.type == "small",32,64)

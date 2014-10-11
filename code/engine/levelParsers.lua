@@ -153,8 +153,6 @@ function createBox2DBoxes(layer, level)
     end
   end
   
-  for key,value in pairs(tiles) do print(key,value) end
-  
   -- create all box2DBoxes
   local boxes = {
     --{ x, y, width, height } 

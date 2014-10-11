@@ -37,8 +37,6 @@ engine = {
 engine.__index = engine
 
 function engine:start()
-  print('Starting engine')
-
   self.input = self:addGameObject(createInput());  
   engine.box2DWorld:start() 
 
@@ -233,9 +231,7 @@ function engine:loadFontStyle(path, size)
 end
 
 function engine:resizeViewport(width, height)
-  
   print("resize to: "..width..","..height)
-  
   self.viewport:setScale(width, height)
 end
 

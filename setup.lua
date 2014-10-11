@@ -2,8 +2,6 @@
   after all code files are loaded we will setup the viewport and handle devices here
 --]]--
 
-print('Title of the game is: '..config.gameTitle)
-
 if not initialized then
   viewportWidth, viewportHeight = MOAIGfxDevice.getViewSize()
   

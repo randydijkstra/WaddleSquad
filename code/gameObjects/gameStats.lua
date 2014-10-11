@@ -91,13 +91,6 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     
     engine.gameUI:updateScore(tostring(self.score))
      
-    --[[print(
-      "score: ".. self.score ..
-      "\n time: ".. self.time ..
-      "\n penguinsOnScreen: ".. self.penguinsOnScreen ..
-      "\n penguinsLeft: ".. self.penguinsLeft ..
-      "\n penguinsFinished: ".. self.penguinsFinished
-    )]]--
   end
   
   function gameStats:onDestroy()
@@ -106,18 +99,13 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:gameTimer()
-    print("Start the Timer!")
-    
+
     local timer = createLoopingTimer(1, function()
       self.time = self.time - 1      
       engine.gameUI:updateTime(tostring(self.time))
-      
-      --print("font table length: "..countTable(engine.storage.fonts))
-      --print("fontstyle table length: "..countTable(engine.storage.fontStyles))
 
       if self.time <= 0 then
         self.timer:stop()
-        print("Time is up!")
       end
         
     end)

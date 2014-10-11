@@ -143,7 +143,6 @@ end
 function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
   if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
-    --print("name: "..fixtureB:getBody().parent.name)
     local snowflakename = fixtureB:getBody().parent.name
     fixtureB:getBody().parent:onPenguinCollision()    
     engine:deleteGameObject(fixtureB:getBody().parent)
@@ -151,15 +150,13 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   end
   
   if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
-    print("Colided with iglo")
     engine.gameStats:updateStats("iglo")
     fixtureB:getBody().parent:onPenguinCollision()
     engine:deleteGameObject(fixtureA:getBody().parent)
   end
   
   if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
-    print("Colided with jumpBoost")
-    
+
     local body = fixtureA:getBody()
     local velX, velY = body:getLinearVelocity()
     local velChange = config.jumpBoostSpeed / config.unitToMeter - velX

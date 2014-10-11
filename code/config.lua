@@ -2,8 +2,6 @@
   This file should only exist as an object container all configurable 
 --]]--
 
-print('Loading config...')
-
 config = {
   gameTitle = 'Waddle Squad',
   gameVersion = "Alpha v1.1",

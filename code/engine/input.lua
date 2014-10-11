@@ -2,8 +2,6 @@
   This file will handle all inputs so we can treat every device the same.
 --]]--
 
-print('controller loaded')
-
 canTouch = true -- used to prevent  clickign trough buttons
 
 function createInput()
@@ -53,12 +51,8 @@ function createInput()
 
   function input:onGeneralTouch(x, y)
     -- gets called on any touch
-    
-    print(x,y)
-    print(self.touchPromise)
 
     if self.touchPromise then
-      print("s-s-s-s-senpai")
       local check = self.touchPromise
       
       self.touchPromise(x, y)

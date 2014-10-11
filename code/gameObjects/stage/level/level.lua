@@ -1,5 +1,4 @@
 function createLevel(map)
-  print('assets/maps/'..map..'.lua')
   local level = {
     map = dofile('assets/maps/'..map..'.lua'),
     width,
