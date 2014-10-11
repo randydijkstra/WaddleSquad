@@ -13,6 +13,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       penguinsFinished = 0,
       toggleJumpBoostSpawner = false,
       timer, -- holds the countdown timer
+      levelComplete = false
     }
   )
   
@@ -28,6 +29,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     self.penguinsLeft = 10
     self.penguinsFinished = 0
     self.toggleJumpBoostSpawner = false
+    self.levelComplete = false
   end
   
   function gameStats:update()
@@ -53,11 +55,13 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:gameOver()
+    self.levelComplete = true
     engine:removeFromFaction(self, 'update')
-    engine.gameUI:completeScreen(false, self.score)
+    engine.gameUI:completeScreen(false, self.score)    
   end
   
   function gameStats:levelComplete()
+    self.levelComplete = true
     engine:removeFromFaction(self, 'update')
     engine.gameUI:completeScreen(true, self.score)
   end
@@ -89,7 +93,9 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       )
     end
     
-    engine.gameUI:updateScore(tostring(self.score))
+    if(self.levelComplete == false) then 
+      engine.gameUI:updateScore(tostring(self.score))
+    end
      
     --[[print(
       "score: ".. self.score ..
@@ -123,6 +129,10 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     end)
 
     self.timer = timer:start()
+  end
+  
+  function gameStats:setHighScore()
+    
   end
   
   return gameStats
