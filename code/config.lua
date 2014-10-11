@@ -45,9 +45,16 @@ config = {
 defaultGameStats = {
   levelStartTime = {
     --startTime for Levels in seconds
-    lvl1 = 60,
-    lvl2 = 70,
+    lvl1 = 65,
+    lvl2 = 75,
     lvl3 = 70,
-    lvl4 = 60
+    lvl4 = 70
+  },
+  scores = {
+    snowflakesmallPoints = 25,
+    snowflakebigPoints = 50,
+    penguinFinishedPoints = 200,
+    penguinCost = -100,
+    jumpBoostCost = -50
   }
 }

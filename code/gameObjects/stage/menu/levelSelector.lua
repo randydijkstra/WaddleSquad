@@ -3,13 +3,8 @@ function createLevelSelector()
   local levelSelector = {
     name = "levelSelector",
     headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
-    buttons = {}
-    --[[,
-    highScores = {
-      lvl1 = createTextBox(
-        500, -430, 100, 50, tostring(levelHighScores.lvl1), 40, false
-      )
-    }]]--
+    buttons = {},
+    highScoresTextBoxes = {}
   }
   
   local levels = config.amountOfLevels -- maybe auto calculate this later or store in config
@@ -21,6 +16,13 @@ function createLevelSelector()
       level
     )
     levelSelector.buttons[button.id] = button
+    
+    local highScore = createHighScoreText(
+      200 * level + 165, 
+      -400,
+      level
+    ) 
+    table.insert(levelSelector.highScoresTextBoxes, highScore)
   end
   
   function levelSelector:start()
@@ -30,9 +32,9 @@ function createLevelSelector()
       engine:addGameObject(object)
     end
     
-    --[[for key, object in pairs(self.highScores) do
+    for key, object in pairs(self.highScoresTextBoxes) do
       engine:addGameObject(object)
-    end]]-- highscore feature to implemented later!
+    end
   end
 
   function levelSelector:destroy()
@@ -51,8 +53,22 @@ function createLevelSelectButton(x, y, level)
   
   return button
 end
+
+function createHighScoreText(x, y, level)
+  local levelName = "lvl"..level
+  
+  local string = iif(
+    engine.storage:get(levelName, "highscores"),
+    engine.storage:get(levelName, "highscores"), 
+    0
+  )
+  print("level: "..level.." highscore:"..string)
+  
+  local text = createTextBox(x, y, 200, 80, "Highscore:\n"..tostring(string), 30)
+  
+  return text
+end
   
 function levelSelectButtonCallback(button)
   engine:loadLevel(button.levelName)
 end
-  
