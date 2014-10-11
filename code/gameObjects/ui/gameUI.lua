@@ -136,14 +136,22 @@ function jumpBoostCallback()
     engine.gameStats.toggleJumpBoostSpawner = true -- not neccesary anymore?
     engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.6, 0.6, 0.6, 1, 0.2)
 
-    engine.input:setTouchPromise(function(x, y)
+    function touchCallback(x,y) 
       x, y = engine.mainLayer:wndToWorld(x, y)
-      engine:addGameObject(createJumpBoost(x - 32, y - 32))
-      engine.gameStats.toggleJumpBoostSpawner = false
-      engine.gameStats.score = engine.gameStats.score - 50
-      engine.gameUI:updateScore(tostring(engine.gameStats.score))
-      engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)
-    end)
+
+      if engine.currentLevel:rectInBoxes(x, y, 64, 64, 5) == false then
+        engine:addGameObject(createJumpBoost(x - 32, y - 32))
+        engine.gameStats.toggleJumpBoostSpawner = false
+        engine.gameStats.score = engine.gameStats.score - 50
+        engine.gameUI:updateScore(tostring(engine.gameStats.score))
+        engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)       
+      else   
+        engine.input:setTouchPromise(touchCallback)
+        return true
+      end
+    end
+
+    engine.input:setTouchPromise(touchCallback)
   end
 end
 

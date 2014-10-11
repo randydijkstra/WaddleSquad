@@ -54,10 +54,9 @@ function createInput()
 
     if self.touchPromise then
       local check = self.touchPromise
+      local keepAlive = self.touchPromise(x, y)
       
-      self.touchPromise(x, y)
-      
-      if check == self.touchPromise then
+      if keepAlive ~= true and check == self.touchPromise then
         self.touchPromise = nil
       end
       

@@ -35,7 +35,7 @@ function parseLayer(layer, level)
   end
   
   if layer.properties["Hard"] then
-    createBox2DBoxes(layer, level)
+    level.collisionBoxes = createBox2DBoxes(layer, level)
   end
   
   local offsetX = layer.x
@@ -173,10 +173,15 @@ function createBox2DBoxes(layer, level)
     table.insert(boxes, { x = x, y = y, width = xMax - x, height = yMax - y})
   end
   
-  -- add boxes to the engine
+  -- add boxes to the engine and save to level
+  
+  local collisionBoxes = {}
+  
   for key, box in pairs(boxes) do
-    engine:addGameObject(createCollisionBox(box.x, box.y, box.width, box.height))
+    table.insert(collisionBoxes, engine:addGameObject(createCollisionBox(box.x, box.y, box.width, box.height)))
   end
+  
+  return collisionBoxes
 end
 
 function getTileSetFromTileId(tileId, map)

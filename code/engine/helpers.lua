@@ -64,13 +64,6 @@ function isStringInTable(table, string)
   return false
 end
 
-function pointInsideRect(rectX, rectY, rectWidth, rectHeight, x, y)
-  if x > rectX and x < rectX + rectWidth and y > rectY and y < rectY + rectHeight then
-    return true
-  end  
-  return false
-end
-
 function iif(cond, A, B)
   if cond then
     return A
@@ -136,4 +129,39 @@ function countTable(table)
     count = count + 1 
   end
   return count
+end
+
+function pointInsideRect(rectX, rectY, rectWidth, rectHeight, x, y)
+  if x > rectX and x < rectX + rectWidth and y > rectY and y < rectY + rectHeight then
+    return true
+  end  
+  return false
+end
+
+function rectInRect(x1, y1, width1, height1, x2, y2, width2, height2, margin)
+  if marigin == nil then marigin = 0 end
+  
+  -- width1 = width1 - margin
+  -- height1 = height1 - margin
+  -- x1 = x1 - marigin
+  -- y1 = y1 + marigin
+  
+  print("-----------------------")
+  print(x1, y1, x1 + width1, y1 - height1)
+  print(x2, y2, x2 + width2, y2 - height2)
+  
+        print(y1 < y2, y1 > y2 - height2, y1 - height1 < y2 ,y1 - height1 > y2 - height2) 
+      print((y1 < y2 and y1 > y2 - height2),(y1 - height1 < y2 and y1 - height1 > y2 - height2) ) 
+  
+  if (x1 > x2 and x1 < x2 + width2) or (x1 + width1 > x2 and x1 + width1 < x2 + width2) then
+    if (y1 < y2 and y1 > y2 + height2) or (y1 + height1 < y2 and y1 + height1 > y2 + height2) then
+      
+      
+      return true
+    end
+  end
+  
+  print("no collision between rects")
+  
+  return false
 end

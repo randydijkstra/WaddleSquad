@@ -4,7 +4,8 @@ function createLevel(map)
     width,
     height,
     name,
-    specialTiles = {}
+    specialTiles = {},
+    collisionBoxes 
   }
   
   level.width = level.map.width * level.map.tilewidth
@@ -18,6 +19,19 @@ function createLevel(map)
     engine.gameUI = nil
     engine.uiIsActive = false
     engine:clearAll()
+  end
+  
+  function level:rectInBoxes(x, y, width, height, margin)
+    
+    for key, box in pairs(self.collisionBoxes) do
+      if rectInRect(x, y, width, height, box.x, box.y, box.width, box.height, margin) then
+        print ("in rect")
+        return true
+      end
+    end
+    
+    print ("not in rect")
+    return false
   end
 
   return level
