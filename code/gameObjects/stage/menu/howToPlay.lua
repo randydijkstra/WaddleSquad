@@ -10,17 +10,35 @@ function createHowToPlay()
         30
       ),
       screen2TextBox1 = createTextBox(
-        config.prefferedWidth/2, (config.prefferedHeight / 2) * -1,
-        512, 256,
+        config.prefferedWidth/10 * 6, (config.prefferedHeight / 3.3) * -1,
+        450, 100,
         'Collect the snowflakes in order to hire the Waddle Squad!',
-        45
+        30
       ),
       screen2TextBox2 = createTextBox(
-        config.prefferedWidth/2, (config.prefferedHeight / 2) * -1,
-        512, 256,
-        'Sharkbear Studios presents...',
-        45
+        config.prefferedWidth/10 * 3.5, (config.prefferedHeight / 1.8) * -1,
+        350, 200,
+        'Place Gunter to make Leroy jump.',
+        20
       ),
+      screen2TextBox3 = createTextBox(
+        config.prefferedWidth/10 * 3.5, (config.prefferedHeight / 1.3) * -1,
+        350, 200,
+        'Place Barbara to make Leroy run.',
+        20
+      ),
+      screen2TextBox4 = createTextBox(
+        config.prefferedWidth/10 * 7.4, (config.prefferedHeight / 1.8) * -1,
+        350, 100,
+        'Place Shawn to dig.',
+        20
+      ),
+      screen2TextBox5 = createTextBox(
+        config.prefferedWidth/10 * 8.2, (config.prefferedHeight / 1.3) * -1,
+        390, 100,
+        'Place Erica to help Leroy across water.',
+        20
+      )
     },
     tutorialScreens = {
       screen1 = createTutorialScreen(
@@ -50,6 +68,10 @@ function createHowToPlay()
       engine:deleteGameObject(self.textBoxes.screen1TextBox)
       engine:addGameObject(self.tutorialScreens.screen2)
       engine:addGameObject(self.textBoxes.screen2TextBox1)
+      engine:addGameObject(self.textBoxes.screen2TextBox2)
+      engine:addGameObject(self.textBoxes.screen2TextBox3)
+      engine:addGameObject(self.textBoxes.screen2TextBox4)
+      engine:addGameObject(self.textBoxes.screen2TextBox5)
 
       engine.input:setTouchPromise(function()
         -- Load level selector
