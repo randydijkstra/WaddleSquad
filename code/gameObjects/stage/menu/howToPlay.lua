@@ -6,7 +6,7 @@ function createHowToPlay()
       screen1TextBox = createTextBox(
         config.prefferedWidth/2, (config.prefferedHeight / 2.5) * -1,
         720, 256,
-        'Bring Leroy and his nephews to the igloo!\nTap on the screen to make all penguins jump.',
+        'Bring Leroy and his nephews to the igloo.\nTap on the screen to make all penguins jump.',
         30
       ),
       screen2TextBox1 = createTextBox(

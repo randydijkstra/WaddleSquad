@@ -4,8 +4,8 @@
 
 config = {
   gameTitle = 'Waddle Squad',
-  gameVersion = "Alpha v1.1",
-  launchOnMobile = false,
+  gameVersion = "Alpha v1.2\nDemo",
+  launchOnMobile = true,
  
   --viewport
   screenWidth = 1280,
