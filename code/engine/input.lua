@@ -53,10 +53,20 @@ function createInput()
 
   function input:onGeneralTouch(x, y)
     -- gets called on any touch
+    
+    print(x,y)
+    print(self.touchPromise)
 
     if self.touchPromise then
+      print("s-s-s-s-senpai")
+      local check = self.touchPromise
+      
       self.touchPromise(x, y)
-      self.touchPromise = nil
+      
+      if check == self.touchPromise then
+        self.touchPromise = nil
+      end
+      
       self.states.triggered = true
     end
 

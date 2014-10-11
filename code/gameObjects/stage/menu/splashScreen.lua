@@ -56,7 +56,7 @@ function getSplashScreen()
     local startGamePromise = createPromise(1.5, function()
         
       engine.input:setTouchPromise(function()
-        engine:loadLevel('levelSelector')
+        engine:loadLevel('howToPlay')
       end)
         
       engine.input.locked = false  

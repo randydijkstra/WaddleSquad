@@ -271,6 +271,11 @@ function engine:loadLevel(level)
     local levelSelector = createLevelSelector()
     self.currentLevel = levelSelector
     levelSelector:start()
+  elseif level == "howToPlay" then
+    self.inLevel = false
+    local howToPlay = createHowToPlay()
+    self.currentLevel = howToPlay
+    howToPlay:start()
   end
 end
 

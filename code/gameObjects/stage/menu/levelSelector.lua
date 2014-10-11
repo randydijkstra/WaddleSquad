@@ -44,15 +44,15 @@ function createLevelSelector()
 end
   
 function createLevelSelectButton(x, y, level)
-    local button = createButton(x, y, 128, 128, 'assets/sprites/ui/EmptyButton.png', levelSelectButtonCallback, tostring(level), true, 54)
-    table.insert(button.factions, "touchables")
-    table.insert(button.factions, "ui")
-    button.levelName = "level"..level
-    
-    return button
-  end
+  local button = createButton(x, y, 128, 128, 'assets/sprites/ui/EmptyButton.png', levelSelectButtonCallback, tostring(level), true, 54)
+  table.insert(button.factions, "touchables")
+  table.insert(button.factions, "ui")
+  button.levelName = "level"..level
   
-  function levelSelectButtonCallback(button)
-    engine:loadLevel(button.levelName)
-  end
+  return button
+end
+  
+function levelSelectButtonCallback(button)
+  engine:loadLevel(button.levelName)
+end
   
