@@ -6,7 +6,7 @@ function getGameUI()
   gameUI.name = "gameUI"
   gameUI.hud = {
     score = createTextBox(   
-      ((config.prefferedWidth / 10) * 5 + 80), (config.prefferedHeight/11)*-1, 
+      ((config.prefferedWidth / 10) * 7 - 10 ), (config.prefferedHeight/11)*-1, 
       150, 90,
       "Score: \n" .. tostring(engine.gameStats.score),     
       32, 
@@ -14,10 +14,10 @@ function getGameUI()
       "assets/sprites/ui/Achtergrond4.png"
      ),
      time = createTextBox(
-      config.prefferedWidth / 10 * 7 - 10 , (config.prefferedHeight/11)*-1, 
-      150, 90,
-      "Time:\n"..tostring(engine.gameStats.time),
-      32, 
+      config.prefferedWidth / 2, (config.prefferedHeight/11)*-1, 
+      220, 100,
+      "Time: "..tostring(engine.gameStats.time),
+      42, 
       true,
       "assets/sprites/ui/Achtergrond4.png"
     ),
@@ -76,7 +76,7 @@ function getGameUI()
     self.hud.score:updateInfo("Score: \n"..score)
   end
   function gameUI:updateTime(time)
-    self.hud.time:updateInfo(tostring(time))
+    self.hud.time:updateInfo("Time: "..tostring(time))
   end
   function gameUI:updateAmountOfPenguinsLeft(penguinsLeft)
     self.hud.amountOfPenguinsLeft:updateInfo(tostring(penguinsLeft))

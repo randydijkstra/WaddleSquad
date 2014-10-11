@@ -10,7 +10,7 @@ function createIglo(x, y)
   iglo.body:addRect(50, 0, width, height - 80)
   
   function iglo:onPenguinCollision()
-    local showAddedScore = createTextBox(x+25, y-50, 75, 50, "+200", 35, true)    
+    local showAddedScore = createTextBox(x+25, y-50, 75, 50, "+200", 35, false)    
     engine:addGameObject(showAddedScore)
     showAddedScore.prop:moveScl(0.4, 0.4, 1, 0.8, MOAIEaseType.EASE_IN)
     local x, y = showAddedScore.prop:getLoc()

@@ -41,7 +41,7 @@ function createSnowflake(x, y, snowflaketype)
   
   function snowflake:onPenguinCollision()
     --print(iif(snowflake.type == "small","+25 points","+50 points"))
-    local showAddedScore = createTextBox(x+30, y-55, 60, 30, iif(snowflake.type == "small", "+25", "+50"), 25, true)
+    local showAddedScore = createTextBox(x+20, y-55, 60, 30, iif(snowflake.type == "small", "+25", "+50"), 25, false)
     showAddedScore.prop:moveScl(0.4, 0.4, 1, 0.8, MOAIEaseType.EASE_IN)
     local x, y = showAddedScore.prop:getLoc()
     showAddedScore.prop:seekLoc(

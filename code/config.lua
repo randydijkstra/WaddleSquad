@@ -6,7 +6,7 @@ print('Loading config...')
 
 config = {
   gameTitle = 'Waddle Squad',
-  gameVersion = "Alpha v1.0",
+  gameVersion = "Alpha v1.1",
   launchOnMobile = false,
  
   --viewport
@@ -16,6 +16,7 @@ config = {
   prefferedHeight = 720,
   
   --startup settings
+  amountOfLevels = 3,
   showSplashScreen = true,
   startStage = 'lvl1',
   
@@ -46,9 +47,9 @@ config = {
 defaultGameStats = {
   levelStartTime = {
     --startTime for Levels in seconds
-    lvl1 = 45,
-    lvl2 = 60,
-    lvl3 = 50,
+    lvl1 = 55,
+    lvl2 = 70,
+    lvl3 = 70,
     lvl4 = 60
   }
 }

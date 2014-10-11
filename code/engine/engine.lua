@@ -244,12 +244,6 @@ function engine:loadLevel(level)
     self.currentLevel:destroy()
   end
   
-  --attempts to stop the mem leak by flushing cache. it didnt help much. Discoverd that mem leak differs per run.
---[[  if self.storage.fonts ~= nil and self.storage.fontStyles ~= nil then
-    self.storage.fontStyles = {}
-    self.storage.fonts = {nil} 
-  end]]-- 
-  
   print("loading: " .. level)
   
   if level == "level1" then

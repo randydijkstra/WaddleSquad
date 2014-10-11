@@ -12,7 +12,7 @@ function createLevelSelector()
     }]]--
   }
   
-  local levels = 4 -- maybe auto calculate this later or store in config
+  local levels = config.amountOfLevels -- maybe auto calculate this later or store in config
 
   for level = 1, levels, 1 do
     local button = createLevelSelectButton(

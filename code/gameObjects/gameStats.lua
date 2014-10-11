@@ -110,7 +110,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     
     local timer = createLoopingTimer(1, function()
       self.time = self.time - 1      
-      engine.gameUI:updateTime("Time: \n"..tostring(self.time))
+      engine.gameUI:updateTime(tostring(self.time))
       
       --print("font table length: "..countTable(engine.storage.fonts))
       --print("fontstyle table length: "..countTable(engine.storage.fontStyles))

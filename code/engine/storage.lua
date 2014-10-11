@@ -1,5 +1,6 @@
 --[[
   This file will load and save all persistent data in engine.userData
+  --http://getmoai.com/forums/tutorial-data-persistence-how-to-do-it-t806/
 -]]
 
 function createStorage()
