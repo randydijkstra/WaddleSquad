@@ -29,7 +29,11 @@ function createStorage()
   
   function storage:get(varName, group)
     if group then
-      return self.data[group][varName]
+      if self.data[group] then
+        return self.data[group][varName]
+      else
+        return nil
+      end
     else
       return self.data[varName]
     end
