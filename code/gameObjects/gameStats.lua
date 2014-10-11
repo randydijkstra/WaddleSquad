@@ -121,10 +121,21 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:setHighScore()
-    if engine.storage:get(engine.currentLevel.name, "highscores") > self.score then
-      print("Got highscore! Overwrite data...")
-    else
-      print("No new highscore. Do nothing")
+    print("current lvl highscore: " .. engine.storage:get(engine.currentLevel.name, "highscores"))
+    print("current score: " .. self.score)
+    
+    if engine.storage:get(engine.currentLevel.name, "highscores") then
+      if 
+        self.score > engine.storage:get(engine.currentLevel.name, "highscores") then
+        print("Got highscore! Overwrite data...")
+        engine.storage:set(self.score, engine.currentLevel.name, "highscores")
+        print("current lvl highscore: " .. engine.storage:get(engine.currentLevel.name, "highscores"))
+      else
+        print("No new highscore. Do nothing")
+      end
+    else 
+      engine.storage:set(self.score, engine.currentLevel.name, "highscores")
+      print("set new lvl highscore")
     end
   end
   
