@@ -30,26 +30,35 @@ function getGameUI()
       28,
       true,
       "assets/sprites/ui/Achtergrond4.png"
-     )--[[,
-     amountOfPenguinsFinished = createTextBox(   
-      config.prefferedWidth / 10 * 9, 
-      (config.prefferedHeight/1.3) * -1,
-      100, 50,
-      "x " .. engine.gameStats.penguinsFinished,     
-      30
-     )]]--
+     ),
+     penguinCost = createTextBox(   
+      config.prefferedWidth / 10 * 9.4, 
+      (config.prefferedHeight/1.035)*-1,
+      100, 38,
+      "100",
+      32,
+      false
+     ),
+     jumpBoostCost = createTextBox(   
+      config.prefferedWidth / 10 * 8.4, 
+      (config.prefferedHeight/1.035)*-1,
+      100, 38,
+      "50",
+      32,
+      false
+     )
   } 
   gameUI.buttons = {
     penguinSpawnButton = createButton(
        config.prefferedWidth / 10 * 9,  
-      (config.prefferedHeight/1.03) * -1,
+      (config.prefferedHeight/1.06) * -1,
       96, 96,
       "assets/sprites/ui/Spawn.png", 
       spawnCallback
     ),
     jumpBoostButton = createButton(
       config.prefferedWidth / 10 * 8, 
-      (config.prefferedHeight/1.03) * -1,
+      (config.prefferedHeight/1.06) * -1,
       96, 96,
       "assets/sprites/ui/Jumping.png", 
       jumpBoostCallback
