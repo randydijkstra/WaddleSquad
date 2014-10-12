@@ -7,8 +7,7 @@ function createIglo(x, y)
   table.insert(iglo.factions, 'iglos')
   
   local width, height = texture:getSize()
-  iglo.body:addRect(50, 0, width, height - 80)
-  
+  iglo.body:addRect(50, 0, width, height - 80):setFilter(config.maskBits.iglo)
   function iglo:onPenguinCollision()
     
     local x, y = engine.uiLayer:worldToWnd(engine.mainLayer:worldToWnd(self.prop:getLoc()))

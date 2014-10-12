@@ -4,12 +4,21 @@ function createMoveableGameObject(x, y, deck, MOAIBox2DBodyType)
   table.insert(gameObject.factions, 'moveables') 
   table.insert(gameObject.factions, 'update') 
   
-  
   function gameObject:update()    
     self:capSpeed()
     
+    if self.correctionPromise then
+      self.body:setTransform(self.correctionPromise.x, self.correctionPromise.y)
+      self.correctionPromise = nil
+    end
+    
     self.prop:setLoc(self.body:getPosition())
     self.x, self.y = self.body:getPosition()
+    
+  end
+  
+  function gameObject:setCorrectionPromise(correction)
+    self.correctionPromise = correction
   end
   
   function gameObject:capSpeed()

@@ -1,6 +1,7 @@
 function createCollisionBox(x, y, width, height)
   local collisionBox = createGameObject()
-  table.insert(collisionBox, "boxes")
+  table.insert(collisionBox.factions, "boxes")
+  table.insert(collisionBox.factions, "floor")
   
   collisionBox.x = x
   collisionBox.y = y

@@ -130,7 +130,7 @@ end
 function spawnCallback()
 
   if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 100 and engine.gameStats.penguinsLeft > 0 then
-    penguin = engine:addGameObject(createPenguin(-50, -350))
+    penguin = engine:addGameObject(createPenguin(0, -350))
   end
   
   engine.gameStats.penguinCanBeSpawned = false
