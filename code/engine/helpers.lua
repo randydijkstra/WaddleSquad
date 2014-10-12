@@ -97,11 +97,14 @@ end
 
 function createSmoothEdgePolygon(minX, minY, maxX, maxY, smoothX, smoothY)
   
-  if smoothSquares then
+  if config.smoothSquares then
+  
+    if smoothX == nil then smoothX = config.smoothness end
+    if smoothY == nil then smoothY = config.smoothness end
     
     return {
       --top left
-      minX, minY + smoothY, 
+      minX, minY + smoothX, 
       minX + smoothX, minY,  
       
       -- top right
