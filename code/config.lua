@@ -22,10 +22,18 @@ config = {
   gravityX = 0,
   gravityY = -9.8,
   unitToMeter = 1/30, 
-  debug2DDraw = true,
-  debugSpriteDraw = false,
+  debug2DDraw = false,
+  debugSpriteDraw = true,
   smoothSquares = true,
   smoothness = 2,
+  maskBits = {
+    penguin = 1,
+    iglo = 2,
+    snowflake = 4,
+    floor = 8,
+    jumpBoost = 16,
+    jumpBoostSensor = 32
+  }, -- should be power of two
   
   --penguin settings
   penguinSpeed = 70,
