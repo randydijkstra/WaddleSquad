@@ -28,7 +28,8 @@ engine = {
     tileDecks = {}, -- current loaded tilesets,
     imageTextures = {}, -- current loaded image textures
     fonts = {}, -- table that hold all loaded fonts 
-    fontStyles = {}, -- table that hold all loaded fonts 
+    fontStyles = {}, -- table that hold all loaded fonts
+    sounds = {} -- table that hold all loaded sounds
   },
   input,
   ids = {}, -- holds every generated id
@@ -229,6 +230,17 @@ function engine:loadFontStyle(path, size)
   return fontStyle
   
 end
+
+--[[function engine:loadSound(sound, path)
+  if self.cache.sounds[sound] then
+    return self.cache.sounds[sound]
+  else
+    sound = MOAIUntzSound.new()
+    sound:load(path)
+    table.insert(self.cache.sounds, sound)
+    return sound
+  end 
+end]]--
 
 function engine:resizeViewport(width, height)
   print("resize to: "..width..","..height)

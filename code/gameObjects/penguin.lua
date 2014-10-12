@@ -152,6 +152,9 @@ function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
     local impulse = body:getMass() * velChange
     
     body:applyLinearImpulse(0, impulse)
-
+    
+    --[[local jumpBoostSound = engine:loadSound(jumpBoost, "assets/sounds/Bear_Gunter.wav")
+    
+    jumpBoostSound:play()]]--
   end
 end
