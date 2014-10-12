@@ -6,6 +6,7 @@ function createPenguin(x, y)
   )
   
   local penguin = createMoveableGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC )
+  penguin.maxSpd = config.maxSpeed
   
   table.insert(penguin.factions, 'penguins')
   
@@ -38,21 +39,8 @@ function createPenguin(x, y)
   
   local pengRect = penguin.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42, 4, 4))
   
-  --[[ the 'getting stuck problem ' is an problem known to box2d. apparently adding edges / chain could make the problem less apparant. Does work sometimes, but not reliable. Fails with multiple penguins on screen.
-  http://www.iforce2d.net/b2dtut/ghost-vertices
-  
-  local t = {
-    v1 = {1.7, 0.0},
-    v2 = {1.0, 0.25},
-    v3 = {0.4, -1},
-    v4 = {-1.7, 0.4}
-  }
-  
-  penguin.body:addEdges(t) -- :addChain(chain)]]--
-  
   pengRect:setFriction( config.penguinFriction )
   pengRect:setCollisionHandler(penguinCollisionHandler, MOAIBox2DArbiter.BEGIN)  
-  
   
   penguin.previousVector = { x = 0, y = 0 }
   penguin.currentVector = { x = 0, y = 0 }
@@ -86,10 +74,11 @@ function createPenguin(x, y)
     self.previousVector.x = self.currentVector.x
     self.previousVector.y = self.currentVector.y
     
+    self:capSpeed()
+    
     if self.x < -200 or self.y > 200 or self.x > engine.currentLevel.width + 200 or self.y < -engine.currentLevel.height - 200 then
       engine:deleteGameObject(self)
     end    
-    
   end)
 
   function penguin:setAnimation(activeTable)

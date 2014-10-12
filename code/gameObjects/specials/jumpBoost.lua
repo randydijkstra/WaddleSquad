@@ -10,7 +10,7 @@ function createJumpBoost(x, y)
   
   table.insert(jumpBoost.factions, 'jumpBoosts')
   jumpBoost.name = "jumpBoost"
-  
+
   local animTable = {1, 2, 3, 4, 5, 6, 0}
   
   animCurve = MOAIAnimCurve.new()

@@ -5,7 +5,7 @@
 config = {
   gameTitle = 'Waddle Squad',
   gameVersion = "Alpha v1.2\nDemo",
-  launchOnMobile = true,
+  launchOnMobile = false,
  
   --viewport
   screenWidth = 1280,
@@ -32,6 +32,7 @@ config = {
   penguinFriction = 0,
   penguinAnimationSpeed = 0.15,
   jumpBoostSpeed = 14,
+  maxSpeed = 300,
   
   --general
   muteSound = false,
