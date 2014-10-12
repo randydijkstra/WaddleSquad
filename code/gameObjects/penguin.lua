@@ -37,7 +37,7 @@ function createPenguin(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  local pengRect = penguin.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42, 4, 4))
+  local pengRect = penguin.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42))
   
   pengRect:setFriction( config.penguinFriction )
   pengRect:setCollisionHandler(penguinCollisionHandler, MOAIBox2DArbiter.BEGIN)  

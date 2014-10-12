@@ -22,9 +22,10 @@ config = {
   gravityX = 0,
   gravityY = -9.8,
   unitToMeter = 1/30, 
-  debug2DDraw = false,
-  debugSpriteDraw = true,
-  smoothSquares = false,
+  debug2DDraw = true,
+  debugSpriteDraw = false,
+  smoothSquares = true,
+  smoothness = 2,
   
   --penguin settings
   penguinSpeed = 70,
