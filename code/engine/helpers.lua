@@ -1,10 +1,14 @@
 --[[--
   Random function's without a better place
 --]]--
-function math.Clamp(val, lower, upper)
+function math.clamp(val, lower, upper)
     assert(val and lower and upper, "not very useful error message here")
     if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way  
     return math.max(lower, math.min(upper, val))
+end
+
+function math.dif(a, b)
+  return math.abs(a - b)
 end
 
 promises = {} -- hold all promises so they can be deleted before firing
@@ -138,30 +142,32 @@ function pointInsideRect(rectX, rectY, rectWidth, rectHeight, x, y)
   return false
 end
 
-function rectInRect(x1, y1, width1, height1, x2, y2, width2, height2, margin)
-  if marigin == nil then marigin = 0 end
+function rectInRect(x1, y1, width1, height1, x2, x2, width2, height2, margin)
   
-  -- width1 = width1 - margin
-  -- height1 = height1 - margin
-  -- x1 = x1 - marigin
-  -- y1 = y1 + marigin
-  
-  print("-----------------------")
-  print(x1, y1, x1 + width1, y1 - height1)
-  print(x2, y2, x2 + width2, y2 - height2)
-  
-        print(y1 < y2, y1 > y2 - height2, y1 - height1 < y2 ,y1 - height1 > y2 - height2) 
-      print((y1 < y2 and y1 > y2 - height2),(y1 - height1 < y2 and y1 - height1 > y2 - height2) ) 
-  
-  if (x1 > x2 and x1 < x2 + width2) or (x1 + width1 > x2 and x1 + width1 < x2 + width2) then
-    if (y1 < y2 and y1 > y2 + height2) or (y1 + height1 < y2 and y1 + height1 > y2 + height2) then
-      
-      
-      return true
-    end
+  if margin then
+    width1 = width1 - margin * 2
+    height1 = height1 - margin * 2
+    x1 = x1 + margin
+    y1 = y1 - margin   
   end
   
-  print("no collision between rects")
+  if doLinesOverlap(x1, x1 + width1, x2, x2 + width2 ) and  doLinesOverlap(y1, y1 - height1, x2, x2 - height2 ) then
+    return true
+  end
   
   return false
+end
+
+function doLinesOverlap(min1, max1, min2, max2)
+  
+  -- de kleinste lijn moet als basis genomen worden
+  if math.dif(min2, max2) < math.dif(min1, max1) then
+    min1, max1, min2, max2 = min2, max2, min1, max1
+  end
+
+  return ( numberInRange(min1, min2, max2 ) or numberInRange(max1, min2, max2 ) )
+end
+
+function numberInRange(num, rangeMin, rangeMax)
+ return iif(rangeMin < rangeMax, num >= rangeMin and num <= rangeMax, num >= rangeMax and num <= rangeMin)
 end

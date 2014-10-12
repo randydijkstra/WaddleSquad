@@ -170,7 +170,7 @@ function createBox2DBoxes(layer, level)
     local xMax = ( highestTileNumber - (math.floor(highestTileNumber / layer.width) * layer.width) ) * level.map.tilewidth + layer.x + level.map.tilewidth
     local yMax = - (math.floor(highestTileNumber / layer.width) * level.map.tileheight + level.map.tileheight) 
     
-    table.insert(boxes, { x = x, y = y, width = xMax - x, height = yMax - y})
+    table.insert( boxes, { x = x, y = y, width = math.dif(xMax, x), height = math.dif(yMax, y) } )
   end
   
   -- add boxes to the engine and save to level

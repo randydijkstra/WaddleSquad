@@ -148,7 +148,7 @@ function jumpBoostCallback()
     function touchCallback(x,y) 
       x, y = engine.mainLayer:wndToWorld(x, y)
 
-      if engine.currentLevel:rectInBoxes(x, y, 64, 64, 5) == false then
+      if engine.currentLevel:rectInBoxes(x-32, y+32, 64, 64, 20) == false then
         engine:addGameObject(createJumpBoost(x - 32, y - 32))
         engine.gameStats.toggleJumpBoostSpawner = false
         engine.gameStats.score = engine.gameStats.score - 50
