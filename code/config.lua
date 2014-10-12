@@ -4,7 +4,7 @@
 
 config = {
   gameTitle = 'Waddle Squad',
-  gameVersion = "Alpha v1.2\nDemo",
+  gameVersion = "Alpha v1.3\nDemo",
   launchOnMobile = false,
  
   --viewport
@@ -36,11 +36,11 @@ config = {
   }, -- should be power of two
   
   --penguin settings
-  penguinSpeed = 70,
-  penguinJumpForce = 7,
+  penguinSpeed = 71,
+  penguinJumpForce = 7.3,
   penguinFriction = 0,
   penguinAnimationSpeed = 0.15,
-  jumpBoostSpeed = 14,
+  jumpBoostSpeed = 15,
   maxSpeed = 300,
   
   --general

@@ -164,7 +164,7 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
       engine:deleteGameObject(fixtureA:getBody().parent)
     end
     
-    body:applyLinearImpulse(0, impulse)
+--    body:applyLinearImpulse(0, impulse)
     
     if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
 
@@ -184,7 +184,6 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
         fixtureA:getBody().parent:turn(x)
       end
     end
->>>>>>> FETCH_HEAD
   end
 
 end
