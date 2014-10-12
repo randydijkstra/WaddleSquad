@@ -7,6 +7,7 @@ function createPenguin(x, y)
   
   local penguin = createMoveableGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC )
   penguin.maxSpd = config.maxSpeed
+  penguin.spd = config.penguinSpeed 
   
   table.insert(penguin.factions, 'penguins')
   
@@ -40,7 +41,8 @@ function createPenguin(x, y)
   local pengRect = penguin.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42))
   
   pengRect:setFriction( config.penguinFriction )
-  pengRect:setCollisionHandler(penguinCollisionHandler, MOAIBox2DArbiter.BEGIN)  
+  pengRect:setCollisionHandler(penguinBeginCollisionHandler, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.POST_SOLVE )  
+  pengRect:setFilter(config.maskBits.penguin, config.maskBits.floor + config.maskBits.snowflake + config.maskBits.iglo + config.maskBits.jumpBoostSensor )
   
   penguin.previousVector = { x = 0, y = 0 }
   penguin.currentVector = { x = 0, y = 0 }
@@ -54,7 +56,7 @@ function createPenguin(x, y)
     end
     
     local velX, velY = self.body:getLinearVelocity()
-    local velChange = config.penguinSpeed - velX
+    local velChange = self.spd - velX
     local impulse = self.body:getMass() * velChange
     
     self.body:applyLinearImpulse(impulse, 0)
@@ -70,16 +72,32 @@ function createPenguin(x, y)
         self:setAnimationTable(self.prop.walk)  
       end)
     end
-    
+   
+    -- correction for the sprite being to far to the left when flipping
+    if self.prop:getScl() < 0 then 
+      self.prop:setLoc(self.x + 64, self.y)
+    end
+   
     self.previousVector.x = self.currentVector.x
     self.previousVector.y = self.currentVector.y
     
     self:capSpeed()
     
+    if self.x < -32 then
+      self:turn(2)
+    end  
+    
     if self.x < -200 or self.y > 200 or self.x > engine.currentLevel.width + 200 or self.y < -engine.currentLevel.height - 200 then
       engine:deleteGameObject(self)
     end    
   end)
+
+  function penguin:turn(normalX)
+    self.spd = self.spd * -1
+    self:setCorrectionPromise( { x = self.x + normalX, y = self.y } ) -- we use the correction mechanims because this could also be called in the box2d updates
+    local sclX, sclY = self.prop:getScl()
+    self.prop:setScl(sclX * -1, sclY)  
+  end
 
   function penguin:setAnimation(activeTable)
     animCurve = MOAIAnimCurve.new()
@@ -129,32 +147,44 @@ function createPenguin(x, y)
   return penguin
 end
 
-function penguinCollisionHandler(phase, fixtureA, fixtureB, arbiter )
+function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   
-  if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
-    local snowflakename = fixtureB:getBody().parent.name
-    fixtureB:getBody().parent:onPenguinCollision()    
-    engine:deleteGameObject(fixtureB:getBody().parent)
-    engine.gameStats:updateStats(snowflakename)
-  end
-  
-  if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
-    engine.gameStats:updateStats("iglo")
-    fixtureB:getBody().parent:onPenguinCollision()
-    engine:deleteGameObject(fixtureA:getBody().parent)
-  end
-  
-  if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
+  if phase == MOAIBox2DArbiter.BEGIN then
 
-    local body = fixtureA:getBody()
-    local velX, velY = body:getLinearVelocity()
-    local velChange = config.jumpBoostSpeed / config.unitToMeter - velX
-    local impulse = body:getMass() * velChange
+    if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
+      local snowflakename = fixtureB:getBody().parent.name
+      fixtureB:getBody().parent:onPenguinCollision()    
+      engine:deleteGameObject(fixtureB:getBody().parent)
+      engine.gameStats:updateStats(snowflakename)
+    end
+    
+    if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
+      engine.gameStats:updateStats("iglo")
+      fixtureB:getBody().parent:onPenguinCollision()
+      engine:deleteGameObject(fixtureA:getBody().parent)
+    end
     
     body:applyLinearImpulse(0, impulse)
     
-    --[[local jumpBoostSound = engine:loadSound(jumpBoost, "assets/sounds/Bear_Gunter.wav")
+    if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
+
+      local body = fixtureA:getBody()
+      local velX, velY = body:getLinearVelocity()
+      local velChange = config.jumpBoostSpeed / config.unitToMeter - velX
+      local impulse = body:getMass() * velChange
+      
+      body:applyLinearImpulse(0, impulse)
+    end
     
-    jumpBoostSound:play()]]--
+  elseif phase == MOAIBox2DArbiter.POST_SOLVE then
+    if engine:isInFaction(fixtureB:getBody().parent, "floor") then
+
+      local x, y = arbiter:getContactNormal()      
+      if x == -1 or x == 1 then -- I am currently guessing the x is the getContactNormal has somthing to do with the collision direction
+        fixtureA:getBody().parent:turn(x)
+      end
+    end
+>>>>>>> FETCH_HEAD
   end
+
 end

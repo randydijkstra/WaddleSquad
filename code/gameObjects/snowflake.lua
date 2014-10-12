@@ -33,11 +33,14 @@ function createSnowflake(x, y, snowflaketype)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
+  local fixture
   if snowflake.name == "small" then
-    snowflake.body:addRect(0, 0, 32, 32):setSensor()
+    fixture = snowflake.body:addRect(0, 0, 32, 32)
   else
-    snowflake.body:addRect(0, 0, 64, 64):setSensor()
+    fixture = snowflake.body:addRect(0, 0, 64, 64)
   end
+  fixture:setSensor()
+  fixture:setFilter(config.maskBits.snowflake)
   
   function snowflake:onPenguinCollision()
 

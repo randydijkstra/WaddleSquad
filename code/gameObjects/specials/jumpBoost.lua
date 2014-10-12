@@ -26,8 +26,11 @@ function createJumpBoost(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  jumpBoost.body:addRect(25, 0, 44, 50)
-  jumpBoost.body:addRect(10, 0, 64, 56):setSensor()
+  local floorFixt = jumpBoost.body:addRect(0, 0, 64, 64) -- used for gravity and floors
+  floorFixt:setFilter(config.maskBits.jumpBoost, config.maskBits.floor)
+  local pengFixt = jumpBoost.body:addRect(10, 0, 64, 56) -- used for penguin coliision
+  pengFixt:setFilter(config.maskBits.jumpBoostSensor)
+  pengFixt:setSensor()
 
   jumpBoost.previousVector = { x = 0, y = 0 }
   jumpBoost.currentVector = { x = 0, y = 0 }  
