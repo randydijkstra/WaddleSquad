@@ -108,17 +108,23 @@ function createBox2DBoxes(layer, level)
       -- Tile found
       local tileIdLeft = iif( tileNumber % layer.width == 0, 0, layer.data[tileNumber] )
       local tileIdTop = iif( tileNumber < layer.width, 0, layer.data[tileNumber+1 - layer.width])
+      local tileIdBottom = iif( tileNumber + layer.width > layer.height * layer.width, 0, layer.data[tileNumber+1 + layer.width] )
       local tileIdLeftTop = iif( 
         tileNumber % layer.width == 0 and tileNumber < layer.width, 
         0, 
         layer.data[tileNumber - layer.width]
+      )
+      local tileIdLeftBottom = iif( 
+        tileNumber % layer.width == 0 and tileNumber + layer.width > layer.height * layer.width, 
+        0, 
+        layer.data[tileNumber + layer.width]
       )
       
       local belongsTo = false
       
       if tileIdTop > 0 then
         belongsTo =  tileNumber - layer.width
-      elseif tileIdLeft > 0 and tileIdLeftTop <= 0 then
+      elseif ( tileIdLeft > 0 and tileIdLeftTop <= 0 and tileIdLeftBottom > 0 ) or ( tileIdLeft > 0 and tileIdBottom <= 0 and tileIdLeftBottom <= 0) then
         belongsTo = tileNumber - 1 
       end
       
