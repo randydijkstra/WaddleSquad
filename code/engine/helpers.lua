@@ -145,7 +145,7 @@ function pointInsideRect(rectX, rectY, rectWidth, rectHeight, x, y)
   return false
 end
 
-function rectInRect(x1, y1, width1, height1, x2, x2, width2, height2, margin)
+function rectInRect(x1, y1, width1, height1, x2, y2, width2, height2, margin)
   
   if margin then
     width1 = width1 - margin * 2
@@ -154,7 +154,7 @@ function rectInRect(x1, y1, width1, height1, x2, x2, width2, height2, margin)
     y1 = y1 - margin   
   end
   
-  if doLinesOverlap(x1, x1 + width1, x2, x2 + width2 ) and  doLinesOverlap(y1, y1 - height1, x2, x2 - height2 ) then
+  if doLinesOverlap(x1, x1 + width1, x2, x2 + width2 ) and  doLinesOverlap(y1, y1 - height1, y2, y2 - height2 ) then
     return true
   end
   
