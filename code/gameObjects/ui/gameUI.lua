@@ -153,7 +153,10 @@ function jumpBoostCallback()
         engine.gameStats.toggleJumpBoostSpawner = false
         engine.gameStats.score = engine.gameStats.score - 50
         engine.gameUI:updateScore(tostring(engine.gameStats.score))
-        engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)       
+        engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)    
+        
+        --local sound = engine:loadSound("assets/sounds/.wav")
+        --sound:play()
       else   
         engine.input:setTouchPromise(touchCallback)
         return true

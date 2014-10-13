@@ -234,7 +234,7 @@ end
 function engine:loadSound(path)
   if self.cache.sounds[path] then
     return self.cache.sounds[path]
-    --    sound:play()
+    --    sound:play()  
   else
     local sound = MOAIUntzSound.new()
     sound:load(path)
