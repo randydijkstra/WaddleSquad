@@ -50,16 +50,41 @@ function createPenguin(x, y)
   penguin.update = penguin:extend(penguin.update, function(self)
     self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
     
-    if self.stateSwitched == true then
-      self:setAnimation(self.activeTable)
-      self.stateSwitched = false
+    if self.x < -32 then
+      self:turn( math.abs(self.x + 32)+2 )      
+    end  
+    
+    -- correction for the sprite being to far to the left when flipping
+    if self.prop:getScl() < 0 then 
+      self.prop:setLoc(self.x + 64, self.y)
     end
     
+    penguin:checkAnimation()
+    penguin:walk()
+    
+    self.previousVector.x = self.currentVector.x
+    self.previousVector.y = self.currentVector.y
+    
+    self:capSpeed()
+    
+    if self.x < -200 or self.y > 200 or self.x > engine.currentLevel.width + 200 or self.y < -engine.currentLevel.height - 200 then
+      engine:deleteGameObject(self)
+    end    
+  end)
+
+  function penguin:walk()
     local velX, velY = self.body:getLinearVelocity()
     local velChange = self.spd - velX
     local impulse = self.body:getMass() * velChange
     
-    self.body:applyLinearImpulse(impulse, 0)
+    self.body:applyLinearImpulse(impulse, 0)   
+  end
+  
+  function penguin:checkAnimation()
+    if self.stateSwitched == true then
+      self:setAnimation(self.activeTable)
+      self.stateSwitched = false
+    end
 
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
       self:setAnimationTable(self.prop.falling)
@@ -72,31 +97,15 @@ function createPenguin(x, y)
         self:setAnimationTable(self.prop.walk)  
       end)
     end
-   
-    -- correction for the sprite being to far to the left when flipping
-    if self.prop:getScl() < 0 then 
-      self.prop:setLoc(self.x + 64, self.y)
-    end
-   
-    self.previousVector.x = self.currentVector.x
-    self.previousVector.y = self.currentVector.y
-    
-    self:capSpeed()
-    
-    if self.x < -32 then
-      self:turn(3)
-    end  
-    
-    if self.x < -200 or self.y > 200 or self.x > engine.currentLevel.width + 200 or self.y < -engine.currentLevel.height - 200 then
-      engine:deleteGameObject(self)
-    end    
-  end)
+  end
 
   function penguin:turn(normalX)
+
     self.spd = self.spd * -1
     self:setCorrectionPromise( { x = self.x + normalX, y = self.y } ) -- we use the correction mechanims because this could also be called in the box2d updates
     local sclX, sclY = self.prop:getScl()
     self.prop:setScl(sclX * -1, sclY)  
+    
   end
 
   function penguin:setAnimation(activeTable)
@@ -135,7 +144,6 @@ function createPenguin(x, y)
     end
   end
   
-  
   function penguin:setAnimationTable(activeTable)
     self.activeTable = activeTable
     self.stateSwitched = true
@@ -163,8 +171,6 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
       fixtureB:getBody().parent:onPenguinCollision()
       engine:deleteGameObject(fixtureA:getBody().parent)
     end
-    
---    body:applyLinearImpulse(0, impulse)
     
     if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
 
