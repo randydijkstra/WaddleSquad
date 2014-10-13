@@ -6,7 +6,7 @@ function createDrawableGameObject(x, y, deck)
   drawableGameObject.y = y
   
   local prop = MOAIProp2D.new()
-  prop:setDeck(deck)
+  if deck then prop:setDeck(deck) end
   prop:setLoc(drawableGameObject.x, drawableGameObject.y)
 
   drawableGameObject.prop = prop

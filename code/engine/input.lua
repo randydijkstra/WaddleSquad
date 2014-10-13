@@ -128,6 +128,12 @@ function handleKeyboardInput(key, down)
       engine:loadLevel("levelSelector")
     end
     
+    if key == keyBoardTable.eight then
+      local col = MOAIColor.new()
+      col:setColor(1,1,1,1,0.8)
+      engine.mainLayer:setColor(col)
+    end
+    
     if key == keyBoardTable.nine then
       engine.userData:reset()
     end

@@ -17,7 +17,7 @@ function createPenguin(x, y)
   -- ,0 are beacuse the last frame is never played
   mergeTables(penguin.prop, {
     walk = {1, 2, 3, 4, 5, 6, 7, 8, 0},
-    preJump = {9, 10, 11, 12, 0},
+    preJump = { 9, 10 }, --{9, 10, 11, 12, 0},
     jump = {17, 18, 19, 20, 21, 0},
     falling = {25, 0},
     landing = {33, 34, 35, 36, 0},
@@ -84,7 +84,7 @@ function createPenguin(x, y)
     self:capSpeed()
     
     if self.x < -32 then
-      self:turn(2)
+      self:turn(3)
     end  
     
     if self.x < -200 or self.y > 200 or self.x > engine.currentLevel.width + 200 or self.y < -engine.currentLevel.height - 200 then
@@ -122,7 +122,7 @@ function createPenguin(x, y)
       self:setAnimationTable(self.prop.preJump)
       penguin.preJump = true
       
-      local promise = createPromise(0.30, function()        
+      local promise = createPromise(countTable(self.prop.preJump) * config.penguinAnimationSpeed , function()        
         self.body:applyLinearImpulse(
           0, 
           config.penguinJumpForce / config.unitToMeter
@@ -178,10 +178,11 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
     
   elseif phase == MOAIBox2DArbiter.POST_SOLVE then
     if engine:isInFaction(fixtureB:getBody().parent, "floor") then
-
-      local x, y = arbiter:getContactNormal()      
-      if x == -1 or x == 1 then -- I am currently guessing the x is the getContactNormal has somthing to do with the collision direction
-        fixtureA:getBody().parent:turn(x)
+      local spdX, spdY = fixtureA:getBody():getLinearVelocity()
+      local x, y = arbiter:getContactNormal()     
+      
+      if x == -1 and spdY <= 0 or x == 1 and spdY <= 0 then -- I am currently guessing the x is the getContactNormal has somthing to do with the collision direction
+        fixtureA:getBody().parent:turn(x*3)
       end
     end
   end
