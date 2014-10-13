@@ -87,8 +87,12 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   function gameStats:updateStats(condition)
     if condition == "small" then
       self.score = self.score + 25
+      local sound = engine:loadSound("assets/sounds/Grabbing_Snowflake_Small.wav")
+      sound:play()
     elseif condition == "big" then
       self.score = self.score + 50
+      local sound = engine:loadSound("assets/sounds/Grabbing_Snowflake_Big.wav")
+      sound:play()
     elseif condition == "iglo" then
       self.score = self.score + 200
       self.penguinsFinished = self.penguinsFinished + 1
