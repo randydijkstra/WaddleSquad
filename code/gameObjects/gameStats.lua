@@ -88,10 +88,12 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     if condition == "small" then
       self.score = self.score + 25
       local sound = engine:loadSound("assets/sounds/Grabbing_Snowflake_Small.wav")
+      sound:setVolume(0.5)
       sound:play()
     elseif condition == "big" then
       self.score = self.score + 50
       local sound = engine:loadSound("assets/sounds/Grabbing_Snowflake_Big.wav")
+      sound:setVolume(0.5)
       sound:play()
     elseif condition == "iglo" then
       self.score = self.score + 200

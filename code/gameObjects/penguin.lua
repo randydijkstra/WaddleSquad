@@ -157,7 +157,9 @@ function createPenguin(x, y)
     self.body:applyLinearImpulse(0, impulse)  
     
     local sound = engine:loadSound("assets/sounds/Bear_Gunter.wav")
+    sound:setVolume(0.5)
     sound:play()
+    
     
   end
   
