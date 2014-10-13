@@ -131,8 +131,7 @@ function spawnCallback()
 
   if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 100 and engine.gameStats.penguinsLeft > 0 then
     penguin = engine:addGameObject(createPenguin(0, -350))
-    local sound = engine:loadSound("assets/sounds/quack.mp3")
-    sound:play()
+    local sound = engine:playSound("assets/sounds/quack.mp3", 1)
   end
   
   engine.gameStats.penguinCanBeSpawned = false
