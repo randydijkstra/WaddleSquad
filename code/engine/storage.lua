@@ -8,7 +8,8 @@ function createStorage()
     path = (MOAIEnvironment.documentDirectory or "./") .. "/userData_.lua",
     data = {
       application = config.gameTitle,
-      highScores = {} -- key: "level1" value: 100
+      highScores = {}, -- key: "level1" value: 100
+      config = {}
     }
   }
    

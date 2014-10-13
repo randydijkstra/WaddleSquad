@@ -3,7 +3,16 @@ function createLevelSelector()
   local levelSelector = {
     name = "levelSelector",
     headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
-    buttons = {},
+    buttons = {
+      howToPlayButton = createButton(
+        config.prefferedWidth / 2 - 100, 
+        (config.prefferedHeight / 1.1) * -1, 
+        200, 100, 
+        'assets/sprites/ui/Achtergrond3.png',
+        howToPlayCallback, 
+        "How to play", true, 30
+       )
+    },
     highScoresTextBoxes = {}
   }
   
@@ -11,17 +20,18 @@ function createLevelSelector()
 
   for level = 1, levels, 1 do
     local button = createLevelSelectButton(
-      200 * level + 100, 
+      config.prefferedWidth / 5 * level + 50, 
       -360,
       level
     )
     levelSelector.buttons[button.id] = button
     
     local highScore = createHighScoreText(
-      200 * level + 165, 
+      config.prefferedWidth / 5 * level + 120, 
       -400,
       level
     ) 
+    
     table.insert(levelSelector.highScoresTextBoxes, highScore)
   end
   
@@ -71,4 +81,8 @@ end
   
 function levelSelectButtonCallback(button)
   engine:loadLevel(button.levelName)
+end
+
+function howToPlayCallback()
+  engine:loadLevel("howToPlay")
 end

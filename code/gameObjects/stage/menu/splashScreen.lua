@@ -56,7 +56,12 @@ function getSplashScreen()
     local startGamePromise = createPromise(1.5, function()
         
       engine.input:setTouchPromise(function()
-        engine:loadLevel('howToPlay')
+        if engine.storage:get("firstLaunch", "config") ~= nil then --Check if first boot
+          engine:loadLevel('levelSelector') -- If not first boot, load level selector
+        else
+          engine.storage:set(false, "firstLaunch", "config") -- If first boot, set boolean
+          engine:loadLevel('howToPlay') -- If first boot,  load how to play
+        end
       end)
         
       engine.input.locked = false  

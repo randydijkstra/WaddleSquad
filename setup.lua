@@ -55,6 +55,8 @@ if not initialized then
   world:setUnitsToMeters( config.unitToMeter )
   world:setDebugDrawEnabled(config.debug2DDraw)
   
+  MOAIUntzSystem.initialize()
+  
   engine.mainLayer:setBox2DWorld( world )
   engine.box2DWorld = world
   

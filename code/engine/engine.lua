@@ -231,16 +231,19 @@ function engine:loadFontStyle(path, size)
   
 end
 
---[[function engine:loadSound(sound, path)
-  if self.cache.sounds[sound] then
-    return self.cache.sounds[sound]
+function engine:loadSound(path)
+  if self.cache.sounds[path] then
+    return self.cache.sounds[path]
+    --    sound:play()
   else
-    sound = MOAIUntzSound.new()
+    local sound = MOAIUntzSound.new()
     sound:load(path)
-    table.insert(self.cache.sounds, sound)
+    
+    self.cache.sounds[path] = sound
+    --    sound:play()
     return sound
   end 
-end]]--
+end
 
 function engine:resizeViewport(width, height)
   print("resize to: "..width..","..height)
