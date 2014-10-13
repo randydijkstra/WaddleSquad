@@ -79,7 +79,7 @@ function getGameUI()
     for keys, object in pairs(self.buttons) do
       engine:addGameObject(object)
     end
-  end
+  end  
   
   function gameUI:updateScore(score)
     self.hud.score:updateInfo("Score: \n"..score)

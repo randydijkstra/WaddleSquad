@@ -149,6 +149,25 @@ function createPenguin(x, y)
     self.stateSwitched = true
   end
   
+  function penguin:jumpBoost()
+    local velX, velY = self.body:getLinearVelocity()
+    local velChange = config.jumpBoostSpeed / config.unitToMeter - velX
+    local impulse = self.body:getMass() * velChange
+    
+    self.body:applyLinearImpulse(0, impulse)  
+    
+    local sound = engine:loadSound("assets/sounds/Bear_Gunter.wav")
+    sound:play()
+    
+  end
+  
+  function penguin:enterIglo()
+    local x, y = engine:mainToUi(self.x+64/2, self.y+64)
+    engine:addGameObject(createScore(x, y, 200, 75, 50, 35))
+    engine.gameStats:updateStats("iglo")
+    engine:deleteGameObject(self)  
+  end
+  
   penguin:setAnimationTable(penguin.prop.walk)
   engine.gameStats:newPenguin()
   
@@ -160,29 +179,16 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
   if phase == MOAIBox2DArbiter.BEGIN then
 
     if engine:isInFaction(fixtureB:getBody().parent, "snowflakes") then
-      local snowflakename = fixtureB:getBody().parent.name
-      fixtureB:getBody().parent:onPenguinCollision()    
-      engine:deleteGameObject(fixtureB:getBody().parent)
-      engine.gameStats:updateStats(snowflakename)
+      fixtureB:getBody().parent:collect()
     end
     
     if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
       engine.gameStats:updateStats("iglo")
-      fixtureB:getBody().parent:onPenguinCollision()
-      engine:deleteGameObject(fixtureA:getBody().parent)
+      fixtureA:getBody().parent:enterIglo()
     end
     
     if engine:isInFaction(fixtureB:getBody().parent, "jumpBoosts") then
-
-      local body = fixtureA:getBody()
-      local velX, velY = body:getLinearVelocity()
-      local velChange = config.jumpBoostSpeed / config.unitToMeter - velX
-      local impulse = body:getMass() * velChange
-      
-      local sound = engine:loadSound("assets/sounds/Bear_Gunter.wav")
-      sound:play()
-      
-      body:applyLinearImpulse(0, impulse)
+      fixtureA:getBody().parent:jumpBoost()
     end
     
   elseif phase == MOAIBox2DArbiter.POST_SOLVE then

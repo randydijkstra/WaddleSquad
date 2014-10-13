@@ -42,26 +42,17 @@ function createSnowflake(x, y, snowflaketype)
   fixture:setSensor()
   fixture:setFilter(config.maskBits.snowflake)
   
-  function snowflake:onPenguinCollision()
+  function snowflake:collect()
 
-    local x, y = engine.uiLayer:worldToWnd(engine.mainLayer:worldToWnd(self.prop:getLoc()))
+    engine.gameStats:updateStats(self.type)
+    
     local width = iif(self.type == "small",32,64)
     local height = iif(self.type == "small",32,64)
-    local showAddedScore = createTextBox(x + width/2, y+height, 60, 30, iif(self.type == "small", "+25", "+50"), 25, true)
-    showAddedScore.prop:moveScl(0.4, 0.4, 1, 0.8, MOAIEaseType.EASE_IN)
-    local xText, yText = showAddedScore.prop:getLoc()
-    showAddedScore.prop:seekLoc(
-      xText, 
-      yText + 20,
-      1,
-      1.5,
-      MOAIEaseType.EASE_IN
-    )
-    engine:addGameObject(showAddedScore)
-    
-    local promise = createPromise(1.1, function()        
-      engine:deleteGameObject(showAddedScore)
-    end)
+    local score = iif(self.type == "small", 25, 50)
+    local x, y = engine:mainToUi(self.x+width/2, self.y+height)
+    engine:addGameObject(createScore(x, y, score, 60, 30, 25))
+  
+    engine:deleteGameObject(self)
   end
 
   return snowflake
