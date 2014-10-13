@@ -337,5 +337,5 @@ function engine:getFaction(faction)
 end
 
 function engine:mainToUi(x, y)
-  return self.uiLayer:worldToWnd(self.mainLayer:worldToWnd(x, y))
+  return self.uiLayer:wndToWorld(self.mainLayer:worldToWnd(x, y))
 end
