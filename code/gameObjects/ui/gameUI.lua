@@ -157,7 +157,7 @@ function jumpBoostCallback()
         engine.gameUI:updateScore(tostring(engine.gameStats.score))
         engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)    
         
-        local sound = engine:playSound("assets/sounds/Bear_Gunter.wav", 0.6)
+        local sound = engine:playSound("assets/sounds/Placing Waddle Squad.mp3")
       else   
         engine.input:setTouchPromise(touchCallback)
         return true
