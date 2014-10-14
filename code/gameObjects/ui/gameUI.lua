@@ -145,6 +145,7 @@ function jumpBoostCallback()
   if engine.gameStats.score >= 50 then
     engine.gameStats.toggleJumpBoostSpawner = true -- not neccesary anymore?
     engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.6, 0.6, 0.6, 1, 0.2)
+    local sound = engine:playSound("assets/sounds/Place.mp3")
 
     function touchCallback(x,y) 
       x, y = engine.mainLayer:wndToWorld(x, y)
@@ -156,8 +157,7 @@ function jumpBoostCallback()
         engine.gameUI:updateScore(tostring(engine.gameStats.score))
         engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)    
         
-        --local sound = engine:loadSound("assets/sounds/.wav")
-        --sound:play()
+        local sound = engine:playSound("assets/sounds/Bear_Gunter.wav", 0.6)
       else   
         engine.input:setTouchPromise(touchCallback)
         return true

@@ -44,7 +44,6 @@ config = {
   maxSpeed = 300,
   
   --general
-  muteSound = false,
   leftyFlip = false,
   
   useTextureLoad = false, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)

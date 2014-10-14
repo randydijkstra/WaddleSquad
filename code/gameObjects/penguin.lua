@@ -156,15 +156,14 @@ function createPenguin(x, y)
     
     self.body:applyLinearImpulse(0, impulse)  
     
-    local sound = engine:playSound("assets/sounds/Bear_Gunter.wav", 0.5)
-    
-    
+    local sound = engine:playSound("assets/sounds/Bounce02.mp3")
   end
   
   function penguin:enterIglo()
     local x, y = engine:mainToUi(self.x+64/2, self.y+64)
     engine:addGameObject(createScore(x, y, 200, 75, 50, 35))
     engine.gameStats:updateStats("iglo")
+    local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Big.wav", 1)
     engine:deleteGameObject(self)  
   end
   

@@ -232,7 +232,7 @@ function engine:loadFontStyle(path, size)
 end
 
 function engine:playSound(path, volume)
-  if config.muteSound == false then
+  if engine.storage:get("muteSound", "config") == false then
     local sound = self:loadSound(path)
     if volume then
       sound:setVolume(volume)
@@ -288,6 +288,7 @@ function engine:loadLevel(level)
     self.inLevel = false
     local levelSelector = createLevelSelector()
     self.currentLevel = levelSelector
+    self:resizeViewport(1280, 720)
     levelSelector:start()
   elseif level == "howToPlay" then
     self.inLevel = false

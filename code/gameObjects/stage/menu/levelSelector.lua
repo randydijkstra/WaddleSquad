@@ -18,7 +18,7 @@ function createLevelSelector()
         120, 60, 
         'assets/sprites/ui/Achtergrond3.png',
         muteCallback, 
-        "Mute", true, 25
+        iif(engine.storage:get("muteSound", "config") == false, "Mute", "Unmute"), true, 25
        )
     },
     highScoresTextBoxes = {}
@@ -96,13 +96,13 @@ function howToPlayCallback()
 end
 
 function muteCallback()
-  if config.muteSound == false then
-    config.muteSound = true
+  if engine.storage:get("muteSound", "config") == false then
+    engine.storage:set(true, "muteSound", "config") -- If first boot, set boolean
     print("Sound muted")
     engine.currentLevel.buttons.muteSoundButton.textBox:updateInfo("Unmute")
   else
-    config.muteSound = false
     print("Sound unmuted")
+    engine.storage:set(false, "muteSound", "config") -- If first boot, set boolean
     engine.currentLevel.buttons.muteSoundButton.textBox:updateInfo("Mute")
   end
 end
