@@ -72,6 +72,9 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     engine:removeFromFaction(self, 'update')
     engine.gameUI:completeScreen(true, self.score)
     self:setHighScore()
+    for id, gameObject in pairs(engine:getFaction("penguins")) do
+      gameObject:setToSleep()
+    end  
   end
   
   function gameStats:newPenguin()
