@@ -6,28 +6,30 @@ function getGameUI()
   gameUI.name = "gameUI"
   gameUI.hud = {
     score = createTextBox(   
-      ((config.prefferedWidth / 10) * 7 - 10 ), (config.prefferedHeight/11)*-1, 
-      150, 90,
+      ((config.prefferedWidth / 10) * 3.5 ), 
+      (config.prefferedHeight/11)*-1 + 10, 
+      145, 85,
       "Score: \n" .. tostring(engine.gameStats.score),     
       32, 
       true,
       "assets/sprites/ui/Achtergrond4.png"
      ),
      time = createTextBox(
-      config.prefferedWidth / 2, (config.prefferedHeight/11)*-1, 
-      220, 100,
+      config.prefferedWidth / 2, 
+      (config.prefferedHeight/11)*-1 + 10, 
+      220, 95,
       "Time: "..tostring(engine.gameStats.time),
-      42, 
+      44, 
       true,
       "assets/sprites/ui/Achtergrond4.png"
     ),
     amountOfPenguinsLeft = createTextBox(   
-      config.prefferedWidth / 10 * 9 - 30, 
-      (config.prefferedHeight/11)*-1,
-      300, 90,
+      ((config.prefferedWidth / 10) * 7) + 1, 
+      (config.prefferedHeight/11)*-1 + 10,
+      275, 85,
       "Penguins left: " .. tostring(engine.gameStats.penguinsLeft)..
       "\nPenguins arrived: " .. tostring(engine.gameStats.penguinsFinished),
-      28,
+      26,
       true,
       "assets/sprites/ui/Achtergrond4.png"
      ),

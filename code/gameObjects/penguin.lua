@@ -7,7 +7,8 @@ function createPenguin(x, y)
   
   local penguin = createMoveableGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC )
   penguin.maxSpd = config.maxSpeed
-  penguin.spd = config.penguinSpeed 
+  penguin.spd = config.penguinSpeed
+  penguin.animationSpd = config.penguinAnimationSpeed
   
   table.insert(penguin.factions, 'penguins')
   
@@ -29,7 +30,7 @@ function createPenguin(x, y)
   animCurve:reserveKeys( #penguin.prop.walk)
 
   for i = 1, #penguin.prop.walk, 1 do
-    animCurve:setKey( i, config.penguinAnimationSpeed * (i-1), penguin.prop.walk[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
+    animCurve:setKey( i, penguin.animationSpd * (i-1), penguin.prop.walk[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
   end
 
   anim = MOAIAnim.new()
@@ -114,7 +115,7 @@ function createPenguin(x, y)
     animCurve:reserveKeys( #activeTable)
 
     for i = 1, #activeTable, 1 do
-        animCurve:setKey( i, config.penguinAnimationSpeed * (i-1), activeTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
+        animCurve:setKey( i, self.animationSpd * (i-1), activeTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
     end
 
     anim = MOAIAnim.new()
@@ -169,6 +170,30 @@ function createPenguin(x, y)
     engine.gameStats:updateStats("iglo")
     local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Big.wav", 1)
     engine:deleteGameObject(self)  
+  end
+  
+  function penguin:setToSleep()
+    if penguin.activeTable == self.prop.walk then
+      penguin.spd = 0
+      penguin.animationSpd = 0.25
+      self:setAnimationTable(self.prop.idle)
+    else
+      local promise = createPromise(1, function()
+        penguin.spd = 0
+        penguin.animationSpd = 0.25
+        self:setAnimationTable(self.prop.idle)
+        local promise = createPromise(1, function()
+          penguin.spd = 0
+          penguin.animationSpd = 0.25
+          self:setAnimationTable(self.prop.idle)
+         end)
+         local promise = createPromise(1, function()
+          penguin.spd = 0
+          penguin.animationSpd = 0.25
+          self:setAnimationTable(self.prop.idle)
+         end)
+       end)
+    end
   end
   
   penguin:setAnimationTable(penguin.prop.walk)
