@@ -4,7 +4,7 @@
 
 config = {
   gameTitle = 'Waddle Squad',
-  gameVersion = "Alpha v1.3\nDemo",
+  gameVersion = "Alpha v1.4\nDemo",
   launchOnMobile = false,
  
   --viewport

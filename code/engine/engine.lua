@@ -232,17 +232,24 @@ function engine:loadFontStyle(path, size)
 end
 
 function engine:playSound(path, volume)
+  if config.muteSound == false then
+    local sound = self:loadSound(path)
+    if volume then
+      sound:setVolume(volume)
+    end
+    sound:play() 
+  end
+end
+
+function engine:loadSound(path)
   if self.cache.sounds[path] then
-    self.cache.sounds[path]:play() 
     return self.cache.sounds[path]
   else
     local sound = MOAIUntzSound.new()
     sound:load(path)
-    sound:setVolume(volume)
     self.cache.sounds[path] = sound
-    sound:play()
     return sound
-  end 
+  end
 end
 
 function engine:resizeViewport(width, height)

@@ -90,7 +90,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Small.wav", 0.5)
     elseif condition == "big" then
       self.score = self.score + 50
-      local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Big.wav", 0.5)
+      local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Big.wav", 0.8)
     elseif condition == "iglo" then
       self.score = self.score + 200
       self.penguinsFinished = self.penguinsFinished + 1

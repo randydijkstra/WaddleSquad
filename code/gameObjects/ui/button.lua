@@ -8,7 +8,8 @@ function createButton(x, y, width, height, imagePath, callback, text, isTextWhit
 
   button.width = width
   button.height = height
-    
+  button.textBox = nil
+      
   local buttonTexture = engine:loadImageTexture(imagePath)
   
   local quad = MOAIGfxQuad2D.new()
