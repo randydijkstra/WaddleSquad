@@ -4,7 +4,7 @@
 
 config = {
   gameTitle = 'Waddle Squad',
-  gameVersion = "Alpha v1.3\nDemo",
+  gameVersion = "Alpha v1.4\nDemo",
   launchOnMobile = false,
  
   --viewport
@@ -45,7 +45,6 @@ config = {
   penguinSpawnCost = 100,
   
   --general
-  muteSound = false,
   leftyFlip = false,
   
   useTextureLoad = false, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)

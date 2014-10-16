@@ -11,6 +11,14 @@ function createLevelSelector()
         'assets/sprites/ui/Achtergrond3.png',
         howToPlayCallback, 
         "How to play", true, 30
+       ),
+       muteSoundButton = createButton(
+        config.prefferedWidth / 10 * 8.5, 
+        (config.prefferedHeight / 7) * -1, 
+        120, 60, 
+        'assets/sprites/ui/Achtergrond3.png',
+        muteCallback, 
+        iif(engine.storage:get("muteSound", "config") == false, "Mute", "Unmute"), true, 25
        )
     },
     highScoresTextBoxes = {}
@@ -85,4 +93,16 @@ end
 
 function howToPlayCallback()
   engine:loadLevel("howToPlay")
+end
+
+function muteCallback()
+  if engine.storage:get("muteSound", "config") == false then
+    engine.storage:set(true, "muteSound", "config") -- If first boot, set boolean
+    print("Sound muted")
+    engine.currentLevel.buttons.muteSoundButton.textBox:updateInfo("Unmute")
+  else
+    print("Sound unmuted")
+    engine.storage:set(false, "muteSound", "config") -- If first boot, set boolean
+    engine.currentLevel.buttons.muteSoundButton.textBox:updateInfo("Mute")
+  end
 end

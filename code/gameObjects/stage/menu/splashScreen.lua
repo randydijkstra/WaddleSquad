@@ -56,7 +56,7 @@ function getSplashScreen()
     local startGamePromise = createPromise(1.5, function()
         
       engine.input:setTouchPromise(function()
-        if engine.storage:get("firstLaunch", "config") ~= nil then --Check if first boot
+        if engine.storage:get("firstLaunch", "config") == false then --Check if first boot
           engine:loadLevel('levelSelector') -- If not first boot, load level selector
         else
           engine.storage:set(false, "firstLaunch", "config") -- If first boot, set boolean

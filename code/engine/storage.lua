@@ -9,7 +9,10 @@ function createStorage()
     data = {
       application = config.gameTitle,
       highScores = {}, -- key: "level1" value: 100
-      config = {}
+      config = {
+        firstBoot = true,
+        muteSound = false
+      }
     }
   }
    
