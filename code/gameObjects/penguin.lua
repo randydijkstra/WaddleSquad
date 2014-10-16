@@ -188,27 +188,9 @@ function createPenguin(x, y)
   end
   
   function penguin:setToSleep()
-    if penguin.activeTable == self.prop.walk then
-      penguin.spd = 0
-      penguin.animationSpd = 0.25
-      self:setAnimationTable(self.prop.idle)
-    else
-      local promise = createPromise(1, function()
-        penguin.spd = 0
-        penguin.animationSpd = 0.25
-        self:setAnimationTable(self.prop.idle)
-        local promise = createPromise(1, function()
-          penguin.spd = 0
-          penguin.animationSpd = 0.25
-          self:setAnimationTable(self.prop.idle)
-         end)
-         local promise = createPromise(1, function()
-          penguin.spd = 0
-          penguin.animationSpd = 0.25
-          self:setAnimationTable(self.prop.idle)
-         end)
-       end)
-    end
+    penguin.spd = 0
+    penguin.animationSpd = 0.25
+    self:setAnimationTable(self.prop.idle)
   end
   
   penguin:setAnimationTable(penguin.prop.walk)
