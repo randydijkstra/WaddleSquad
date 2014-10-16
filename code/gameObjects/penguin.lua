@@ -9,6 +9,7 @@ function createPenguin(x, y)
   penguin.maxSpd = config.maxSpeed
   penguin.spd = config.penguinSpeed
   penguin.animationSpd = config.penguinAnimationSpeed
+  penguin.sleeping = false
   
   table.insert(penguin.factions, 'penguins')
   
@@ -61,7 +62,7 @@ function createPenguin(x, y)
       self.prop:setLoc(self.x + 64, self.y)
     end
     
-    --penguin:checkDirection()
+    penguin:checkDirection()
     penguin:checkAnimation()
     penguin:walk()
     
@@ -102,6 +103,10 @@ function createPenguin(x, y)
     if self.stateSwitched == true then
       self:setAnimation(self.activeTable)
       self.stateSwitched = false
+    end
+
+    if self.sleeping then
+      return
     end
 
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
@@ -188,9 +193,10 @@ function createPenguin(x, y)
   end
   
   function penguin:setToSleep()
-    penguin.spd = 0
-    penguin.animationSpd = 0.25
+    self.spd = 0
+    self.animationSpd = 0.25
     self:setAnimationTable(self.prop.idle)
+    self.sleeping = true
   end
   
   penguin:setAnimationTable(penguin.prop.walk)
