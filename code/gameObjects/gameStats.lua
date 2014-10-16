@@ -47,35 +47,23 @@ function createGameStats(levelName, defaultScore, defaultTimer)
 
   function gameStats:checkIfLevelOver()
      if self.time == 0 and self.penguinsFinished <= 0 then
-      self:gameOver()
+      self:levelComplete(false)
     elseif self.time == 0 and self.penguinsFinished > 0 then
-      self:levelComplete()
+      self:levelComplete(true)
     elseif self.penguinsOnScreen <= 0 and self.score < 100 then
-      self:gameOver()
+      self:levelComplete(false)
     elseif self.penguinsOnScreen <= 0 and self.penguinsLeft <= 0 and self.score > 0 then
-      self:levelComplete()    
+      self:levelComplete(true)    
     elseif self.penguinsOnScreen <= 0 and self.penguinsLeft <= 0 and self.score < 0 then
-      self:gameOver()
+      self:levelComplete(false)
     end
   end
   
-  function gameStats:gameOver()
+  function gameStats:levelComplete(bool)
     self.timer:stop()
     self.levelFinished = true
     engine:removeFromFaction(self, 'update')
-    engine.gameUI:completeScreen(false, self.score)
-    self:setHighScore()
-    for id, gameObject in pairs(engine:getFaction("penguins")) do
-      gameObject:setToSleep()
-    end  
-    
-  end
-  
-  function gameStats:levelComplete()
-    self.timer:stop()
-    self.levelFinished = true
-    engine:removeFromFaction(self, 'update')
-    engine.gameUI:completeScreen(true, self.score)
+    engine.gameUI:completeScreen(bool, self.score)
     self:setHighScore()
     for id, gameObject in pairs(engine:getFaction("penguins")) do
       gameObject:setToSleep()
