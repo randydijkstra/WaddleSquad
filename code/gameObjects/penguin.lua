@@ -214,7 +214,6 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
     end
     
     if engine:isInFaction(fixtureB:getBody().parent, "iglos") then
-      engine.gameStats:updateStats("iglo")
       fixtureA:getBody().parent:enterIglo()
     end
     
