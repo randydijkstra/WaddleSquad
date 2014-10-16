@@ -174,3 +174,10 @@ end
 function numberInRange(num, rangeMin, rangeMax)
  return iif(rangeMin < rangeMax, num >= rangeMin and num <= rangeMax, num >= rangeMax and num <= rangeMin)
 end
+
+function isPositive(number)
+  if math.abs(number) == number then
+    return true
+  end
+  return false
+end

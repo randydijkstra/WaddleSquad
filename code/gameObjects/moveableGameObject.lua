@@ -9,6 +9,11 @@ function createMoveableGameObject(x, y, deck, MOAIBox2DBodyType)
     
     if self.correctionPromise then
       self.body:setTransform(self.correctionPromise.x, self.correctionPromise.y)
+      
+      if self.correctionPromise.spd then
+        self.spd = self.correctionPromise.spd
+      end
+      
       self.correctionPromise = nil
     end
     

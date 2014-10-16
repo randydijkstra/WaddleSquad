@@ -101,10 +101,10 @@ function createPenguin(x, y)
     end
   end
 
-  function penguin:turn(normalX)
-
-    self.spd = self.spd * -1
-    self:setCorrectionPromise( { x = self.x + normalX, y = self.y } ) -- we use the correction mechanims because this could also be called in the box2d updates
+  function penguin:turn(x, spd)
+    self.spd = iif(spd, spd, self.spd * -1)
+    
+    self:setCorrectionPromise( { x = x, y = self.y } ) -- we use the correction mechanims because this could also be called in the box2d updates
     local sclX, sclY = self.prop:getScl()
     self.prop:setScl(sclX * -1, sclY)  
     
@@ -221,11 +221,23 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
     
   elseif phase == MOAIBox2DArbiter.POST_SOLVE then
     if engine:isInFaction(fixtureB:getBody().parent, "floor") then
+      
+      local aParent = fixtureA:getBody().parent
+      local bParent = fixtureB:getBody().parent
+      
       local spdX, spdY = fixtureA:getBody():getLinearVelocity()
       local x, y = arbiter:getContactNormal()     
       
+      local xDif = (aParent.x + 64 / 2 ) - (bParent.x + bParent.width / 2)
+
       if x == -1 and spdY <= 0 or x == 1 and spdY <= 0 then -- I am currently guessing the x is the getContactNormal has somthing to do with the collision direction
-        fixtureA:getBody().parent:turn(x*3)
+        
+        local spd = iif(isPositive(xDif),
+          math.abs(fixtureA:getBody().parent.spd),
+          iif(isPositive(fixtureA:getBody().parent.spd) == false, fixtureA:getBody().parent.spd, fixtureA:getBody().parent.spd * -1)
+        )
+        local x = iif(isPositive(xDif), aParent.x + 3, aParent.x - 3)
+        fixtureA:getBody().parent:turn(x, spd)
       end
     end
   end
