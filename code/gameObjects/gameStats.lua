@@ -73,7 +73,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   
   function gameStats:newPenguin()
     if self.firstPenguin == false then 
-      self.score = self.score - 100
+      self.score = self.score - config.penguinSpawnCost
       self.penguinsLeft = self.penguinsLeft - 1
       engine.gameUI:updateAmountOfPenguinsLeft(
         "Penguins left: " .. tostring(self.penguinsLeft)..

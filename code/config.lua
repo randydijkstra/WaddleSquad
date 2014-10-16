@@ -42,6 +42,7 @@ config = {
   penguinAnimationSpeed = 0.15,
   jumpBoostSpeed = 15,
   maxSpeed = 300,
+  penguinSpawnCost = 100,
   
   --general
   muteSound = false,

@@ -35,7 +35,7 @@ function getGameUI()
       config.prefferedWidth / 10 * 9.4, 
       (config.prefferedHeight/1.035)*-1,
       100, 38,
-      "100",
+      tostring(config.penguinSpawnCost),
       32,
       false
      ),
@@ -129,7 +129,7 @@ end
 
 function spawnCallback()
 
-  if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= 100 and engine.gameStats.penguinsLeft > 0 then
+  if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= config.penguinSpawnCost and engine.gameStats.penguinsLeft > 0 then
     penguin = engine:addGameObject(createPenguin(0, -350))
     local sound = engine:playSound("assets/sounds/quack.mp3", 1)
   end
