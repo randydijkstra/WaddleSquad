@@ -43,6 +43,21 @@ config = {
   jumpBoostSpeed = 15,
   maxSpeed = 300,
   penguinSpawnCost = 100,
+  penguinFinishedPoints = 200,
+  
+  --special settings
+  snowflakesmallPoints = 25,
+  snowflakebigPoints = 50,
+  jumpBoostCost = 50,
+  crossWaterCost = 50,
+  
+  --level settings
+  levelStartTime = { --startTime for Levels in seconds
+    lvl1 = 75,
+    lvl2 = 95,
+    lvl3 = 90,
+    lvl4 = 80
+  },
   
   --general
   leftyFlip = false,
@@ -50,21 +65,4 @@ config = {
   useTextureLoad = false, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)
   
   splashScreenFinished = false
-}
-
-defaultGameStats = {
-  levelStartTime = {
-    --startTime for Levels in seconds
-    lvl1 = 75,
-    lvl2 = 90,
-    lvl3 = 90,
-    lvl4 = 80
-  },
-  scores = {
-    snowflakesmallPoints = 25,
-    snowflakebigPoints = 50,
-    penguinFinishedPoints = 200,
-    penguinCost = -100,
-    jumpBoostCost = -50
-  }
 }

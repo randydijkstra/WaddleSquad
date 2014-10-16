@@ -12,6 +12,7 @@ function createGameStats(levelName, defaultScore, defaultTimer)
       penguinsLeft = 10,
       penguinsFinished = 0,
       toggleJumpBoostSpawner = false,
+      toggleCrossWaterSpawner = false,
       timer, -- holds the countdown timer
       levelFinished = false
     }
@@ -39,8 +40,13 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     if self.time > 0 and self.score < 0 then
       self.score = 0
     end
- 
-    if self.time == 0 and self.penguinsFinished <= 0 then
+    
+    self:checkIfLevelOver()
+    
+  end
+
+  function gameStats:checkIfLevelOver()
+     if self.time == 0 and self.penguinsFinished <= 0 then
       self:gameOver()
     elseif self.time == 0 and self.penguinsFinished > 0 then
       self:levelComplete()
@@ -51,7 +57,6 @@ function createGameStats(levelName, defaultScore, defaultTimer)
     elseif self.penguinsOnScreen <= 0 and self.penguinsLeft <= 0 and self.score < 0 then
       self:gameOver()
     end
-
   end
   
   function gameStats:gameOver()
@@ -92,13 +97,13 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   
   function gameStats:updateStats(condition)
     if condition == "small" then
-      self.score = self.score + 25
+      self.score = self.score + config.snowflakesmallPoints
       local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Small.wav", 0.5)
     elseif condition == "big" then
-      self.score = self.score + 50
+      self.score = self.score + config.snowflakebigPoints
       local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Big.wav", 0.8)
     elseif condition == "iglo" then
-      self.score = self.score + 200
+      self.score = self.score + config.penguinFinishedPoints
       self.penguinsFinished = self.penguinsFinished + 1
       engine.gameUI:updateAmountOfPenguinsLeft(
         "Penguins left: " .. tostring(self.penguinsLeft)..
@@ -133,15 +138,11 @@ function createGameStats(levelName, defaultScore, defaultTimer)
   end
   
   function gameStats:setHighScore()
-    --print("current lvl highscore: " .. engine.storage:get(engine.currentLevel.name, "highscores"))
-    --print("current score: " .. self.score)
     
     if engine.storage:get(engine.currentLevel.name, "highscores") then
-      if 
-        self.score > engine.storage:get(engine.currentLevel.name, "highscores") then
-        print("Got highscore! Overwrite data...")
+      if self.score > engine.storage:get(engine.currentLevel.name, "highscores") then
         engine.storage:set(self.score, engine.currentLevel.name, "highscores")
-        print("current lvl highscore: " .. engine.storage:get(engine.currentLevel.name, "highscores"))
+        --print("Got highscore! Overwrite data...\ncurrent lvl highscore: " .. engine.storage:get(engine.currentLevel.name, "highscores"))
       else
         print("No new highscore. Do nothing")
       end

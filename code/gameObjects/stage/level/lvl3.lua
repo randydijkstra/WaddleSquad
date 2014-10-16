@@ -14,7 +14,7 @@ function getLvl3()
     engine.gameStats = engine:addGameObject(createGameStats(
       'lvl3', 
       0, 
-      defaultGameStats.levelStartTime.lvl3
+      config.levelStartTime.lvl3
     ))
     engine.gameStats:start()
     

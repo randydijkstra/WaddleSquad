@@ -186,7 +186,7 @@ function createPenguin(x, y)
   
   function penguin:enterIglo()
     local x, y = engine:mainToUi(self.x+64/2, self.y+64)
-    engine:addGameObject(createScore(x, y, 200, 75, 50, 35))
+    engine:addGameObject(createScore(x, y, config.penguinFinishedPoints, 75, 50, 35))
     engine.gameStats:updateStats("iglo")
     local sound = engine:playSound("assets/sounds/Grabbing_Snowflake_Big.wav", 1)
     engine:deleteGameObject(self)  

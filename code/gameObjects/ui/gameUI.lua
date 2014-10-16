@@ -65,6 +65,13 @@ function getGameUI()
       "assets/sprites/ui/Jumping.png", 
       jumpBoostCallback
     ),
+    --[[crossWaterButton = createButton(
+      config.prefferedWidth / 10 * 7, 
+      (config.prefferedHeight/1.06) * -1,
+      96, 96,
+      "assets/sprites/ui/Crossing-Water.png",
+      crossWaterCallback
+    ),]]--
     menuButton = createButton(
       config.prefferedWidth / 10 * 0.25, 
       (config.prefferedHeight/ 9) * -1,
@@ -155,7 +162,7 @@ function jumpBoostCallback()
       if engine.currentLevel:rectInBoxes(x-32, y+32, 64, 64, 20) == false then
         engine:addGameObject(createJumpBoost(x - 32, y - 32))
         engine.gameStats.toggleJumpBoostSpawner = false
-        engine.gameStats.score = engine.gameStats.score - 50
+        engine.gameStats.score = engine.gameStats.score - config.jumpBoostCost
         engine.gameUI:updateScore(tostring(engine.gameStats.score))
         engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)    
         
@@ -172,4 +179,31 @@ end
 
 function menuCallback()
   engine:loadLevel('levelSelector')
+end
+
+function crossWaterCallback()
+  if engine.gameStats.score >= 0 then
+    engine.gameStats.toggleCrossWaterSpawner = true -- not neccesary anymore?
+    engine.gameUI.buttons.crossWaterButton.prop:seekColor(0.6, 0.6, 0.6, 1, 0.2)
+    local sound = engine:playSound("assets/sounds/Place.mp3")
+
+    function touchCallback(x,y) 
+      x, y = engine.mainLayer:wndToWorld(x, y)
+
+      if engine.currentLevel:rectInBoxes(x-32, y+32, 64, 64, 20) == false then
+        engine:addGameObject(createCrossWater(x - 32, y - 32))
+        engine.gameStats.toggleCrossWaterSpawner = false
+        --engine.gameStats.score = engine.gameStats.score - config.crossWaterCost
+        --engine.gameUI:updateScore(tostring(engine.gameStats.score))
+        engine.gameUI.buttons.crossWaterButton.prop:seekColor(1, 1, 1, 1, 0.2)    
+        
+        local sound = engine:playSound("assets/sounds/Placing Waddle Squad.mp3")
+      else   
+        engine.input:setTouchPromise(touchCallback)
+        return true
+      end
+    end
+
+    engine.input:setTouchPromise(touchCallback)
+  end
 end

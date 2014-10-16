@@ -48,7 +48,11 @@ function createSnowflake(x, y, snowflaketype)
     
     local width = iif(self.type == "small",32,64)
     local height = iif(self.type == "small",32,64)
-    local score = iif(self.type == "small", 25, 50)
+    local score = iif(
+      self.type == "small", 
+      config.snowflakesmallPoints, 
+      config.snowflakebigPoints
+    )
     local x, y = engine:mainToUi(self.x+width/2, self.y+height)
     engine:addGameObject(createScore(x, y, score, 60, 30, 25))
   
