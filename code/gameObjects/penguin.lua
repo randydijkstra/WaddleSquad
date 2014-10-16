@@ -52,7 +52,8 @@ function createPenguin(x, y)
     self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
     
     if self.x < -32 then
-      self:turn( math.abs(self.x + 32)+2 )      
+      self:turn( -30 )   
+      self:checkDirection()
     end  
     
     -- correction for the sprite being to far to the left when flipping
@@ -60,6 +61,7 @@ function createPenguin(x, y)
       self.prop:setLoc(self.x + 64, self.y)
     end
     
+    --penguin:checkDirection()
     penguin:checkAnimation()
     penguin:walk()
     
@@ -81,7 +83,22 @@ function createPenguin(x, y)
     self.body:applyLinearImpulse(impulse, 0)   
   end
   
+  function penguin:checkDirection()
+    local sclX, sclY = self.prop:getScl()
+
+    if isPositive(self.spd) then
+      if isPositive(sclX) == false then           
+        self.prop:setScl(sclX * -1, sclY)  
+      end
+    else
+      if isPositive(sclX) then
+        self.prop:setScl(sclX * -1, sclY)  
+      end
+    end   
+  end
+  
   function penguin:checkAnimation()
+    
     if self.stateSwitched == true then
       self:setAnimation(self.activeTable)
       self.stateSwitched = false
@@ -105,8 +122,6 @@ function createPenguin(x, y)
     self.spd = iif(spd, spd, self.spd * -1)
     
     self:setCorrectionPromise( { x = x, y = self.y } ) -- we use the correction mechanims because this could also be called in the box2d updates
-    local sclX, sclY = self.prop:getScl()
-    self.prop:setScl(sclX * -1, sclY)  
     
   end
 
@@ -233,11 +248,12 @@ function penguinBeginCollisionHandler(phase, fixtureA, fixtureB, arbiter )
       if x == -1 and spdY <= 0 or x == 1 and spdY <= 0 then -- I am currently guessing the x is the getContactNormal has somthing to do with the collision direction
         
         local spd = iif(isPositive(xDif),
-          math.abs(fixtureA:getBody().parent.spd),
-          iif(isPositive(fixtureA:getBody().parent.spd) == false, fixtureA:getBody().parent.spd, fixtureA:getBody().parent.spd * -1)
+          math.abs(aParent.spd),
+          iif(isPositive(aParent.spd) == false, aParent.spd, aParent.spd * -1)
         )
         local x = iif(isPositive(xDif), aParent.x + 3, aParent.x - 3)
-        fixtureA:getBody().parent:turn(x, spd)
+        aParent:turn(x, spd)
+        aParent:checkDirection()
       end
     end
   end
