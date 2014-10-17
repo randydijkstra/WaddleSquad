@@ -26,18 +26,11 @@ function createPenguin(x, y)
     idle = {41, 42, 43, 44, 0},
     death = {49, 50, 0}
   }
-  
-  local pengRect = penguin.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42))
-  
-  pengRect:setFriction( config.penguinFriction )
-  pengRect:setCollisionHandler(penguinBeginCollisionHandler, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.POST_SOLVE )  
-  pengRect:setFilter(config.maskBits.penguin, config.maskBits.floor + config.maskBits.snowflake + config.maskBits.iglo + config.maskBits.jumpBoostSensor + config.maskBits.waterBoostPlatform )
    
   penguin.previousVector = { x = 0, y = 0 }
   penguin.currentVector = { x = 0, y = 0 }
   
   penguin.update = penguin:extend(penguin.update, function(self)
-    self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
     
     if self.x < -32 then
       self:turn( -30 )   
@@ -52,9 +45,6 @@ function createPenguin(x, y)
     penguin:checkDirection()
     penguin:checkAnimation()
     penguin:walk()
-    
-    self.previousVector.x = self.currentVector.x
-    self.previousVector.y = self.currentVector.y
     
     self:capSpeed()
     
@@ -159,6 +149,15 @@ function createPenguin(x, y)
     self.sleeping = true
   end
   
+  function penguin:setFixtures()
+    local pengRect = self.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42))
+ 
+    pengRect:setFriction( config.penguinFriction )
+    pengRect:setCollisionHandler(penguinBeginCollisionHandler, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.POST_SOLVE )  
+    pengRect:setFilter(config.maskBits.penguin, config.maskBits.floor + config.maskBits.snowflake + config.maskBits.iglo + config.maskBits.jumpBoostSensor + config.maskBits.waterBoostPlatform )
+  end
+  
+  penguin:setFixtures()
   penguin:setAnimation(penguin.animTables.walk)
   engine.gameStats:newPenguin()
   

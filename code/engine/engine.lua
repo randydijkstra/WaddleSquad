@@ -55,7 +55,9 @@ end
 function engine:heartBeat()  
     
   for id, gameObject in pairs(engine:getFaction("update")) do
+    if gameObject.preUpdate then gameObject:preUpdate() end
     gameObject:update()
+    if gameObject.postUpdate then gameObject:postUpdate() end
   end    
   
   if MOAIGfxDevice.setClearColor then

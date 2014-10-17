@@ -4,6 +4,13 @@ function createMoveableGameObject(x, y, deck, MOAIBox2DBodyType)
   table.insert(gameObject.factions, 'moveables') 
   table.insert(gameObject.factions, 'update') 
   
+  gameObject.previousVector = { x = 0, y = 0 }
+  gameObject.currentVector = { x = 0, y = 0 }  
+  
+  function gameObject:preUpdate()
+    self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
+  end
+  
   function gameObject:update()    
     self:capSpeed()
     
@@ -20,6 +27,10 @@ function createMoveableGameObject(x, y, deck, MOAIBox2DBodyType)
     self.prop:setLoc(self.body:getPosition())
     self.x, self.y = self.body:getPosition()
     
+  end
+  
+  function gameObject:postUpdate()
+    self.previousVector.x, self.previousVector.y = self.currentVector.x, self.currentVector.y
   end
   
   function gameObject:setCorrectionPromise(correction)

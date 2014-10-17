@@ -25,3 +25,11 @@ function createCollidingGameObject(x, y, deck, MOAIBox2DBodyType)
   
   return collidingGameObject
 end
+
+function fallToStatic(self)
+
+  if self.currentVector.y == 0 and self.previousVector.y ~= 0 then
+    self:setBodyType(MOAIBox2DBody.STATIC)
+  end
+
+end

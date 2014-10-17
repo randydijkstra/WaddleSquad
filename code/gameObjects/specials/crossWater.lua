@@ -21,20 +21,8 @@ function createCrossWater(x, y)
   createPromise( ( #crossWater.animTable.preSquirt -1 ) * crossWater.animationSpd, function()    
     crossWater:setAnimation(crossWater.animTable.squirt)
   end)
-  
-  crossWater.previousVector = { x = 0, y = 0 }
-  crossWater.currentVector = { x = 0, y = 0 }
-  
-  crossWater.update = crossWater:extend(crossWater.update, function(self)
-    self.currentVector.x, self.currentVector.y = self.body:getLinearVelocity()
-    
-    if self.currentVector.y == 0 and self.previousVector.y ~= 0 then
-      self:setBodyType(MOAIBox2DBody.STATIC)
-    end
-    
-    self.previousVector.x = self.currentVector.x
-    self.previousVector.y = self.currentVector.y
-  end)
+
+  crossWater.update = crossWater:extend(crossWater.update, fallToStatic)
   
   function crossWater:setFixtures()
     local waterFixt = crossWater.body:addRect(0, 64, 128, 128) -- used for gravity and water
