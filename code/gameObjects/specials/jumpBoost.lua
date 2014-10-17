@@ -10,21 +10,10 @@ function createJumpBoost(x, y)
   
   table.insert(jumpBoost.factions, 'jumpBoosts')
   jumpBoost.name = "jumpBoost"
+  jumpBoost.animationSpd = 0.4
 
-  local animTable = {1, 2, 3, 4, 5, 6, 0}
-  
-  animCurve = MOAIAnimCurve.new()
-  animCurve:reserveKeys( #animTable)
-
-  for i = 1, #animTable, 1 do
-    animCurve:setKey( i, 0.4 * (i-1), animTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
-  end
-
-  anim = MOAIAnim.new()
-  anim:reserveLinks( 1 )
-  anim:setLink( 1, animCurve, jumpBoost.prop, MOAIProp2D.ATTR_INDEX )
-  anim:setMode( MOAITimer.LOOP )
-  anim:start()
+  jumpBoost.animTable = { idle = { 1, 2, 3, 4, 5, 6, 0} }
+  jumpBoost:setAnimation( jumpBoost.animTable.idle )
   
   local floorFixt = jumpBoost.body:addRect(0, 0, 64, 64) -- used for gravity and floors
   floorFixt:setFilter(config.maskBits.jumpBoost, config.maskBits.floor)

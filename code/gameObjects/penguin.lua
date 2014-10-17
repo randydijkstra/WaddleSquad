@@ -17,7 +17,7 @@ function createPenguin(x, y)
   penguin.preJump = false -- boolean to check if penguin is prejumping so we disalow uber jump
   
   -- ,0 are beacuse the last frame is never played
-  mergeTables(penguin.prop, {
+  penguin.animTables = {
     walk = {1, 2, 3, 4, 5, 6, 7, 8, 0},
     preJump = { 9, 10, 11 }, --{9, 10, 11, 12, 0},
     jump = {17, 18, 19, 20, 21, 0},
@@ -25,20 +25,7 @@ function createPenguin(x, y)
     landing = {33, 34, 35, 36, 0},
     idle = {41, 42, 43, 44, 0},
     death = {49, 50, 0}
-  })
-  
-  animCurve = MOAIAnimCurve.new()
-  animCurve:reserveKeys( #penguin.prop.walk)
-
-  for i = 1, #penguin.prop.walk, 1 do
-    animCurve:setKey( i, penguin.animationSpd * (i-1), penguin.prop.walk[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
-  end
-
-  anim = MOAIAnim.new()
-  anim:reserveLinks( 1 )
-  anim:setLink( 1, animCurve, penguin.prop, MOAIProp2D.ATTR_INDEX )
-  anim:setMode( MOAITimer.LOOP )
-  anim:start()
+  }
   
   local pengRect = penguin.body:addPolygon(createSmoothEdgePolygon(15, 3, 49, 42))
   
@@ -100,25 +87,25 @@ function createPenguin(x, y)
   
   function penguin:checkAnimation()
     
-    if self.stateSwitched == true then
-      self:setAnimation(self.activeTable)
-      self.stateSwitched = false
-    end
+   -- if self.stateSwitched == true then
+   --   self:setAnimation(self.activeTable)
+   --   self.stateSwitched = false
+   -- end
 
     if self.sleeping then
       return
     end
 
     if self.currentVector.y < 0 and self.previousVector.y >= 0 then
-      self:setAnimationTable(self.prop.falling)
+      self:setAnimation(self.animTables.falling)
     end
     
     if self.currentVector.y == 0 and self.previousVector.y ~= 0 then
       local sound = engine:playSound("assets/sounds/Bounce02.mp3")
-      self:setAnimationTable(self.prop.landing)
+      self:setAnimation(self.animTables.landing)
         
       local promise = createPromise(0.30, function()
-        self:setAnimationTable(self.prop.walk)  
+        self:setAnimation(self.animTables.walk)  
       end)
     end
   end
@@ -129,46 +116,26 @@ function createPenguin(x, y)
     self:setCorrectionPromise( { x = x, y = self.y } ) -- we use the correction mechanims because this could also be called in the box2d updates
     
   end
-
-  function penguin:setAnimation(activeTable)
-    animCurve = MOAIAnimCurve.new()
-    animCurve:reserveKeys( #activeTable)
-
-    for i = 1, #activeTable, 1 do
-        animCurve:setKey( i, self.animationSpd * (i-1), activeTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
-    end
-
-    anim = MOAIAnim.new()
-    anim:reserveLinks( 1 )
-    anim:setLink( 1, animCurve, self.prop, MOAIProp2D.ATTR_INDEX )
-    anim:setMode( MOAITimer.LOOP )
-    anim:start()
-  end
   
   function penguin:jump()
     local x, y = self.body:getLinearVelocity()
     
     if y == 0 and penguin.preJump == false then 
 
-      self:setAnimationTable(self.prop.preJump)
+      self:setAnimation(self.animTables.preJump)
       penguin.preJump = true
       
-      local promise = createPromise(countTable(self.prop.preJump) * config.penguinAnimationSpeed , function()        
+      local promise = createPromise(countTable(self.animTables.preJump) * config.penguinAnimationSpeed , function()        
         self.body:applyLinearImpulse(
           0, 
           config.penguinJumpForce / config.unitToMeter
         )
         local sound = engine:playSound("assets/sounds/Bounce02.mp3")
         self.preJump = false
-        self:setAnimationTable(self.prop.jump) 
+        self:setAnimation(self.animTables.jump) 
       end)
     
     end
-  end
-  
-  function penguin:setAnimationTable(activeTable)
-    self.activeTable = activeTable
-    self.stateSwitched = true
   end
   
   function penguin:jumpBoost()
@@ -177,9 +144,9 @@ function createPenguin(x, y)
     local impulse = self.body:getMass() * velChange
     
     self.body:applyLinearImpulse(0, impulse)  
-    self:setAnimationTable(self.prop.jump)
+    self:setAnimation(self.animTables.jump)
     local promise = createPromise(0.6, function()
-        self:setAnimationTable({21, 0})
+        self:setAnimation({21, 0})
     end)
     local sound = engine:playSound("assets/sounds/Bear_Gunter.wav", 0.4)
   end
@@ -195,11 +162,11 @@ function createPenguin(x, y)
   function penguin:setToSleep()
     self.spd = 0
     self.animationSpd = 0.25
-    self:setAnimationTable(self.prop.idle)
+    self:setAnimation(self.animTables.idle)
     self.sleeping = true
   end
   
-  penguin:setAnimationTable(penguin.prop.walk)
+  penguin:setAnimation(penguin.animTables.walk)
   engine.gameStats:newPenguin()
   
   return penguin

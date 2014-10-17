@@ -12,9 +12,6 @@ config = {
   screenHeight = 720,
   prefferedWidth = 1280,
   prefferedHeight = 720,
-  prefferedHeight = 720,
-  prefferedHeight = 720,
-  prefferedHeight = 720,
   
   --startup settings
   amountOfLevels = 3,
@@ -67,6 +64,7 @@ config = {
   
   --general
   leftyFlip = false,
+  defaultAnimationSpeed = 0.15,
   
   useTextureLoad = false, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)
   
