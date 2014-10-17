@@ -152,7 +152,7 @@ return {
       visible = true,
       opacity = 1,
       properties = {
-        ["death"] = "true"
+        ["water"] = "true"
       },
       encoding = "lua",
       data = {

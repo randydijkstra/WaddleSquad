@@ -35,8 +35,21 @@ function parseLayer(layer, level)
   end
   
   if layer.properties["Hard"] then
-    level.collisionBoxes = createBox2DBoxes(layer, level)
+    local boxes = createBoxes(layer, level)
+    level.collisionBoxes = {}
+    for key, box in pairs(boxes) do
+      table.insert(level.collisionBoxes, engine:addGameObject(createCollisionBox(box.x, box.y, box.width, box.height)))
+    end
   end
+  
+  if layer.properties["water"] then
+    local boxes = createBoxes(layer, level)
+    level.waterBoxes = {}
+    for key, box in pairs(boxes) do
+      table.insert(level.waterBoxes, engine:addGameObject(createWaterBox(box.x, box.y, box.width, box.height)))
+    end
+  end
+  
   
   local offsetX = layer.x
   local offsetY = layer.y + 64
@@ -93,7 +106,7 @@ function parseObjectLayer(layer, level)
   
 end
 
-function createBox2DBoxes(layer, level)
+function createBoxes(layer, level)
 
   -- list all tiles and their relation to other tiles  
   local tiles = {
@@ -198,13 +211,7 @@ function createBox2DBoxes(layer, level)
   
   -- add boxes to the engine and save to level
   
-  local collisionBoxes = {}
-  
-  for key, box in pairs(boxes) do
-    table.insert(collisionBoxes, engine:addGameObject(createCollisionBox(box.x, box.y, box.width, box.height)))
-  end
-  
-  return collisionBoxes
+  return boxes
 end
 
 function getTileSetFromTileId(tileId, map)

@@ -32,7 +32,7 @@ function createPenguin(x, y)
   pengRect:setFriction( config.penguinFriction )
   pengRect:setCollisionHandler(penguinBeginCollisionHandler, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.POST_SOLVE )  
   pengRect:setFilter(config.maskBits.penguin, config.maskBits.floor + config.maskBits.snowflake + config.maskBits.iglo + config.maskBits.jumpBoostSensor )
-  
+   
   penguin.previousVector = { x = 0, y = 0 }
   penguin.currentVector = { x = 0, y = 0 }
   
