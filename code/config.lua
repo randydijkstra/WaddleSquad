@@ -12,6 +12,9 @@ config = {
   screenHeight = 720,
   prefferedWidth = 1280,
   prefferedHeight = 720,
+  prefferedHeight = 720,
+  prefferedHeight = 720,
+  prefferedHeight = 720,
   
   --startup settings
   amountOfLevels = 3,
@@ -32,7 +35,10 @@ config = {
     snowflake = 4,
     floor = 8,
     jumpBoost = 16,
-    jumpBoostSensor = 32
+    jumpBoostSensor = 32,
+    waterBoost = 64,
+    waterBoostSensor = 128,
+    water = 256,
   }, -- should be power of two
   
   --penguin settings

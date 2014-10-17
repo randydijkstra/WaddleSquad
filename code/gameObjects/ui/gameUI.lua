@@ -65,13 +65,13 @@ function getGameUI()
       "assets/sprites/ui/Jumping.png", 
       jumpBoostCallback
     ),
-    --[[crossWaterButton = createButton(
+    crossWaterButton = createButton(
       config.prefferedWidth / 10 * 7, 
       (config.prefferedHeight/1.06) * -1,
       96, 96,
       "assets/sprites/ui/Crossing-Water.png",
       crossWaterCallback
-    ),]]--
+    ),
     menuButton = createButton(
       config.prefferedWidth / 10 * 0.25, 
       (config.prefferedHeight/ 9) * -1,

@@ -3,7 +3,7 @@ function createCrossWater(x, y)
   local tileDeck = engine:loadTileDeck(
     'assets/sprites/special/whale.png',
     13, 1,
-    0, 0, 50, 50
+    0, 0, 128, 128
   )
   
   local crossWater = createMoveableGameObject(x, y, tileDeck, MOAIBox2DBody.DYNAMIC) 
@@ -26,14 +26,12 @@ function createCrossWater(x, y)
   anim:setMode( MOAITimer.LOOP )
   anim:start()
   
-  crossWater.prop:setScl(2,2)
+  local waterFixt = crossWater.body:addRect(0, 0, 128, 128) -- used for gravity and floors
+  waterFixt:setFilter(config.maskBits.waterBoost, config.maskBits.water)
   
-  --local floorFixt = crossWater.body:addRect(0, 0, 50, 50) -- used for gravity and floors
-  
-  --[[floorFixt:setFilter(config.maskBits.crossWater, config.maskBits.floor)
-  local pengFixt = crossWater.body:addRect(10, 0, 64, 56) -- used for penguin coliision
-  pengFixt:setFilter(config.maskBits.jumpBoostSensor)
-  pengFixt:setSensor()]]--
+  local sensorFixt = crossWater.body:addRect(0, 0, 128, 128) -- used for penguin coliision
+  sensorFixt:setFilter(config.maskBits.waterBoostSensor)
+  sensorFixt:setSensor()
 
   crossWater.previousVector = { x = 0, y = 0 }
   crossWater.currentVector = { x = 0, y = 0 }  
