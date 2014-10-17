@@ -34,7 +34,7 @@ config = {
     jumpBoost = 16,
     jumpBoostSensor = 32,
     waterBoost = 64,
-    waterBoostSensor = 128,
+    waterBoostPlatform = 128,
     water = 256,
   }, -- should be power of two
   

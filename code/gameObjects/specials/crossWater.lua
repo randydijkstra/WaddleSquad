@@ -25,9 +25,8 @@ function createCrossWater(x, y)
   local waterFixt = crossWater.body:addRect(0, 64, 128, 128) -- used for gravity and floors
   waterFixt:setFilter(config.maskBits.waterBoost, config.maskBits.water)
   
-  local sensorFixt = crossWater.body:addRect(0, 0, 128, 128) -- used for penguin coliision
-  sensorFixt:setFilter(config.maskBits.waterBoostSensor)
-  sensorFixt:setSensor()  
+  local waterBoostPlatform = crossWater.body:addRect(0, 120, 128, 128) -- used for penguin coliision
+  waterBoostPlatform:setFilter(config.maskBits.waterBoostPlatform)
   
   local floorFixt = crossWater.body:addRect(0, 0, 120, 128) -- used for penguin coliision
   floorFixt:setFilter(config.maskBits.waterBoost, config.maskBits.floor)
