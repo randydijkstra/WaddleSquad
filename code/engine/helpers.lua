@@ -7,6 +7,11 @@ function math.clamp(val, lower, upper)
     return math.max(lower, math.min(upper, val))
 end
 
+function math.round(num, idp)
+  local mult = 10^(idp or 0)
+  return math.floor(num * mult + 0.5) / mult  
+end
+
 function math.dif(a, b)
   return math.abs(a - b)
 end
@@ -180,4 +185,21 @@ function isPositive(number)
     return true
   end
   return false
+end
+
+function snapToGrid(x, y, gridWidth, gridHeight, direction, snapX, snapY)
+  
+  snapX = snapX or true
+  snapY = snapY or true
+  
+  if direction then
+    local mathF = iif(direction == "floor", math.floor, math.ceil)
+    x = iif(snapX, mathF(x / gridWith) * gridWith, x)
+    y = iif(snapY, mathF(y / gridHeight) * gridHeight, y)
+  else
+    x = iif(snapX, math.round( x / gridWith ) * gridWith, x)
+    y = iif(snapY, math.round( y / gridHeight ) * gridHeight, y)
+  end
+
+  return x, y
 end
