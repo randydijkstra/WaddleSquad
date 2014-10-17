@@ -109,7 +109,7 @@ function createSmoothEdgePolygon(minX, minY, maxX, maxY, smoothX, smoothY)
     
     return {
       --top left
-      minX, minY + smoothX, 
+      minX, minY + smoothY, 
       minX + smoothX, minY,  
       
       -- top right

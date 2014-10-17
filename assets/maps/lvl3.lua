@@ -131,7 +131,7 @@ return {
   layers = {
     {
       type = "tilelayer",
-      name = "Background",
+      name = "Achtergrond",
       x = 0,
       y = 0,
       width = 23,

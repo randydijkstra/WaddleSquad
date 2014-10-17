@@ -22,17 +22,14 @@ function createCrossWater(x, y)
     crossWater:setAnimation(crossWater.animTable.squirt)
   end)
   
-  local waterFixt = crossWater.body:addRect(0, 64, 128, 128) -- used for gravity and floors
+  local waterFixt = crossWater.body:addRect(0, 64, 128, 128) -- used for gravity and water
   waterFixt:setFilter(config.maskBits.waterBoost, config.maskBits.water)
   
-  local waterBoostPlatform = crossWater.body:addRect(0, 120, 128, 128) -- used for penguin coliision
-  waterBoostPlatform:setFilter(config.maskBits.waterBoostPlatform)
+  local waterBoostPlatform = crossWater.body:addPolygon(createSmoothEdgePolygon(-10, 120, 138, 128, 9, 3)) -- used for penguin coliision
+  waterBoostPlatform:setFilter(config.maskBits.waterBoostPlatform, config.maskBits.penguin)
   
-  local floorFixt = crossWater.body:addRect(0, 0, 120, 128) -- used for penguin coliision
+  local floorFixt = crossWater.body:addRect(0, 0, 120, 128) -- used for floor coliision
   floorFixt:setFilter(config.maskBits.waterBoost, config.maskBits.floor)
-
-  crossWater.previousVector = { x = 0, y = 0 }
-  crossWater.currentVector = { x = 0, y = 0 }  
   
   return crossWater
 end
