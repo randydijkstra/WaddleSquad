@@ -194,10 +194,10 @@ function snapToGrid(x, y, gridWidth, gridHeight, direction, snapX, snapY)
   
   if direction then
     local mathF = iif(direction == "floor", math.floor, math.ceil)
-    x = iif(snapX, mathF(x / gridWith) * gridWith, x)
+    x = iif(snapX, mathF(x / gridWidth) * gridWidth, x)
     y = iif(snapY, mathF(y / gridHeight) * gridHeight, y)
   else
-    x = iif(snapX, math.round( x / gridWith ) * gridWith, x)
+    x = iif(snapX, math.round( x / gridWidth ) * gridWidth, x)
     y = iif(snapY, math.round( y / gridHeight ) * gridHeight, y)
   end
 
