@@ -18,7 +18,7 @@ function createDrawableGameObject(x, y, deck)
     animCurve:reserveKeys( #animationTable)
 
     for i = 1, #animationTable, 1 do
-        animCurve:setKey( i, self.animationSpd * (i-1), animationTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
+      animCurve:setKey( i, self.animationSpd * (i-1), animationTable[i], MOAIEaseType.FLAT ) -- hoeveelste, tijd, index in sheet, easing type
     end
 
     local anim = MOAIAnim.new()

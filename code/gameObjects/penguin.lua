@@ -86,11 +86,6 @@ function createPenguin(x, y)
   end
   
   function penguin:checkAnimation()
-    
-   -- if self.stateSwitched == true then
-   --   self:setAnimation(self.activeTable)
-   --   self.stateSwitched = false
-   -- end
 
     if self.sleeping then
       return
@@ -112,9 +107,7 @@ function createPenguin(x, y)
 
   function penguin:turn(x, spd)
     self.spd = iif(spd, spd, self.spd * -1)
-    
     self:setCorrectionPromise( { x = x, y = self.y } ) -- we use the correction mechanims because this could also be called in the box2d updates
-    
   end
   
   function penguin:jump()

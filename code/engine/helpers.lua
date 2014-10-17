@@ -189,8 +189,8 @@ end
 
 function snapToGrid(x, y, gridWidth, gridHeight, direction, snapX, snapY)
   
-  snapX = snapX or true
-  snapY = snapY or true
+  snapX = iif(snapX == nil, true, snapX)
+  snapY = iif(snapY == nil, true, snapY)
   
   if direction then
     local mathF = iif(direction == "floor", math.floor, math.ceil)

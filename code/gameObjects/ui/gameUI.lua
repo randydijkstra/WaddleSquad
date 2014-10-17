@@ -189,10 +189,10 @@ function crossWaterCallback()
 
     function touchCallback(x,y) 
       x, y = engine.mainLayer:wndToWorld(x, y)
-      x, y = snapToGrid(x-32, y-32, 64, 64, false, true, false)
       x = x + 1
       
-      if engine.currentLevel:rectInBoxes(x, y, 128, 128, 25) == false then
+      if engine.currentLevel:rectInBoxes(x-64, y+32, 64, 64, 30) == false then
+        x, y = snapToGrid(x-64, y -32, 64, 64, false, true, false)    
         engine:addGameObject(createCrossWater(x, y))
         engine.gameStats.toggleCrossWaterSpawner = false
         --engine.gameStats.score = engine.gameStats.score - config.crossWaterCost
