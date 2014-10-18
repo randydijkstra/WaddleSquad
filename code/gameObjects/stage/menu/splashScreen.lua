@@ -41,6 +41,25 @@ function getSplashScreen()
           engine:playSound("assets/sounds/quack.mp3")
         end)
         
+        createPromise(1, function() 
+          local tileDeck = engine:loadQuad(
+            "assets/sprites/penguin/static.png", 64, 64
+          )
+              
+          local peng = engine:addGameObject(
+            createDrawableGameObject(
+              config.prefferedWidth /2, 
+              0 + 64, 
+              tileDeck
+            )
+          )
+          peng.prop:setRot(180)
+          peng.prop:seekLoc(config.prefferedWidth / 2, 10, 2)
+          createPromise(1, function()
+            engine:playSound("assets/sounds/quack.mp3")
+          end)
+
+        end)
         
       end)
             
