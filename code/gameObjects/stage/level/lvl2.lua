@@ -21,7 +21,12 @@ function getLvl2()
     engine.gameUI = engine:addGameObject(getGameUI())
     engine.gameUI:start()
     
-    engine:addGameObject(createPenguin(0, -380))
+    engine:addGameObject(
+      createPenguin(
+        config.penguinStartPosition.lvl2.x,
+        config.penguinStartPosition.lvl2.y
+      )
+    )
   end
   
   return level

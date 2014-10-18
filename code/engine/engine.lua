@@ -285,7 +285,12 @@ function engine:loadLevel(level)
     local lvl4 = getLvl4()
     self.currentLevel = lvl4
     self.inLevel = true
-    lvl4:start()   
+    lvl4:start() 
+  elseif level == "level5" then
+    local lvl5 = getLvl5()
+    self.currentLevel = lvl5
+    self.inLevel = true
+    lvl5:start() 
   elseif level == "levelSelector" then
     self.inLevel = false
     local levelSelector = createLevelSelector()

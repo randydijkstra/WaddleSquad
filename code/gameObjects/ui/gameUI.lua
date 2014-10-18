@@ -45,7 +45,15 @@ function getGameUI()
       config.prefferedWidth / 10 * 8.4, 
       (config.prefferedHeight/1.035)*-1,
       100, 38,
-      "50",
+      tostring(config.jumpBoostCost),
+      32,
+      false
+     ),
+     crossWaterBoostCost = createTextBox(   
+      config.prefferedWidth / 10 * 7.4, 
+      (config.prefferedHeight/1.035)*-1,
+      100, 38,
+      tostring(config.crossWaterCost),
       32,
       false
      )

@@ -124,6 +124,10 @@ function handleKeyboardInput(key, down)
       engine:loadLevel("level4")
     end
     
+    if key == keyBoardTable.five then
+      engine:loadLevel("level5")
+    end
+    
     if key == keyBoardTable.zero then
       engine:loadLevel("levelSelector")
     end

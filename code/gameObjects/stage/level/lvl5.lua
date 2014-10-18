@@ -1,7 +1,7 @@
-function getLvl1()
-  local level = createLevel('lvl1')
-  level.name = 'lvl1'
-
+function getLvl5()
+  local level = createLevel('lvl5')
+  level.name = 'lvl5'
+  
   for key, layer in pairs(level.map.layers) do
     parseLayer(layer, level)
   end
@@ -12,19 +12,19 @@ function getLvl1()
     engine.inLevel = true
     
     engine.gameStats = engine:addGameObject(createGameStats(
-      'lvl1', 
+      'lvl5', 
       0, 
-      config.levelStartTime.lvl1
+      config.levelStartTime.lvl5
     ))
     engine.gameStats:start()
     
-    engine.gameUI = engine:addGameObject(getGameUI(config.penguinStartPosition.lvl1))
+    engine.gameUI = engine:addGameObject(getGameUI())
     engine.gameUI:start()
     
     engine:addGameObject(
       createPenguin(
-        config.penguinStartPosition.lvl1.x,
-        config.penguinStartPosition.lvl1.y
+        config.penguinStartPosition.lvl5.x,
+        config.penguinStartPosition.lvl5.y
       )
     )
   end
