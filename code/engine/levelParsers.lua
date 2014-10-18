@@ -120,6 +120,7 @@ function createBoxes(layer, level)
     if tileId > 0 then
       -- Tile found
       local tileIdLeft = iif( tileNumber % layer.width == 0, 0, layer.data[tileNumber] )
+      local tileIdRight = iif( tileNumber+2 % layer.width == 0 or layer.data[tileNumber+2] == nil , 0, layer.data[tileNumber+2] )
       local tileIdTop = iif( tileNumber < layer.width, 0, layer.data[tileNumber+1 - layer.width])
       local tileIdBottom = iif( layer.data[tileNumber+1 + layer.width] == nil, 0, layer.data[tileNumber+1 + layer.width] )
       local tileIdLeftTop = iif( 
@@ -141,9 +142,9 @@ function createBoxes(layer, level)
       local belongsTo = false
       
       -- prioritize top tiles
-      if tileIdTop > 0 then
+      if tileIdTop > 0  and ( tileIdLeft  > 0 and tileIdRight <= 0 and tileIdRightTop > 0) == false then
         belongsTo =  tileNumber - layer.width
-      elseif ( tileIdLeft > 0 and tileIdLeftTop <= 0 and tileIdLeftBottom > 0 ) or ( tileIdLeft > 0 and tileIdBottom <= 0 and tileIdLeftBottom) then
+      elseif ( tileIdLeft > 0 and tileIdLeftTop <= 0 and tileIdLeftBottom > 0 ) or ( tileIdLeft > 0 and tileIdBottom <= 0 and tileIdLeftBottom <= 0) then
         belongsTo = tileNumber - 1 
       end      
 
