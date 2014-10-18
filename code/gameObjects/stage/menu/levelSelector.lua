@@ -5,21 +5,21 @@ function createLevelSelector()
     headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
     buttons = {
       howToPlayButton = createButton(
-        config.prefferedWidth / 2 - 100, 
+        config.prefferedWidth / 3 * 2 - 100, 
         (config.prefferedHeight / 1.1) * -1, 
-        200, 100, 
+        220, 90, 
         'assets/sprites/ui/Achtergrond3.png',
         howToPlayCallback, 
-        "How to play", true, 30
-       ),
-       muteSoundButton = createButton(
-        config.prefferedWidth / 10 * 8.5, 
-        (config.prefferedHeight / 7) * -1, 
-        120, 60, 
+        "How to play", true, 34
+      ),
+      settingsButton = createButton(
+        config.prefferedWidth / 3 - 100, 
+        (config.prefferedHeight / 1.1) * -1, 
+        220, 90, 
         'assets/sprites/ui/Achtergrond3.png',
-        muteCallback, 
-        iif(engine.storage:get("muteSound", "config") == false, "Mute", "Unmute"), true, 25
-       )
+        settingsButtonCallback,
+        "Settings", true, 34
+      )
     },
     highScoresTextBoxes = {}
   }
@@ -95,14 +95,7 @@ function howToPlayCallback()
   engine:loadLevel("howToPlay")
 end
 
-function muteCallback()
-  if engine.storage:get("muteSound", "config") == false then
-    engine.storage:set(true, "muteSound", "config") -- If first boot, set boolean
-    print("Sound muted")
-    engine.currentLevel.buttons.muteSoundButton.textBox:updateInfo("Unmute")
-  else
-    print("Sound unmuted")
-    engine.storage:set(false, "muteSound", "config") -- If first boot, set boolean
-    engine.currentLevel.buttons.muteSoundButton.textBox:updateInfo("Mute")
-  end
+function settingsButtonCallback()
+  print("load settings screen")
+  engine:loadLevel("settings")
 end

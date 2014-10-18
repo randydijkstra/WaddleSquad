@@ -302,6 +302,11 @@ function engine:loadLevel(level)
     local howToPlay = createHowToPlay()
     self.currentLevel = howToPlay
     howToPlay:start()
+  elseif level == "settings" then
+    self.inLevel = false
+    local settings = createSettings()
+    self.currentLevel = settings
+    settings:start()
   end
 end
 
