@@ -25,18 +25,27 @@ function createLevelSelector()
   }
   
   local levels = config.amountOfLevels -- maybe auto calculate this later or store in config
-
+  local rowLength = levels
+  local startPosX = (config.prefferedWidth / rowLength) - 32
+  local startPosY = -300
+  local offset = 50
+  
   for level = 1, levels, 1 do
-    local button = createLevelSelectButton(
+    --[[local button = createLevelSelectButton(
       config.prefferedWidth / 5 * level + 50, 
       -360,
+      level
+    )]]--
+     local button = createLevelSelectButton(
+      startPosX + ((128 + offset) * ((level - 1) % rowLength)), 
+      startPosY - (128 + offset) ,
       level
     )
     levelSelector.buttons[button.id] = button
     
     local highScore = createHighScoreText(
-      config.prefferedWidth / 5 * level + 120, 
-      -400,
+      startPosX + 64 + ((128 + offset) * ((level - 1) % rowLength)), 
+      startPosY,
       level
     ) 
     

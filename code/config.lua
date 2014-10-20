@@ -39,7 +39,7 @@ config = {
   }, -- should be power of two
   
   --penguin settings
-  penguinSpeed = 71,
+  penguinSpeed = 75,
   penguinJumpForce = 7.3,
   penguinFriction = 0,
   penguinAnimationSpeed = 0.15,
