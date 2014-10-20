@@ -56,11 +56,11 @@ config = {
   
   --level settings
   levelStartTime = { --startTime for Levels in seconds
-    lvl1 = 75,
+    lvl1 = 80,
     lvl2 = 95,
     lvl3 = 90,
-    lvl4 = 80,
-    lvl5 = 80
+    lvl4 = 85,
+    lvl5 = 95
   },
   penguinStartPosition = {
     lvl1 = { x = -25, y = -400 },
