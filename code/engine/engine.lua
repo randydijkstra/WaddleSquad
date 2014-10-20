@@ -359,3 +359,7 @@ end
 function engine:mainToUi(x, y)
   return self.uiLayer:wndToWorld(self.mainLayer:worldToWnd(x, y))
 end
+
+function engine:uiToMain(x, y)
+  return self.mainLayer:wndToWorld(self.uiLayer:worldToWnd(x, y))
+end

@@ -157,26 +157,29 @@ function spawnCallback()
   end)
 end
 
-function jumpBoostCallback()
+function jumpBoostCallback(button)
   
   if engine.gameStats.score >= 50 then
-    engine.gameStats.toggleJumpBoostSpawner = true -- not neccesary anymore?
     engine.gameUI.buttons.jumpBoostButton.prop:seekColor(0.6, 0.6, 0.6, 1, 0.2)
     local sound = engine:playSound("assets/sounds/Place.mp3")
 
     function touchCallback(x,y) 
       x, y = engine.mainLayer:wndToWorld(x, y)
-
-      if engine.currentLevel:rectInBoxes(x-32, y+32, 64, 64, 20) == false then
+      
+      local buttonX, buttonY = engine:uiToMain(button.x, button.y)
+      if pointInsideRect(buttonX, buttonY, button.width, button.height, x, y) then
+        engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)    
+        return false
+      elseif
+        engine.currentLevel:rectInBoxes(x-32, y+32, 64, 64, 20) == false then
         engine:addGameObject(createJumpBoost(x - 32, y - 32))
-        engine.gameStats.toggleJumpBoostSpawner = false
         engine.gameStats.score = engine.gameStats.score - config.jumpBoostCost
         engine.gameUI:updateScore(tostring(engine.gameStats.score))
         engine.gameUI.buttons.jumpBoostButton.prop:seekColor(1, 1, 1, 1, 0.2)    
         
         local sound = engine:playSound("assets/sounds/Placing Waddle Squad.mp3")
       else   
-        engine.input:setTouchPromise(touchCallback)
+        --engine.input:setTouchPromise(touchCallback)
         return true
       end
     end
@@ -189,26 +192,28 @@ function menuCallback()
   engine:loadLevel('levelSelector')
 end
 
-function crossWaterCallback()
+function crossWaterCallback(button)
   if engine.gameStats.score >= 0 then
-    engine.gameStats.toggleCrossWaterSpawner = true -- not neccesary anymore?
     engine.gameUI.buttons.crossWaterButton.prop:seekColor(0.6, 0.6, 0.6, 1, 0.2)
     local sound = engine:playSound("assets/sounds/Place.mp3")
 
     function touchCallback(x,y) 
       x, y = engine.mainLayer:wndToWorld(x, y)
       
-      if engine.currentLevel:rectInBoxes(x-64, y+32, 64, 64, 30) == false then
+      local buttonX, buttonY = engine:uiToMain(button.x, button.y)
+      if pointInsideRect(buttonX, buttonY, button.width, button.height, x, y) then
+        engine.gameUI.buttons.crossWaterButton.prop:seekColor(1, 1, 1, 1, 0.2)    
+        return false
+      elseif
+        engine.currentLevel:rectInBoxes(x-64, y+32, 128, 128, 30) == false then
         x, y = snapToGrid(x-64, y -32, 64, 64, false, true, false)    
         engine:addGameObject(createCrossWater(x+2, y))
-        engine.gameStats.toggleCrossWaterSpawner = false
-        --engine.gameStats.score = engine.gameStats.score - config.crossWaterCost
-        --engine.gameUI:updateScore(tostring(engine.gameStats.score))
+        engine.gameStats.score = engine.gameStats.score - config.crossWaterCost
+        engine.gameUI:updateScore(tostring(engine.gameStats.score))
         engine.gameUI.buttons.crossWaterButton.prop:seekColor(1, 1, 1, 1, 0.2)    
         
         local sound = engine:playSound("assets/sounds/Placing Waddle Squad.mp3")
       else   
-        engine.input:setTouchPromise(touchCallback)
         return true
       end
     end

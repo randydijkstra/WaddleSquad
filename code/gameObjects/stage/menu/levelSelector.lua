@@ -30,12 +30,15 @@ function createLevelSelector()
   local startPosY = -300
   local offset = 50
   
+  --[[
+  local y = - (math.floor(tileNumber / layer.width) * level.map.tileheight + offsetY)
+  layer.width aantal buttons in een rij
+  level.map.tileheight hooghte van je rij
+  en laat offsetY maar weg
+  tilenumber ofc button number
+  ]]--
+  
   for level = 1, levels, 1 do
-    --[[local button = createLevelSelectButton(
-      config.prefferedWidth / 5 * level + 50, 
-      -360,
-      level
-    )]]--
      local button = createLevelSelectButton(
       startPosX + ((128 + offset) * ((level - 1) % rowLength)), 
       startPosY - (128 + offset) ,
