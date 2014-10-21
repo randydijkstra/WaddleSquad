@@ -105,6 +105,11 @@ function createGameStats(levelName, defaultScore, defaultTimer)
      
   end
   
+  function gameStats:updateScore(score)
+    self.score = self.score + score
+    engine.gameUI:updateScore(tostring(self.score))
+  end
+    
   function gameStats:onDestroy()
     self.timer:stop()
     self.timer = nil
