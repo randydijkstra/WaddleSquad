@@ -169,32 +169,3 @@ end
 function menuCallback()
   engine:loadLevel('levelSelector')
 end
-
-function crossWaterCallback(button)
-  if engine.gameStats.score >= 0 then
-    engine.gameUI.buttons.crossWaterButton.prop:seekColor(0.6, 0.6, 0.6, 1, 0.2)
-    local sound = engine:playSound("assets/sounds/Place.mp3")
-
-    function touchCallback(x,y) 
-      x, y = engine.mainLayer:wndToWorld(x, y)
-      
-      local buttonX, buttonY = engine:uiToMain(button.x, button.y)
-      if pointInsideRect(buttonX, buttonY, button.width, button.height, x, y) then
-        engine.gameUI.buttons.crossWaterButton.prop:seekColor(1, 1, 1, 1, 0.2)    
-        return false
-      elseif engine.currentLevel:rectInBoxes(x-64, y+32, 128, 128, 30) == false then
-        x, y = snapToGrid(x-64, y -32, 64, 64, false, true, false)    
-        engine:addGameObject(createCrossWater(x+2, y))
-        engine.gameStats.score = engine.gameStats.score - config.crossWaterCost
-        engine.gameUI:updateScore(tostring(engine.gameStats.score))
-        engine.gameUI.buttons.crossWaterButton.prop:seekColor(1, 1, 1, 1, 0.2)    
-        
-        local sound = engine:playSound("assets/sounds/Placing Waddle Squad.mp3")
-      else   
-        return true
-      end
-    end
-
-    engine.input:setTouchPromise(touchCallback)
-  end
-end
