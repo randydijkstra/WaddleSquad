@@ -19,7 +19,15 @@ function createLevelSelector()
         'assets/sprites/ui/Achtergrond3.png',
         settingsButtonCallback,
         "Settings", true, 34
-      )
+      )--[[,
+      playStoryButton = createButton(
+        config.prefferedWidth / 3 * 3 - 100, 
+        (config.prefferedHeight / 1.1) * -1, 
+        220, 90, 
+        'assets/sprites/ui/Achtergrond3.png',
+        storyButtonCallback,
+        "Story", true, 34
+      )]]--
     },
     highScoresTextBoxes = {}
   }
@@ -110,4 +118,8 @@ end
 function settingsButtonCallback()
   print("load settings screen")
   engine:loadLevel("settings")
+end
+
+function storyButtonCallback()
+  engine:loadLevel("storySlides")
 end

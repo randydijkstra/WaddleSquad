@@ -307,6 +307,11 @@ function engine:loadLevel(level)
     local settings = createSettings()
     self.currentLevel = settings
     settings:start()
+  elseif level == "storySlides" then
+    self.inLevel = false
+    local storySlides = createStorySlides()
+    self.currentLevel = storySlides
+    storySlides:start()
   end
 end
 
