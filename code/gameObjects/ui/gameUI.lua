@@ -72,7 +72,7 @@ function getGameUI()
       "assets/sprites/ui/Jumping.png", 
       config.jumpBoostCost, 
       64, 64,
-      "assets/sounds/Place.mp3", "assets/sounds/Placing Waddle Squad.mp3",
+      "assets/sounds/Place.wav", "assets/sounds/Placing Waddle Squad.wav",
       function(x, y) engine:addGameObject(createJumpBoost(x - 32, y - 32)) end,
       20
     ),
@@ -82,7 +82,7 @@ function getGameUI()
       "assets/sprites/ui/Crossing-Water.png",
       config.crossWaterCost, 
       128, 128,
-      "assets/sounds/Place.mp3", "assets/sounds/Placing Waddle Squad.mp3",
+      "assets/sounds/Place.wav", "assets/sounds/Placing Waddle Squad.wav",
       function(x, y)  
         x, y = snapToGrid(x-64, y -32, 64, 64, false, true, false)    
         engine:addGameObject(createCrossWater(x+1, y))  
@@ -157,7 +157,7 @@ function spawnCallback()
 
   if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= config.penguinSpawnCost and engine.gameStats.penguinsLeft > 0 then
     penguin = engine:addGameObject(createPenguin(0, -350))
-    local sound = engine:playSound("assets/sounds/quack.mp3", 1)
+    local sound = engine:playSound("assets/sounds/quack.wav", 1)
   end
   
   engine.gameStats.penguinCanBeSpawned = false

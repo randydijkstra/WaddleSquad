@@ -86,7 +86,7 @@ function createPenguin(x, y)
     end
     
     if self.currentVector.y == 0 and self.previousVector.y ~= 0 then
-      local sound = engine:playSound("assets/sounds/Bounce02.mp3")
+      local sound = engine:playSound("assets/sounds/Leroy_Landing.wav")
       self:setAnimation(self.animTables.landing)
         
       local promise = createPromise(0.30, function()
@@ -113,7 +113,7 @@ function createPenguin(x, y)
           0, 
           config.penguinJumpForce / config.unitToMeter
         )
-        local sound = engine:playSound("assets/sounds/Bounce02.mp3")
+        local sound = engine:playSound("assets/sounds/Leroy_Jumping.wav")
         self.preJump = false
         self:setAnimation(self.animTables.jump) 
       end)

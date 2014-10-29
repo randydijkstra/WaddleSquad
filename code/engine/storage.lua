@@ -11,7 +11,7 @@ function createStorage()
       highScores = {}, -- key: "level1" value: 100
       config = {
         firstBoot = true,
-        muteSound = true
+        muteSound = false
       }
     }
   }
