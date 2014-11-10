@@ -48,7 +48,7 @@ function createSpawnButton(x, y, width, height, imagePath, cost, spawnWidth, spa
           200, 200,
           "Not eneugh Moneys",
           32,
-          true
+          false
       ))
       createPromise(1.5, function() engine:deleteGameObject(text) end)
     end

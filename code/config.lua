@@ -4,7 +4,7 @@
 
 config = {
   gameTitle = 'Waddle Squad',
-  gameVersion = "Alpha v1.5\nDemo",
+  gameVersion = "Alpha v1.6\nDemo",
   launchOnMobile = false,
  
   --viewport
@@ -59,15 +59,15 @@ config = {
     lvl1 = 80,
     lvl2 = 95,
     lvl3 = 90,
-    lvl4 = 85,
-    lvl5 = 95
+    lvl4 = 90,
+    lvl5 = 100
   },
   penguinStartPosition = {
-    lvl1 = { x = -25, y = -400 },
-    lvl2 = { x = -25, y = -395 },
-    lvl3 = { x = -25, y = -520 },
-    lvl4 = { x = -25, y = -650 },
-    lvl5 = { x = -25, y = -650 },
+    lvl1 = { x = -35, y = -400 },
+    lvl2 = { x = -35, y = -395 },
+    lvl3 = { x = -35, y = -520 },
+    lvl4 = { x = -35, y = -650 },
+    lvl5 = { x = -35, y = -775 },
   },
   
   --general

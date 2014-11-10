@@ -243,6 +243,17 @@ function engine:playSound(path, volume)
   end
 end
 
+function engine:playMusic(path, volume)
+  if engine.storage:get("muteSound", "config") == false then
+    local sound = self:loadSound(path)
+    if volume then
+      sound:setVolume(volume)
+    end
+    sound:setLooping(true)
+    sound:play()
+  end
+end
+
 function engine:loadSound(path)
   if self.cache.sounds[path] then
     return self.cache.sounds[path]
@@ -260,8 +271,11 @@ function engine:resizeViewport(width, height)
 end
 
 function engine:loadLevel(level)
-  if self.currentLevel then
+  if self.currentLevel then    
     self.currentLevel:destroy()
+    for key, sound in pairs(self.cache.sounds) do
+      sound:stop()
+    end
   end
   
   print("loading: " .. level)

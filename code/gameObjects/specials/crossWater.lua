@@ -22,6 +22,8 @@ function createCrossWater(x, y)
     crossWater:setAnimation(crossWater.animTable.squirt)
   end)
 
+  engine:playSound("assets/sounds/Whale_Erica.wav", 0.8)
+
   crossWater.update = crossWater:extend(crossWater.update, fallToStatic)
   
   function crossWater:setFixtures()

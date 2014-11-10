@@ -6,7 +6,7 @@ function getGameUI()
   gameUI.name = "gameUI"
   gameUI.hud = {
     score = createTextBox(   
-      ((config.prefferedWidth / 10) * 3.5 ), 
+      ((config.prefferedWidth / 10) * 6.5), 
       (config.prefferedHeight/11)*-1 + 10, 
       145, 85,
       "Score: \n" .. tostring(engine.gameStats.score),     
@@ -15,7 +15,7 @@ function getGameUI()
       "assets/sprites/ui/Achtergrond4.png"
      ),
      time = createTextBox(
-      config.prefferedWidth / 2, 
+      config.prefferedWidth / 10 * 5, 
       (config.prefferedHeight/11)*-1 + 10, 
       220, 95,
       "Time: "..tostring(engine.gameStats.time),
@@ -24,7 +24,7 @@ function getGameUI()
       "assets/sprites/ui/Achtergrond4.png"
     ),
     amountOfPenguinsLeft = createTextBox(   
-      ((config.prefferedWidth / 10) * 7) + 1, 
+      ((config.prefferedWidth / 10) * 3) + 1, 
       (config.prefferedHeight/11)*-1 + 10,
       275, 85,
       "Penguins left: " .. tostring(engine.gameStats.penguinsLeft)..
@@ -90,23 +90,40 @@ function getGameUI()
       30
     ),
     menuButton = createButton(
-      config.prefferedWidth / 10 * 0.25, 
-      (config.prefferedHeight/ 9) * -1,
-      64, 64,
+      config.prefferedWidth / 10 * 0.1, 
+      (config.prefferedHeight/7.5)*-1,
+      82, 82,
       "assets/sprites/ui/Pause.png", 
       menuCallback
     )
   }
   
   function gameUI:start()
-    for keys, object in pairs(self.hud) do
+    --[[for keys, object in pairs(self.hud) do
       engine:addGameObject(object)
-    end
-    for keys, object in pairs(self.buttons) do
+    end]]--
+    --[[for keys, object in pairs(self.buttons) do
       engine:addGameObject(object)
+    end]]--
+    
+    engine:addGameObject(self.hud.score)
+    engine:addGameObject(self.hud.time)
+    engine:addGameObject(self.hud.jumpBoostCost)
+    engine:addGameObject(self.hud.penguinCost)
+    engine:addGameObject(self.hud.amountOfPenguinsLeft)
+    engine:addGameObject(self.buttons.penguinSpawnButton)
+    engine:addGameObject(self.buttons.jumpBoostButton)
+    engine:addGameObject(self.buttons.menuButton)
+    
+    if engine.currentLevel.name ~= "lvl1" 
+    and engine.currentLevel.name ~= "lvl2" 
+    and engine.currentLevel.name ~= "lvl3" then
+      engine:addGameObject(self.buttons.crossWaterButton)
+      engine:addGameObject(self.hud.crossWaterBoostCost)
     end
   end  
   
+  --Functions to update the huds
   function gameUI:updateScore(score)
     self.hud.score:updateInfo("Score: \n"..score)
   end
@@ -156,7 +173,11 @@ end
 function spawnCallback()
 
   if engine.gameStats.penguinCanBeSpawned == true and engine.gameStats.score >= config.penguinSpawnCost and engine.gameStats.penguinsLeft > 0 then
-    penguin = engine:addGameObject(createPenguin(0, -350))
+    local currentLevelName = engine.currentLevel.name
+    local pos = config.penguinStartPosition[currentLevelName]
+    --local ypos = config.penguinStartPosition.currentLevelName.y
+    print("currentlevelname: "..currentLevelName .." x & y pos: ".. pos.x .. "/" .. pos.y)
+    penguin = engine:addGameObject(createPenguin(pos.x, pos.y))
     local sound = engine:playSound("assets/sounds/quack.wav", 1)
   end
   

@@ -64,6 +64,7 @@ function createLevelSelector()
   end
   
   function levelSelector:start()
+    engine:playMusic('assets/sounds/music/Level Select.wav', 0.8)
     engine:addGameObject(self.headerText)
     
     for key, object in pairs(self.buttons) do
@@ -76,6 +77,7 @@ function createLevelSelector()
   end
 
   function levelSelector:destroy()
+    
     engine:destroyAllObject()
   end
   
@@ -108,6 +110,9 @@ function createHighScoreText(x, y, level)
 end
   
 function levelSelectButtonCallback(button)
+  for key, sound in pairs(engine.cache.sounds) do
+    sound:stop()
+  end
   engine:loadLevel(button.levelName)
 end
 

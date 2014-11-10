@@ -19,6 +19,7 @@ function getSplashScreen()
   
   function splashScreen:start()
    
+    engine:playMusic('assets/sounds/music/Intro.wav', 0.8)
     engine.input.states.locked = true
 
     engine:addGameObject(self.textBox)
@@ -101,6 +102,7 @@ function getSplashScreen()
     local startGamePromise = createPromise(1.5, function()
         
       engine.input:setTouchPromise(function()
+        --  engine:playMusic('assets/sounds/music/Level Select.wav', 0.8)
         if engine.storage:get("firstLaunch", "config") == false then --Check if first boot
           engine:loadLevel('levelSelector') -- If not first boot, load level selector
         else
