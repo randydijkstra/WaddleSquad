@@ -64,7 +64,7 @@ function createLevelSelector()
   end
   
   function levelSelector:start()
-    engine:playMusic('assets/sounds/music/Level Select.wav', 0.8)
+    engine:playMusic('assets/sounds/music/Level Select.ogg', 0.8)
     engine:addGameObject(self.headerText)
     
     for key, object in pairs(self.buttons) do

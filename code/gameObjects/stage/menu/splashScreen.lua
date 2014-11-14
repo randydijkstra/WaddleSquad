@@ -19,7 +19,7 @@ function getSplashScreen()
   
   function splashScreen:start()
    
-    engine:playMusic('assets/sounds/music/Intro.wav', 0.8)
+    engine:playMusic('assets/sounds/music/Intro.ogg', 0.9)
     engine.input.states.locked = true
 
     engine:addGameObject(self.textBox)

@@ -14,7 +14,7 @@ function createLevel(map)
   width = ( level.height / 9 ) * 16
   engine:resizeViewport(level.width, level.height)
   --engine:resizeViewport(width, level.height)
-  engine:playMusic('assets/sounds/music/Level.wav', 0.8)
+  engine:playMusic('assets/sounds/music/Level.ogg', 0.9)
   
   function level:destroy()
     engine.gameUI = nil
