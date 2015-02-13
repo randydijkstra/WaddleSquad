@@ -5,7 +5,7 @@ function createLevelSelector()
     headerText = createTextBox(config.prefferedWidth / 2, -100, 700, 64, "Choose a level to play!", 50, false),
     buttons = {
       howToPlayButton = createButton(
-        config.prefferedWidth / 3 * 2 - 100, 
+        (config.prefferedWidth / 4 * 2) - 110 , 
         (config.prefferedHeight / 1.1) * -1, 
         220, 90, 
         'assets/sprites/ui/Achtergrond3.png',
@@ -13,7 +13,7 @@ function createLevelSelector()
         "How to play", true, 34
       ),
       settingsButton = createButton(
-        config.prefferedWidth / 3 - 100, 
+        (config.prefferedWidth / 4 * 3 ) - 110, 
         (config.prefferedHeight / 1.1) * -1, 
         220, 90, 
         'assets/sprites/ui/Achtergrond3.png',
@@ -21,7 +21,7 @@ function createLevelSelector()
         "Settings", true, 34
       ),
       playStoryButton = createButton(
-        config.prefferedWidth / 3 * 3 - 100, 
+        (config.prefferedWidth / 4 ) - 110, 
         (config.prefferedHeight / 1.1) * -1, 
         220, 90, 
         'assets/sprites/ui/Achtergrond3.png',

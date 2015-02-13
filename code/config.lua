@@ -48,7 +48,7 @@ config = {
   penguinSpawnCost = 100,
   penguinFinishedPoints = 200,
   
-  --special settings
+  --specials settings
   snowflakesmallPoints = 25,
   snowflakebigPoints = 50,
   jumpBoostCost = 75,
@@ -70,10 +70,12 @@ config = {
     lvl5 = { x = -35, y = -775 },
   },
   
-  --general
-  leftyFlip = false,
+  --Story slides settings
   defaultAnimationSpeed = 0.15,
   SSanimationDuration = 4, --amount of time viewed in sec
+  
+  --general settings
+  leftyFlip = false,
   
   useTextureLoad = false, -- disabling this will fix transparacy but drops performence greatly (textures need to be read for every call)
   

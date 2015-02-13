@@ -1,5 +1,7 @@
 function createStorySlides()
   local animationLength = config.SSanimationDuration
+  local animationSpeed = config.defaultAnimationSpeed
+  local currentSlide
   
   local storySlides = {
     name = "storySlides",
@@ -44,6 +46,7 @@ function createStorySlides()
       print('add slide02')
       --engine:deleteGameObject(self.slides.slide01)
       engine:addGameObject(self.slides.slide02)
+      
       --Slide03
       local slide03Promise = createPromise(animationLength, function() 
         print('add slide03')
@@ -59,6 +62,7 @@ function createStorySlides()
             print('add slide05')
             engine:addGameObject(self.slides.slide05)     
             
+            --Load level1
             local endPromise = createPromise(animationLength, function() 
               print('add slide05')
               engine:loadLevel("level1")      
@@ -79,7 +83,7 @@ end
 function createSlide(path, animationLength, orderInPlay)
   local deck = engine:loadQuad(
     path, 
-    config.prefferedWidth, 
+    config.prefferedWidth * 1.2, 
     config.prefferedHeight
   )
   local slide = createDrawableGameObject(
@@ -89,4 +93,10 @@ function createSlide(path, animationLength, orderInPlay)
   )
   
   return slide
+end
+
+function slideAnimation(slideToAnimate, animationLength)
+  --[[
+    create function that animates slide dependings on slide width and animationlength
+  ]]--
 end
