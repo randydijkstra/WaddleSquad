@@ -33,6 +33,7 @@ function getSplashScreen()
       local promise = createPromise(1, function()
         splashScreen:createStartMenu()   
         
+        --LOAD SOME AWESOME PENGUINS!!
         local tileDeck = engine:loadQuad("assets/sprites/penguin/static.png", 64, 64)
               
         local peng = engine:addGameObject(createDrawableGameObject(config.prefferedWidth+45, config.prefferedHeight * -0.5, tileDeck))

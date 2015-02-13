@@ -33,6 +33,8 @@ function createStorySlides()
   }
   
   function storySlides:start()
+    
+    engine:playMusic('assets/sounds/music/Intro.ogg', 0.9)
     --Slide01
     print('add slide01')
     engine:addGameObject(self.slides.slide01)
@@ -59,7 +61,7 @@ function createStorySlides()
             
             local endPromise = createPromise(animationLength, function() 
               print('add slide05')
-              engine:loadLevel("levelSelector")      
+              engine:loadLevel("level1")      
             end)
           end)
         end)

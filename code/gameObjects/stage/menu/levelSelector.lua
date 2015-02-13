@@ -19,7 +19,7 @@ function createLevelSelector()
         'assets/sprites/ui/Achtergrond3.png',
         settingsButtonCallback,
         "Settings", true, 34
-      )--[[,
+      ),
       playStoryButton = createButton(
         config.prefferedWidth / 3 * 3 - 100, 
         (config.prefferedHeight / 1.1) * -1, 
@@ -27,7 +27,7 @@ function createLevelSelector()
         'assets/sprites/ui/Achtergrond3.png',
         storyButtonCallback,
         "Story", true, 34
-      )]]--
+      )
     },
     highScoresTextBoxes = {}
   }
@@ -113,7 +113,12 @@ function levelSelectButtonCallback(button)
   for key, sound in pairs(engine.cache.sounds) do
     sound:stop()
   end
-  engine:loadLevel(button.levelName)
+  
+  if(button.levelName == "level1") then
+    engine:loadLevel("storySlides")
+  else
+    engine:loadLevel(button.levelName)    
+  end
 end
 
 function howToPlayCallback()
