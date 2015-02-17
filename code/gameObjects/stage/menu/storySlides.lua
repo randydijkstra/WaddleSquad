@@ -48,27 +48,32 @@ function createStorySlides()
     --Slide01
     print('add slide01')
     engine:addGameObject(self.slides.slide01)
+    self.slideAnimation(self.slides.slide01)
     
     --Slide02
     local slide02Promise = createPromise(animationLength, function() 
       print('add slide02')
       --engine:deleteGameObject(self.slides.slide01)
       engine:addGameObject(self.slides.slide02)
+      self.slideAnimation(self.slides.slide02)
       
       --Slide03
       local slide03Promise = createPromise(animationLength, function() 
         print('add slide03')
         engine:addGameObject(self.slides.slide03)     
-          
+        self.slideAnimation(self.slides.slide03)
+     
         --Slide04
         local slide04promise = createPromise(animationLength, function() 
           print('add slide04')
           engine:addGameObject(self.slides.slide04)
+          self.slideAnimation(self.slides.slide04)
           
           --Slide05
           local slide05Promise = createPromise(animationLength, function() 
             print('add slide05')
             engine:addGameObject(self.slides.slide05)     
+            self.slideAnimation(self.slides.slide05)
             
             --Load level1
             local endPromise = createPromise(animationLength, function() 
@@ -81,6 +86,16 @@ function createStorySlides()
     end)
   end
   
+  function storySlides:slideAnimation(slideToAnimate)
+    --[[
+      create function that animates slide dependings on slide width and animationlength
+    ]]--
+    local prop = MOAIProp2D.new()
+    prop = slideToAnimate
+    local xAxis = ((config.prefferedWidth * config.slideScaleFactor) - config.prefferedWidth) * -1
+    self.prop:moveLoc(xAxis, 0, config.SSanimationDuration, MOAIEaseType.LINEAR)
+  end
+  
   function storySlides:destroy()
     engine:destroyAllObject()
   end
@@ -91,7 +106,7 @@ end
 function createSlide(path, animationLength, orderInPlay)
   local deck = engine:loadQuad(
     path, 
-    config.prefferedWidth * 1.2, 
+    config.prefferedWidth * config.slideScaleFactor, 
     config.prefferedHeight
   )
   local slide = createDrawableGameObject(
@@ -101,10 +116,4 @@ function createSlide(path, animationLength, orderInPlay)
   )
   
   return slide
-end
-
-function slideAnimation(slideToAnimate, animationLength)
-  --[[
-    create function that animates slide dependings on slide width and animationlength
-  ]]--
 end

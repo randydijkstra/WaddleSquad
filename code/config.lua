@@ -73,6 +73,7 @@ config = {
   --Story slides settings
   defaultAnimationSpeed = 0.15,
   SSanimationDuration = 4, --amount of time viewed in sec
+  slideScaleFactor = 1.05,
   
   --general settings
   leftyFlip = false,
