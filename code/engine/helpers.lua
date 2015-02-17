@@ -32,6 +32,13 @@ function createPromise( spanTime, callbackFunction, params)
 	return timer
 end
 
+function removeAllPromises()
+  for key, timer in pairs(promises) do
+    timer:stop()
+    timer = nil
+  end
+end
+
 function createLoopingTimer ( spanTime, callbackFunction, fireRightAway )
 	local timer = MOAITimer.new ()
 	timer:setSpan ( spanTime )

@@ -36,6 +36,14 @@ function createStorySlides()
   
   function storySlides:start()
     
+    --Touch to skip
+    engine.input:setTouchPromise(function()
+      
+      removeAllPromises()
+      engine:loadLevel("level1")
+      
+    end)  
+    
     engine:playMusic('assets/sounds/music/Intro.ogg', 0.9)
     --Slide01
     print('add slide01')
