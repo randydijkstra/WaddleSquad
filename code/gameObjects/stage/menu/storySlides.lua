@@ -78,7 +78,8 @@ function createStorySlides()
             --Load level1
             local endPromise = createPromise(animationLength, function() 
               print('add slide05')
-              engine:loadLevel("level1")      
+              engine:loadLevel("level1")    
+              --TO DO remove touch to skip promise after loading new level
             end)
           end)
         end)
